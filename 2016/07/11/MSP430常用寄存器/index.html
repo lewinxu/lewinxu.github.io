@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>MSP430常用寄存器(持续更新) | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="单片机," />
+  
+
+  <meta name="description" content="Edit By Lewinxu  P1OUT: I/O口输出设定寄存器                如设定P1.1和P1.2输出高电平                操作为： P1OUT |=（BIT1+BIT2）。P1IN:     I/O口输入设定寄存器                如设定P1.1和P1.2的输">
+<meta name="keywords" content="单片机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSP430常用寄存器(持续更新)">
+<meta property="og:url" content="http://yoursite.com/2016/07/11/MSP430常用寄存器/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Edit By Lewinxu  P1OUT: I/O口输出设定寄存器                如设定P1.1和P1.2输出高电平                操作为： P1OUT |=（BIT1+BIT2）。P1IN:     I/O口输入设定寄存器                如设定P1.1和P1.2的输入为低电平                 操作为： P1IN &amp;amp;=~（">
+<meta property="og:updated_time" content="2016-07-11T06:09:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MSP430常用寄存器(持续更新)">
+<meta name="twitter:description" content="Edit By Lewinxu  P1OUT: I/O口输出设定寄存器                如设定P1.1和P1.2输出高电平                操作为： P1OUT |=（BIT1+BIT2）。P1IN:     I/O口输入设定寄存器                如设定P1.1和P1.2的输入为低电平                 操作为： P1IN &amp;amp;=~（">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+<style type="text/css">
+
+	body {
+        background-color: #fff;
+        background-image: url(/images/bg.png);
+    }
+</style>
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">选项</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox" style="background-image: url(/images/bg.png)">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">选项</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置P2-2为下降沿触发"><span class="toc-text">设置P2.2为下降沿触发</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-MSP430常用寄存器" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">MSP430常用寄存器(持续更新)</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/单片机/">单片机</a>
+  </span>
+
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Edit By Lewinxu</p>
+<blockquote>
+<p><strong>P1OUT: I/O口输出设定寄存器</strong><br>                如设定P1.1和P1.2输出高电平<br>                操作为： P1OUT |=（BIT1+BIT2）。<br><strong>P1IN:     I/O口输入设定寄存器</strong><br>                如设定P1.1和P1.2的输入为低电平<br>                 操作为： P1IN &amp;=~（BIT1+BIT2）。<br><strong>P1DIR:    I/O方向设定寄存器</strong><br>                如设定P1.1和P1.2为输出状态<br>                操作为： P1DIR |=（BIT1+BIT2）<br><strong>P1SEL:   功能选择寄存器</strong><br><strong>PXREN: 上拉/下拉电阻使能寄存器</strong><br>                  低电平该寄存器为无效状态；<br>                  高电平该寄存器为有效状态；<br><strong>PxIFGx     中断标志寄存器：</strong><br>                只有相应的中断使能PXIE打开且总中断GIE打开，该寄存器才有效。<br>                  低电平表示没有中断请求等待响应；<br>                 高电平表示有中断请求等待响应；<br><strong>PxIE     中断使能寄存器   </strong><br>            低电平表示中断关闭；<br>            高电平表示中断允许；<br><strong>PXIES    中断触发方式选择寄存器 </strong><br>                  低电平表示上升沿触发；<br>                  高电平表示下降沿触发；</p>
+</blockquote>
+<h3 id="设置P2-2为下降沿触发"><a href="#设置P2-2为下降沿触发" class="headerlink" title="设置P2.2为下降沿触发"></a>设置P2.2为下降沿触发</h3><pre><code>P2IFG = 0x00;    //清除P2口的中断标志
+P2IE = BIT2;    //P2.2开启中断
+P2IES = 0xff;   //P2为下降沿触发
+P2IN = BIT2; //P2.2输入拉高，因此开关闭合时会拉低产生下降沿（即中断）
+P2OUT = 0xff;
+P2REN = 0xff;   //作为输入的时候一定要配置上拉电阻（很重要，容易忘记，我就在这错了-_’） 
+</code></pre>
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">打赏￥1,谢谢</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lewinxu</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.JPG" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.JPG" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="MSP430常用寄存器(持续更新)" data-url="http://yoursite.com/2016/07/11/MSP430常用寄存器/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lewinxu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

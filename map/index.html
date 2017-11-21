@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="http://openlayers.org/en/v3.18.2/css/ol.css" type="text/css">
+    <style>
+      .map {     
+        height: 100%;
+        width: 100%;
+      }
+      .p {
+        height: 10%;
+      }
+    </style>
+    <script src="http://openlayers.org/en/v3.18.2/build/ol.js" type="text/javascript"></script>
+    <title>lewin's map</title>
+  </head>
+  <body>
+    <h2 align = "center">World Map</h2>
+    <div id="map" class="map"></div>
+    <p align = "right"><font color="#800000">Edit By Lewin </p>
+    <script type="text/javascript">
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([116.3,40.0]),
+         zoom: 4
+        })
+      });
+                //添加属性控件
+          map.addControl(new ol.control.Attribution());
+          //添加鼠标定位控件
+          map.addControl(new ol.control.MousePosition({
+              undefinedHTML: 'outside',
+              projection: 'EPSG:4326', 
+              coordinateFormat: function(coordinate) {
+                  return ol.coordinate.format(coordinate, '{x}, {y}', 4); 
+                  }              
+              })
+          );
+          //添加缩略图控件
+          map.addControl(new ol.control.OverviewMap({ 
+              collapsed: false  
+              }));
+          //添加旋转控件
+          map.addControl(new ol.control.Rotate({
+              autoHide: false
+              }));
+          //添加比例尺控件
+          map.addControl(new ol.control.ScaleLine());
+          //添加缩放控件
+          map.addControl(new ol.control.Zoom());
+          //添加缩放滑动控件
+          map.addControl(new ol.control.ZoomSlider());
+          //添加缩放到当前视图滑动控件
+          map.addControl(new ol.control.ZoomToExtent());
+          //添加全屏控件
+          map.addControl(new ol.control.FullScreen());
+    </script>
+  </body>
+</html>

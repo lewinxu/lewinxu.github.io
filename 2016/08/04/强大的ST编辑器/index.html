@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何将Sublimetext2搭建为C,C#,JAVA编译环境 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="IDE," />
+  
+
+  <meta name="description" content="本文以Sublimetest2为例,一步一步搭建C语言,C#及JAVA编译环境  第一步,下载  SublimeText官网SublimeText2_X64点击直接获取 MinGW64下载链接–C编辑器 JDK_7U79下载链接   第二步,安装SublimeText21.安装过程略2.永久试用激活(仅用于ST2)  ">
+<meta name="keywords" content="IDE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将Sublimetext2搭建为C,C#,JAVA编译环境">
+<meta property="og:url" content="http://yoursite.com/2016/08/04/强大的ST编辑器/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文以Sublimetest2为例,一步一步搭建C语言,C#及JAVA编译环境  第一步,下载  SublimeText官网SublimeText2_X64点击直接获取 MinGW64下载链接–C编辑器 JDK_7U79下载链接   第二步,安装SublimeText21.安装过程略2.永久试用激活(仅用于ST2)  —– BEGIN LICENSE —–Andrew WeberSingle U">
+<meta property="og:image" content="http://i1.piimg.com/567571/7066b6369b8bfde3.png">
+<meta property="og:image" content="http://i2.piimg.com/567571/1fd269a120d54163.png">
+<meta property="og:image" content="http://i2.piimg.com/567571/78b53f1a215e4ec2.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/34b6aad231ce4352.png">
+<meta property="og:image" content="http://i1.piimg.com/567571/198cf8fa81ad3af9.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/fefeadff4c81dfaf.png">
+<meta property="og:image" content="http://i2.piimg.com/567571/7142c4d7f82738dc.png">
+<meta property="og:updated_time" content="2016-08-04T10:31:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何将Sublimetext2搭建为C,C#,JAVA编译环境">
+<meta name="twitter:description" content="本文以Sublimetest2为例,一步一步搭建C语言,C#及JAVA编译环境  第一步,下载  SublimeText官网SublimeText2_X64点击直接获取 MinGW64下载链接–C编辑器 JDK_7U79下载链接   第二步,安装SublimeText21.安装过程略2.永久试用激活(仅用于ST2)  —– BEGIN LICENSE —–Andrew WeberSingle U">
+<meta name="twitter:image" content="http://i1.piimg.com/567571/7066b6369b8bfde3.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+<style type="text/css">
+
+	body {
+        background-color: #fff;
+        background-image: url(/images/bg.png);
+    }
+</style>
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">选项</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox" style="background-image: url(/images/bg.png)">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">选项</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步-下载"><span class="toc-text">第一步,下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步-安装SublimeText2"><span class="toc-text">第二步,安装SublimeText2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-安装过程略"><span class="toc-text">1.安装过程略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-永久试用激活-仅用于ST2"><span class="toc-text">2.永久试用激活(仅用于ST2)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-安装包控制器（package-control）"><span class="toc-text">3.安装包控制器（package control）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-安装插件"><span class="toc-text">4.安装插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-常用的神插件"><span class="toc-text">5.常用的神插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步-搭建C语言编译环境"><span class="toc-text">第三步,搭建C语言编译环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-解压下载好的MinGW64，并复制到你想存放的文件路径"><span class="toc-text">1.解压下载好的MinGW64，并复制到你想存放的文件路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-通过Sublime-Text调用C编译器"><span class="toc-text">2.通过Sublime Text调用C编译器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-直接将控制台输出结果显示在Sublime-Text-2中"><span class="toc-text">3.直接将控制台输出结果显示在Sublime Text 2中</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步-搭建C-编译环境"><span class="toc-text">第四步,搭建C#编译环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-设置环境变量"><span class="toc-text">1.设置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-新建编译器选项"><span class="toc-text">2.新建编译器选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-编译后直接运行程序"><span class="toc-text">3.编译后直接运行程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-配置文件打包下载"><span class="toc-text">4.配置文件打包下载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五步-搭建JAVA编译环境"><span class="toc-text">第五步,搭建JAVA编译环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-安装JDK"><span class="toc-text">1.安装JDK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-设置Java的环境变量"><span class="toc-text">2.设置Java的环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-创建批处理文件"><span class="toc-text">3.创建批处理文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在Sublime-Text-2编辑器中配置相应的Java构建环境"><span class="toc-text">4. 在Sublime Text 2编辑器中配置相应的Java构建环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-写一个Java程序测试"><span class="toc-text">5. 写一个Java程序测试</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-强大的ST编辑器" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">如何将Sublimetext2搭建为C,C#,JAVA编译环境</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.08.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/实用技能/">实用技能</a>
+  </span>
+
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p> <em>本文以<code>Sublimetest2</code>为例,一步一步搭建<code>C语言</code>,<code>C#</code>及<code>JAVA</code>编译环境 </em></p>
+<h3 id="第一步-下载"><a href="#第一步-下载" class="headerlink" title="第一步,下载"></a><strong>第一步,下载</strong></h3><blockquote>
+<ul>
+<li><a href="http://www.sublimetext.com/" target="_blank" rel="noopener">SublimeText官网</a><br><a href="https://download.sublimetext.com/Sublime%20Text%202.0.2a%20x64%20Setup.exe" target="_blank" rel="noopener">SublimeText2_X64点击直接获取</a></li>
+<li><a href="https://github.com/lewinxu/Software/blob/master/MinGW64.rar" target="_blank" rel="noopener">MinGW64下载链接</a>–C编辑器</li>
+<li><a href="http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-windows-x64.exe?AuthParam=1468981019_e92bc9550e061480be4184d1b3a6e08c" target="_blank" rel="noopener">JDK_7U79下载链接</a></li>
+</ul>
+</blockquote>
+<h3 id="第二步-安装SublimeText2"><a href="#第二步-安装SublimeText2" class="headerlink" title="第二步,安装SublimeText2"></a><strong>第二步,安装SublimeText2</strong></h3><h4 id="1-安装过程略"><a href="#1-安装过程略" class="headerlink" title="1.安装过程略"></a>1.安装过程略</h4><h4 id="2-永久试用激活-仅用于ST2"><a href="#2-永久试用激活-仅用于ST2" class="headerlink" title="2.永久试用激活(仅用于ST2)"></a>2.永久试用激活(仅用于ST2)</h4><p><img src="http://i1.piimg.com/567571/7066b6369b8bfde3.png" alt="enter image description here"></p>
+<blockquote>
+<p>—– BEGIN LICENSE —–<br>Andrew Weber<br>Single User License<br>EA7E-855605<br>813A03DD 5E4AD9E6 6C0EEB94 BC99798F<br>942194A6 02396E98 E62C9979 4BB979FE<br>91424C9D A45400BF F6747D88 2FB88078<br>90F5CC94 1CDC92DC 8457107A F151657B<br>1D22E383 A997F016 42397640 33F41CFC<br>E1D0AE85 A0BBD039 0E9C8D55 E1B89D5D<br>5CDB7036 E56DE1C0 EFCC0840 650CD3A6<br>B98FC99C 8FAC73EE D2B95564 DF450523<br>—— END LICENSE ——</p>
+</blockquote>
+<h4 id="3-安装包控制器（package-control）"><a href="#3-安装包控制器（package-control）" class="headerlink" title="3.安装包控制器（package control）"></a>3.安装包控制器（package control）</h4><p>只有安装了包控制器（<code>package control</code>）才能安装各种神插件。首先按Ctrl+~呼出命令控制器。<br>输入如下代码并回车</p>
+<blockquote>
+<p>import urllib2,os; pf=’Package Control.sublime-package’; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),’wb’).write(urllib2.urlopen(‘<a href="http://sublime.wbond.net/&#39;+pf.replace(" target="_blank" rel="noopener">http://sublime.wbond.net/&#39;+pf.replace(</a>‘ ‘,’%20’)).read()); print(‘Please restart Sublime Text to finish installation’)</p>
+</blockquote>
+<p>安装完成过后重启ST2</p>
+<h4 id="4-安装插件"><a href="#4-安装插件" class="headerlink" title="4.安装插件"></a>4.安装插件</h4><p>等待<code>Package Control</code>安装完成。之后使用<code>Ctrl + Shift + P</code>打开命令板，输入<code>PC</code>应出现Package Control<br>以安装<code>Markdown Preview</code>插件为例:</p>
+<blockquote>
+<ul>
+<li>使用<code>Ctrl + Shift + P</code>打开命令板，输入<code>PCIP</code>应出现<code>Package Control:Install Package</code><br><img src="http://i2.piimg.com/567571/1fd269a120d54163.png" alt="enter image description here"></li>
+<li>然后输入<code>markdown</code><br><img src="http://i2.piimg.com/567571/78b53f1a215e4ec2.png" alt="enter image description here"></li>
+<li>点击，并<strong>等待</strong>弹出说明文件,即安装成功</li>
+</ul>
+</blockquote>
+<h4 id="5-常用的神插件"><a href="#5-常用的神插件" class="headerlink" title="5.常用的神插件"></a>5.常用的神插件</h4><p><strong> <1> GBK Encoding Support</1></strong></p>
+<blockquote>
+<ul>
+<li>对应gb2312来说，Sublime Text 2 本生不支持的，我们可以通过Ctrl+Shift+P调出命令面板或Perferences-&gt;Package Contro,输入install 调出 Install Package 选项并回车，在输入“GBK Encoding Support”选择开始安装，左下角状态栏有提示安装成功。这时打开gbk编码的文件就不会出现乱码了，如果有需要转成utf-8的可以在File-GBK to UTF8-选择Save with UTF8。</li>
+</ul>
+</blockquote>
+<p><strong> <2> IMESupport</2></strong></p>
+<blockquote>
+<ul>
+<li>从Sublime Text的初版（1.0）到现在（3.0 3065），中文输入法（包括日文输入法）都有一个问题：输入框不跟随。,目前官方还没有修复这个bug，解决方法是安装IMESupport插件，之后重启Sublime Text问题就解决了。</li>
+</ul>
+</blockquote>
+<p><strong> <3> ConvertToUTF8</3></strong>（支持中文）<br><strong> <4> CompleteSharp</4></strong>（C# 代码自动完成）<br><strong> <5> SublimeAStyleFormatter</5></strong>（代码格式化）<br><strong> <6> BetterCompletion</6></strong>（自动完成）<br><strong> <7> All AutoComplete</7></strong>（自动完成）</p>
+<h3 id="第三步-搭建C语言编译环境"><a href="#第三步-搭建C语言编译环境" class="headerlink" title="第三步,搭建C语言编译环境"></a><strong>第三步,搭建C语言编译环境</strong></h3><blockquote>
+<ul>
+<li>若只需要搭建C#编译环境，可以跳过此步骤<h4 id="1-解压下载好的MinGW64，并复制到你想存放的文件路径"><a href="#1-解压下载好的MinGW64，并复制到你想存放的文件路径" class="headerlink" title="1.解压下载好的MinGW64，并复制到你想存放的文件路径"></a>1.解压下载好的MinGW64，并复制到你想存放的文件路径</h4>需要将MinGW安装目录下的Bin目录所在路径添加到环境变量Path中,如下图<br><img src="http://i1.piimg.com/567571/34b6aad231ce4352.png" alt="enter image description here"><br><img src="http://i1.piimg.com/567571/198cf8fa81ad3af9.png" alt="enter image description here"></li>
+</ul>
+</blockquote>
+<h4 id="2-通过Sublime-Text调用C编译器"><a href="#2-通过Sublime-Text调用C编译器" class="headerlink" title="2.通过Sublime Text调用C编译器"></a>2.通过Sublime Text调用C编译器</h4><blockquote>
+<p>在Sublime Text中已经默认添加了对C/C++编译器的配置(默认使用g++编译)，通过键入<code>Ctrl+B</code>来调用。编译结果会输入到ST的输出栏中，如图：<br><img src="http://i4.piimg.com/567571/fefeadff4c81dfaf.png" alt="enter image description here"></p>
+<h4 id="3-直接将控制台输出结果显示在Sublime-Text-2中"><a href="#3-直接将控制台输出结果显示在Sublime-Text-2中" class="headerlink" title="3.直接将控制台输出结果显示在Sublime Text 2中"></a>3.直接将控制台输出结果显示在Sublime Text 2中</h4><p>如果不想每次编译文件后，还需要切换窗口点击运行编译生成的exe来查看结果的话。还可以在简单的配置一下，直接将控制台输出的结果显示在ST中，也不需要切换窗口，只需要在调用<code>Ctrl+B</code>编译后再键入<code>Ctrl+Shift+B</code>运行即可。将<code>Sublime Text</code>的<code>Packages</code>目录下的<code>Packages\C++\C++.sublime-build</code>文件修改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    &quot;cmd&quot;: [&quot;g++&quot;, &quot;$&#123;file&#125;&quot;, &quot;-o&quot;, &quot;$&#123;file_path&#125;/$&#123;file_base_name&#125;&quot;],</span><br><span class="line">    &quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,</span><br><span class="line">    &quot;working_dir&quot;: &quot;$&#123;file_path&#125;&quot;,</span><br><span class="line">    &quot;selector&quot;: &quot;source.c, source.c++&quot;,</span><br><span class="line">    &quot;encoding&quot;:&quot;cp936&quot;,</span><br><span class="line">    &quot;variants&quot;:</span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Run&quot;,</span><br><span class="line">            &quot;cmd&quot;: [&quot;$&#123;file_path&#125;\\\\$&#123;file_base_name&#125;.exe&quot;]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="第四步-搭建C-编译环境"><a href="#第四步-搭建C-编译环境" class="headerlink" title="第四步,搭建C#编译环境"></a><strong>第四步,搭建C#编译环境</strong></h3><h4 id="1-设置环境变量"><a href="#1-设置环境变量" class="headerlink" title="1.设置环境变量"></a>1.设置环境变量</h4><blockquote>
+<ul>
+<li>我们需要预先设置好操作系统的环境变量， 在Path变量中添加：C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319</li>
+<li>如果不会设置环境变量，请参考第三步<h4 id="2-新建编译器选项"><a href="#2-新建编译器选项" class="headerlink" title="2.新建编译器选项"></a>2.新建编译器选项</h4>选择菜单栏中的 Tools ——&gt; Build System ——&gt; New Build System，输入：<br><code>{
+   &quot;cmd&quot;: &quot;csc $file&quot;,
+   &quot;shell&quot;: &quot;true&quot;,
+   &quot;path&quot;: &quot;C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\&quot;,
+   &quot;selector&quot;: &quot;source.cs&quot;,
+   &quot;encoding&quot;: &quot;cp936&quot;,
+   &quot;variants&quot;: [{&quot;cmd&quot; : &quot;csc $file &amp;&amp; start $file_base_name.exe&quot;,&quot;name&quot; : &quot;Compile &amp; Run&quot;}]
+}</code></li>
+<li>另存为ST2程序目录的Packages/User文件夹下面，文件名为：C#.sublime-build</li>
+<li>编辑好C#代码文件后，输入Ctrl + B，编译代码，如下：<br><img src="http://i2.piimg.com/567571/7142c4d7f82738dc.png" alt="enter image description here"><h4 id="3-编译后直接运行程序"><a href="#3-编译后直接运行程序" class="headerlink" title="3.编译后直接运行程序"></a>3.编译后直接运行程序</h4>如果我们需要不仅仅只是编译程序，还需要直接运行程序并且获取控制台的输出结果，我们还需要对上面的配置进行改造。<br><1><strong>创建RunCSharp.bat文件</strong><br>　　在C#编译器所在目录(32机器下在：C:\Windows\Microsoft.NET\Framework 目录下，有各版本的C#编译器)下创建一个RunCSharp.bat文件，内容如下：<br><code>@ECHO OFF
+cd %~dp1
+ECHO Compiling %~nx1.......
+IF EXIST %~n1.exe (
+DEL %~n1.exe
+)
+csc %~nx1
+IF EXIST %~n1.exe (
+ECHO -----------OUTPUT-----------
+%~n1
+)</code><br><2><strong>修改C#.sublime-build文件</strong><br>　　要实现编译器后运行的效果我们需要修改前面创建的build文件，修改后内容如下：<br><code>{
+   &quot;cmd&quot;: [&quot;RunCSharp.bat&quot;, &quot;$file&quot;],
+   &quot;file_regex&quot;: &quot;^(...*?):([0-9]*):?([0-9]*)&quot;,
+   &quot;selector&quot;: &quot;source.cs&quot;,
+   &quot;encoding&quot;: &quot;cp936&quot;
+}</code><br><3><strong>编译并运行程序</strong><br>　　和前面一样，编写好代码后，键入Ctrl + B编译运行，在输出栏中查看控制台输入结果<h4 id="4-配置文件打包下载"><a href="#4-配置文件打包下载" class="headerlink" title="4.配置文件打包下载"></a>4.配置文件打包下载</h4>　<a href="https://github.com/lewinxu/Software/blob/master/C%23ST2%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.rar" target="_blank" rel="noopener">C#ST2配置文件.zip,右键赋值获取链接</a> (将所有文件复制Packages文件夹下的C#文件夹即可，配置文件包括常用的代码片段，注释配置，和关键字的定义。)</3></2></1></li>
+</ul>
+</blockquote>
+<h3 id="第五步-搭建JAVA编译环境"><a href="#第五步-搭建JAVA编译环境" class="headerlink" title="第五步,搭建JAVA编译环境"></a><strong>第五步,搭建JAVA编译环境</strong></h3><h4 id="1-安装JDK"><a href="#1-安装JDK" class="headerlink" title="1.安装JDK"></a>1.安装JDK</h4><p>   <em>安装过程略</em></p>
+<blockquote>
+<p>为什么安装JDK7呢，因为相对来说JDK7比较稳定,JDK8有些特性会出现莫名其妙的bug</p>
+<h4 id="2-设置Java的环境变量"><a href="#2-设置Java的环境变量" class="headerlink" title="2.设置Java的环境变量"></a>2.设置Java的环境变量</h4><p><em>同前文C 或C#</em></p>
+<h4 id="3-创建批处理文件"><a href="#3-创建批处理文件" class="headerlink" title="3.创建批处理文件"></a>3.创建批处理文件</h4><p>打开任意的Sublime编辑器，输入下面的内容，并保存为runJava.bat文件<br>``@ECHO OFF</p>
+</blockquote>
+<p>cd %~dp1  </p>
+<p>ECHO Compiling %~nx1……. </p>
+<p>IF EXIST %~n1.class ( </p>
+<p>DEL %~n1.class  </p>
+<p>)  </p>
+<p>javac %~nx1  </p>
+<p>IF EXIST %~n1.class ( </p>
+<p>ECHO ———–OUTPUT———–  </p>
+<p>java %~n1  </p>
+<p>)  </p>
+<p>``<br>然后把runJava.bat批处理文件移动到JDK的bin目录</p>
+<h4 id="4-在Sublime-Text-2编辑器中配置相应的Java构建环境"><a href="#4-在Sublime-Text-2编辑器中配置相应的Java构建环境" class="headerlink" title="4. 在Sublime Text 2编辑器中配置相应的Java构建环境"></a>4. 在Sublime Text 2编辑器中配置相应的Java构建环境</h4><p>(1) 打开Sublime的包目录，使用菜单Perferences-&gt;Browse Packages<br>(2) 选择Java目录<br>(3) 打开JavaC.sublime-build，并替换下面的行<br><code>{
+    &quot;cmd&quot;: [&quot;runJava.bat&quot;,&quot;$file&quot;],
+    &quot;file_regex&quot;: &quot;^(...*?):([0-9]*):?([0-9]*)&quot;,
+    &quot;selector&quot;: &quot;source.java&quot;,
+    &quot;encoding&quot;:&quot;GBK&quot;
+}</code></p>
+<h4 id="5-写一个Java程序测试"><a href="#5-写一个Java程序测试" class="headerlink" title="5. 写一个Java程序测试"></a>5. 写一个Java程序测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class test&#123;  </span><br><span class="line">    public static void main(String[] args)&#123;  </span><br><span class="line">        System.out.println(&quot;Aloha!&quot;);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译和运行Java程序，使用Ctrl+B,完成！</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">打赏￥1,谢谢</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lewinxu</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.JPG" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.JPG" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="如何将Sublimetext2搭建为C,C#,JAVA编译环境" data-url="http://yoursite.com/2016/08/04/强大的ST编辑器/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lewinxu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

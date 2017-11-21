@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Git 远程库版本回滚 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="软件," />
+  
+
+  <meta name="description" content="git代码库回滚: 指的是将代码库某分支退回到以前的某个commit id 【本地代码库回滚】： git reset –hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除 git reset –hard HEAD~3：将最近3次的提交回滚 【远程代码库回滚】： 这">
+<meta name="keywords" content="软件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 远程库版本回滚">
+<meta property="og:url" content="http://yoursite.com/2017/02/04/Git远程库版本回滚/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="git代码库回滚: 指的是将代码库某分支退回到以前的某个commit id 【本地代码库回滚】： git reset –hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除 git reset –hard HEAD~3：将最近3次的提交回滚 【远程代码库回滚】： 这个是重点要说的内容，过程比本地回滚要复杂 应用场景：自动部署系统发布后发现问题，">
+<meta property="og:updated_time" content="2017-11-21T03:05:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git 远程库版本回滚">
+<meta name="twitter:description" content="git代码库回滚: 指的是将代码库某分支退回到以前的某个commit id 【本地代码库回滚】： git reset –hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除 git reset –hard HEAD~3：将最近3次的提交回滚 【远程代码库回滚】： 这个是重点要说的内容，过程比本地回滚要复杂 应用场景：自动部署系统发布后发现问题，">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
+<style type="text/css">
+
+	body {
+        background-color: #fff;
+        background-image: url(/images/bg.png);
+    }
+</style>
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">选项</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox" style="background-image: url(/images/bg.png)">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">选项</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/category/"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/tag/"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/search/"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Git远程库版本回滚" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Git 远程库版本回滚</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.02.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </span>
+
+
+
+      
+
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>git代码库回滚: 指的是将代码库某分支退回到以前的某个commit id</p>
+<p>【本地代码库回滚】：</p>
+<p>git reset –hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除</p>
+<p>git reset –hard HEAD~3：将最近3次的提交回滚</p>
+<p>【远程代码库回滚】：</p>
+<p>这个是重点要说的内容，过程比本地回滚要复杂</p>
+<p>应用场景：自动部署系统发布后发现问题，需要回滚到某一个commit，再重新发布</p>
+<p>原理：先将本地分支退回到某个commit，删除远程分支，再重新push本地分支</p>
+<p>操作步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout the_branch</span><br><span class="line">git pull</span><br><span class="line">git branch the_branch_backup //备份一下这个分支当前的情况</span><br><span class="line">git reset --hard the_commit_id //把the_branch本地回滚到the_commit_id</span><br><span class="line">git push origin :the_branch //删除远程 the_branch</span><br><span class="line">git push origin the_branch //用回滚后的本地分支重新建立远程分支</span><br><span class="line">git push origin :the_branch_backup //如果前面都成功了，删除这个备份分支</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">打赏￥1,谢谢</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lewinxu</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.JPG" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.JPG" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/category/"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/tag/"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/search/"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="" data-title="Git 远程库版本回滚" data-url="http://yoursite.com/2017/02/04/Git远程库版本回滚/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lewinxu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
