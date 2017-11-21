@@ -30,7 +30,6 @@
 
   <link href="/css/styles.css?v=028c63b1" rel="stylesheet">
 <style type="text/css">
-
 	body {
         background-color: #fff;
         background-image: url(/images/bg.png);
@@ -209,7 +208,6 @@
   function loadScript(url, callback) {
     var script = document.createElement('script')
     script.type = 'text/javascript';
-
     if (script.readyState) { //IE
       script.onreadystatechange = function() {
         if (script.readyState == 'loaded' ||
@@ -223,11 +221,9 @@
         callback();
       };
     }
-
     script.src = url;
     document.getElementsByTagName('head')[0].appendChild(script);
   }
-
   window.onload = function() {
     loadScript('/js/bundle.js?235683', function() {
       // load success
