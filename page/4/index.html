@@ -180,6 +180,103 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-未来数学家的挑战1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/未来数学家的挑战1/">未来数学家的挑战1</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/22/未来数学家的挑战1/" class="archive-article-date">
+  	<time datetime="2018-03-22T08:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/index.html" target="_blank" rel="noopener">原文链接</a></li>
+</ul>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有数学家说过「一个好的问题胜过十个好解答」。 因为解答一出，此问题已是到了终点，对不断求创新的人们而言，已不构成挑战。 而新的问题是源头活水，能开拓新的境界。多数人都不愿沉醉在好的解答中不断的玩味，而希望找到新的问题，不断的思考，摸索。</p>
+<p>大家在《数播》上已看见了不少好的问题，尤其最近康明昌教授谈到的费马定理，几何三大难题，都是极有趣的问题。 有的已有了解答，有的尚待解决。 除了上面的题目外，像四色问题（即任何一个地图只要用四种颜色就可以把国界分开），五次以上方程式的公式解，及数论上质数分佈问题，都曾在职业及业馀数学家的心目中佔有相当的地位。 本文所要介绍的是一个最近（1970年代开始）一种许多数学家及电子计算机学家所关心的大问题──NP 问题。 NP 所代表的意思，你看完本文之后自然会明白，现在你不妨记住「NP-hard」这个伟大的字。 将来如果你对某人说你的问题是「NP-hard」，他也许就要对你刮目相看了，NP-hard 不但代表 hard（难），而且是 NP 的难！</p>
+<p>NP 问题的代表问题之一是售货员旅行问题 (traveling salesman problem)。有一个售货员要开汽车到 n 个指定的城市去推销货物，他必须经过全部的 n 个城。现在他有一个有此 n 城的地图及各城之间的公路距离，试问他应如何取最短的行程从家中出发再到家中？<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/mm_10_2_04_01.gif" alt=""></p>
+<p>如图1中，A,B,C,…,G 表示 7 个城市，而售货员要从 A 城出发再回到 A 城并访问 B,C,…,G，所有的城，一个可行的方法是 </p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img1.gif" alt=""></p>
+<p>问题是：这是否是最短的途径？也许<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img1.gif" alt=""></p>
+<p>更近呢？加起来的结果第一路径总长235里，而第二路径总长为230里，故第二路径较短， 但是否存在一个更短的路径呢？目前的方法接近一个一个的排着试，还没有找到更好可以寻得最短路径的方法。对七个城而言，共有 6!=720 个排法，尚不算难，但若有 20 个城，则排法就有 19! 种。因<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img3.gif" alt=""></p>
+<p>故<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img4.gif" alt=""></p>
+<p>在排列组合裡 n! 写起来轻鬆，但 1.21 x 10^17 是一个大得不得了的数字，若每秒钟排一次，要排 3.84 x 10^9 年（一年约为 3.15 x 10^7 秒）， 即使使用计算机，每秒排一百万次（不容易做到）也得重做三千年才能找到答桉。「生也有涯，知也无涯」，想不到区区二十个城，要三十个世纪才能找到答桉。<br>由于电子计算机的发展，有许多以前认为枉费时的计算，像行列式之值，反矩阵，高次方程式的解，都可以在极短的时间内解决。但也突然出现了一些新问题，连大型计算机也望之兴叹。像售货员问题，因为找不到比硬排好得很多的做法，使得数学家们开始想要证明，根本找不到比硬排好得很多的做法。这个证明至今尚未找到。就像以前一角三等分问题一样，既然找了几千年找不到用圆规直尺三等分任一角的方法，也许我们可以证明绝对不可能用圆规直尺三等分一角。 现在我们要证明绝不可能写一个计算机程式大大的简化售货员旅行问题。与三等分一角问题不同的是，前者是一种数学上的好奇，而当今的问题与实际用途却有密切的关连。</p>
+<p>在此我们一直强调一个好得很多的方法。原因是对这类的问题，你若能计算快一倍或十倍、千倍，往往起不了什麽大作用，好像刚才的二十城旅行问题，即使快了千倍，仍需三年的计算时间，而再加三城立刻就把这个计算法的效果抵消了，因此我们所要的是计算量基本层次的减少，这就是我们在下一节所要讨论的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-A* 搜索算法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1216,111 +1313,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-iOS开发内容" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/21/iOS开发内容/">iOS开发内容</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/21/iOS开发内容/" class="archive-article-date">
-  	<time datetime="2017-11-21T09:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="iOS开发内容"><a href="#iOS开发内容" class="headerlink" title="iOS开发内容"></a>iOS开发内容</h1><p>语言：objective-c，swift</p>
-<p>设计模式：mvc</p>
-<p>数据库：sqlite coredata(一套api)</p>
-<p>操作系统：mac</p>
-<p>库：cocoaPods</p>
-<p>手册 ：<a href="https://developer.apple.com/library/content/navigation/" target="_blank" rel="noopener">https://developer.apple.com/library/content/navigation/</a></p>
-<p>第三方框架：</p>
-<p>AFNetworking，网络请求类</p>
-<p>JsonModel，数据模型解析</p>
-<p>MJRefresh，tableview下拉加在上拉刷新</p>
-<p>SDWebImage，图片加载</p>
-<p>MBProgressHUD，加载用的菊花</p>
-<p>工具：</p>
-<p>数码测色计（系统自带），用于取屏幕上的颜色点</p>
-<p>cornerstone，svn管理工具</p>
-<p>sqliteManager，数据库文件管理工具</p>
-<p>bejson，一个用来查看解析json数据的网站</p>
-<p>changes，一个二进制比对工具，比较工程代码的</p>
-<p>wireshark，最喜欢的一个抓包工具，强大到没得法</p>
-<p>蒲公英，一个应用分发平台，内部分发测试用的</p>
-<p>prep，制作一个1024*1024大小的图标，拉进去就可以自动生成iOS开发所需的整套图标</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/21/iOS开发内容/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1434,15 +1426,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1470,7 +1462,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1478,7 +1470,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">

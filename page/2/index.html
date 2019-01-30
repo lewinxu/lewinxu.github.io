@@ -180,6 +180,135 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-delegate" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/delegate/">iOS中的代理模式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/delegate/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/7cfc1d47deb1" target="_blank" rel="noopener">http://www.jianshu.com/p/7cfc1d47deb1</a></li>
+<li><a href="http://songxing10000.blog.163.com/blog/static/163195441201491113526561/" target="_blank" rel="noopener">http://songxing10000.blog.163.com/blog/static/163195441201491113526561/</a></li>
+<li><a href="http://www.jianshu.com/p/5b9b7cf89ce5" target="_blank" rel="noopener">http://www.jianshu.com/p/5b9b7cf89ce5</a>   (iOS代理模式的使用)</li>
+</ul>
+<p><strong>代理主要由三部分组成：</strong></p>
+<p><strong>协议：</strong>用来指定代理双方可以做什么，必须做什么。</p>
+<p><strong>代理：</strong>根据指定的协议，完成委托方需要实现的功能。</p>
+<p><strong>委托：</strong>根据指定的协议，指定代理去完成什么功能。</p>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/delegate_1.png" alt=""></p>
+<p><strong>代理实现流程</strong></p>
+<p><img src="/http://ozrhqzqeu.bkt.clouddn.com/delegate_2.png" alt=""></p>
+<h4 id="1-协议"><a href="#1-协议" class="headerlink" title="1.协议"></a>1.协议</h4><p>创建格式</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> 协议名称</span></span><br><span class="line"><span class="comment">// 方法声明列表</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>某类遵循某个协议</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> 类名 : 父类 &lt;协议名称&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>某个协议遵守某个或者某些协议</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> 协议名称 &lt;其他协议名称1, 其他协议名称2&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>关键字</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span><span class="keyword">@required</span>：这个方法必须要实现（若不实现，编译器会发出警告）</span><br><span class="line"><span class="number">2.</span><span class="keyword">@optional</span>：这个方法不一定要实现</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>协议是公共的定义，如果只是某个类使用，我们常做的就是写在某个类中。如果是多个类都是用同一个协议，建议创建一个<strong>Protocol文件</strong>。</p>
+</li>
+<li><p><strong>协议只能定义公用的一套接口</strong>，类似于一个约束代理双方的作用。但不能提供具体的实现方法，实现方法需要代理对象去实现。</p>
+</li>
+<li><p>协议可以继承其他协议，并且可以继承多个协议，在iOS中对象是不支持多继承的，而协议可以<strong>多继承</strong>。</p>
+</li>
+<li><p><strong>基协议</strong> NSObject是一个基类，最根本最基本的类，任何其他类最终都要继承它。其实还有一个协议，名字也叫NSObject，它是一个基协议，最根本最基本的协议。NSObject协议中声明很多最基本的方法，比如description、retain、release等，建议每个新的协议都要遵守NSObject协议</p>
+</li>
+</ul>
+<p>示例代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义协议</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">Client</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line">-(<span class="keyword">void</span>)defaultMethod;<span class="comment">//默认必须实现</span></span><br><span class="line"><span class="keyword">@required</span><span class="comment">//必须</span></span><br><span class="line">-(<span class="keyword">void</span>)required；</span><br><span class="line"><span class="keyword">@optional</span><span class="comment">//可选</span></span><br><span class="line">-(<span class="keyword">void</span>)optional;</span><br><span class="line"><span class="keyword">@end</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//符合协议</span></span><br><span class="line"><span class="comment">//MyClient.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Client.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyClient</span> ()&lt;<span class="title">Client</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span> </span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">MyClient</span></span></span><br><span class="line">-(<span class="keyword">void</span>)defaultMethod&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"this is defaultMethod"</span>);</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="keyword">void</span>)required&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"this is required method"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><ul>
+<li>(BOOL)<strong>conformsToProtocol</strong>:(Protocol *)protocol; 方法用于判断某个类是否遵循某个协议，返回值为bool类型，即使协议是通过”继承”过来的也可以。</li>
+</ul>
+</li>
+<li><ul>
+<li>(BOOL) <strong>respondsToSelector</strong>: selector; 用来判断是否有以某个名字命名的方法(被封装在一个selector的对象里传递)</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/delegate/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-autolayout" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1490,141 +1619,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-shu-ju-chi-jiu-hua" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/shu-ju-chi-jiu-hua/">iOS 数据持久化总结</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/shu-ju-chi-jiu-hua/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:17:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相关文章</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/74ebd492102b" target="_blank" rel="noopener">http://www.jianshu.com/p/74ebd492102b</a> （5种数据持久化方法对比总结）</li>
-<li><a href="http://www.jianshu.com/p/873fc83ec244" target="_blank" rel="noopener">http://www.jianshu.com/p/873fc83ec244</a>     (iOS数据持久化小结)</li>
-<li><a href="https://juejin.im/entry/57a40613128fe1005470b342" target="_blank" rel="noopener">https://juejin.im/entry/57a40613128fe1005470b342</a>   (iOS 数据持久化存储)</li>
-</ul>
-<p>持久化：把内存数据转移到闪存中进行持久化的操作</p>
-<blockquote>
-<p>Bundle:应用程序在手机中的安装路径</p>
-<p>沙盒：存储app所有的数据的路径</p>
-</blockquote>
-<p>沙盒的结构为:`</p>
-<blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">1.</span> Documents : 保存持久化数据，会备份</span><br><span class="line">&gt;</span><br><span class="line">&gt; <span class="number">2.</span> Library : <span class="number">1.</span> Caches : 保存持久化数据，不会备份</span><br><span class="line">&gt;              <span class="number">2.</span> Preferences : 保存持久化数据，会备份</span><br><span class="line">&gt; <span class="number">3.</span> tmp : 保存临时文件</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h4 id="1-NSUserDefaults"><a href="#1-NSUserDefaults" class="headerlink" title="1.NSUserDefaults"></a>1.NSUserDefaults</h4><ul>
-<li>NSUserDefaults一般用于保存首选项信息、缓存数据等少量数据。</li>
-<li>使用NSUserDefaults时，数据默认保存在沙盒的Library目录下的文件:工程名称.plist中。<code>/Library/Preferences/[App_Bundle_Identifier].plist</code></li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUpSaveUserDefaults &#123;</span><br><span class="line">    <span class="comment">//获取NSUserDefaults对象,是个单例</span></span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="comment">//存储数据</span></span><br><span class="line">    [defaults setObject:<span class="string">@"xiaoming"</span> forKey:<span class="string">@"name"</span>];</span><br><span class="line">    [defaults setBool:<span class="literal">YES</span> forKey:<span class="string">@"isCool"</span>];</span><br><span class="line">    [defaults setInteger:<span class="number">25</span> forKey:<span class="string">@"age"</span>];</span><br><span class="line">    [defaults setDouble:<span class="number">1.75</span>f forKey:<span class="string">@"height"</span>];</span><br><span class="line">    <span class="comment">//强制立刻存储</span></span><br><span class="line">    [defaults synchronize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setUpReadUserDefaults &#123;</span><br><span class="line">    <span class="comment">//获取NSUserDefaults对象</span></span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="built_in">NSString</span> *name = [defaults objectForKey:<span class="string">@"name"</span>];</span><br><span class="line">    <span class="built_in">BOOL</span> isCool = [defaults boolForKey:<span class="string">@"isCool"</span>];</span><br><span class="line">    <span class="built_in">NSInteger</span> age = [defaults integerForKey:<span class="string">@"age"</span>];</span><br><span class="line">    <span class="keyword">double</span> height = [defaults doubleForKey:<span class="string">@"height"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name=%@,isCool=%d,age=%ld,height=%.2f"</span>,name,isCool,(<span class="keyword">long</span>)age,height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-属性文件"><a href="#2-属性文件" class="headerlink" title="2.属性文件"></a>2.属性文件</h4><ul>
-<li>数据存储在.plist文件中</li>
-<li>plist文件可以存储的7中数据类型：array、dictionary、string、bool、data、date、number。</li>
-</ul>
-<p>demo</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUpPlist&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *path = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingString:<span class="string">@"/dyf.plist"</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath======%@"</span>,filePath);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = @&#123;</span><br><span class="line">                          <span class="string">@"name"</span>:<span class="string">@"xiaoming"</span>,</span><br><span class="line">                          <span class="string">@"age"</span>:@<span class="number">25</span>,</span><br><span class="line">                          <span class="string">@"height"</span>:@<span class="number">1.75</span>f,</span><br><span class="line">                          <span class="string">@"weight"</span>:@<span class="number">55</span></span><br><span class="line">                          &#125;;</span><br><span class="line">    [dic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic1 = [<span class="built_in">NSDictionary</span> dictionaryWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dic1=====%@"</span>,dic1);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-归档-NSKeyedValueArchiver"><a href="#3-归档-NSKeyedValueArchiver" class="headerlink" title="3.归档 (NSKeyedValueArchiver)"></a>3.归档 (NSKeyedValueArchiver)</h4><blockquote>
-<p>数据化归档时经过加密处理的,所以安全性远高于plist,数据归档可以存储一些复杂的对象,数据保存前会经过二进制处理.注意:使用这种方案是需要前提的, 使用前必须要遵守NSCoding协议并且实现协议中的两个方法</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">实现<span class="built_in">NSCoding</span>协议</span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder;</span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>数据存储archive文件中</li>
-<li>优点是可以将复杂的对象写入文件可以归档集合类，所以无论添加多少对象，将对象写入磁盘的方式都是一样，不会增加工作量;</li>
-</ul>
-<h4 id="4-数据库-sqlite"><a href="#4-数据库-sqlite" class="headerlink" title="4.数据库(sqlite)"></a>4.数据库(sqlite)</h4><ul>
-<li>splite是一个轻量级,跨平台的小型数据库,可移植性比较高,有着和MySpl几乎相同的数据库语句,以及无需服务器即可使用的优点.</li>
-</ul>
-<blockquote>
-<p>数据库的优点:</p>
-<p>1, 该方案可以存储大量的数据,存储和检索的速度非常快.</p>
-<p>2, 能对数据进行大量的聚合,这样比起使用对象来讲操作要快. </p>
-<p>数据库的缺点:</p>
-<p>1, 它没有提供数据库的创建方式</p>
-<p>2, 它的底层是基于C语言框架设计的, 没有面向对象的API, 用起来非常麻烦</p>
-<p>3, 发杂的数据模型的数据建表,非常麻烦</p>
-</blockquote>
-<h5 id="FMDB"><a href="#FMDB" class="headerlink" title="FMDB"></a><strong>FMDB</strong></h5><p>第三方开源的数据库,该数据库是基于splite封装的面向对象的框架.</p>
-<h6 id="1-FMDB的使用"><a href="#1-FMDB的使用" class="headerlink" title="1.FMDB的使用"></a>1.FMDB的使用</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用FMDB前，需要先了解下<span class="number">3</span>个主要类：</span><br><span class="line">- FMDatabase：表示一个SQLite数据库，用于执行SQL语句。</span><br><span class="line">- FMResultSet：表示在FMDatabase执行一个查询的结果集。</span><br><span class="line">- FMDatabaseQueue：如果要在多个线程上执行查询和更新，则使用此类。它描述了下面的“线程安全”部分。</span><br></pre></td></tr></table></figure>
-<h4 id="5-CoraData"><a href="#5-CoraData" class="headerlink" title="5.CoraData"></a>5.CoraData</h4><blockquote>
-<p>coreData是苹果官方在iOS5之后推出的综合性数据库,其使用了对象关系映射技术,将对象转换成数据,将数据存储在本地的数据库中.coreData为了提高效率,需要将数据存储在不同的数据库中,比如:在使用的时候,最好是将本地的数据保存到内存中,这样的目的是访问速度比较快.</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/shu-ju-chi-jiu-hua/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1738,15 +1732,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1774,7 +1768,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1782,7 +1776,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">

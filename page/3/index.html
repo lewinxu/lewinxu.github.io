@@ -180,6 +180,141 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-shu-ju-chi-jiu-hua" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/shu-ju-chi-jiu-hua/">iOS 数据持久化总结</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/shu-ju-chi-jiu-hua/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:17:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/74ebd492102b" target="_blank" rel="noopener">http://www.jianshu.com/p/74ebd492102b</a> （5种数据持久化方法对比总结）</li>
+<li><a href="http://www.jianshu.com/p/873fc83ec244" target="_blank" rel="noopener">http://www.jianshu.com/p/873fc83ec244</a>     (iOS数据持久化小结)</li>
+<li><a href="https://juejin.im/entry/57a40613128fe1005470b342" target="_blank" rel="noopener">https://juejin.im/entry/57a40613128fe1005470b342</a>   (iOS 数据持久化存储)</li>
+</ul>
+<p>持久化：把内存数据转移到闪存中进行持久化的操作</p>
+<blockquote>
+<p>Bundle:应用程序在手机中的安装路径</p>
+<p>沙盒：存储app所有的数据的路径</p>
+</blockquote>
+<p>沙盒的结构为:`</p>
+<blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">1.</span> Documents : 保存持久化数据，会备份</span><br><span class="line">&gt;</span><br><span class="line">&gt; <span class="number">2.</span> Library : <span class="number">1.</span> Caches : 保存持久化数据，不会备份</span><br><span class="line">&gt;              <span class="number">2.</span> Preferences : 保存持久化数据，会备份</span><br><span class="line">&gt; <span class="number">3.</span> tmp : 保存临时文件</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="1-NSUserDefaults"><a href="#1-NSUserDefaults" class="headerlink" title="1.NSUserDefaults"></a>1.NSUserDefaults</h4><ul>
+<li>NSUserDefaults一般用于保存首选项信息、缓存数据等少量数据。</li>
+<li>使用NSUserDefaults时，数据默认保存在沙盒的Library目录下的文件:工程名称.plist中。<code>/Library/Preferences/[App_Bundle_Identifier].plist</code></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUpSaveUserDefaults &#123;</span><br><span class="line">    <span class="comment">//获取NSUserDefaults对象,是个单例</span></span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="comment">//存储数据</span></span><br><span class="line">    [defaults setObject:<span class="string">@"xiaoming"</span> forKey:<span class="string">@"name"</span>];</span><br><span class="line">    [defaults setBool:<span class="literal">YES</span> forKey:<span class="string">@"isCool"</span>];</span><br><span class="line">    [defaults setInteger:<span class="number">25</span> forKey:<span class="string">@"age"</span>];</span><br><span class="line">    [defaults setDouble:<span class="number">1.75</span>f forKey:<span class="string">@"height"</span>];</span><br><span class="line">    <span class="comment">//强制立刻存储</span></span><br><span class="line">    [defaults synchronize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setUpReadUserDefaults &#123;</span><br><span class="line">    <span class="comment">//获取NSUserDefaults对象</span></span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="built_in">NSString</span> *name = [defaults objectForKey:<span class="string">@"name"</span>];</span><br><span class="line">    <span class="built_in">BOOL</span> isCool = [defaults boolForKey:<span class="string">@"isCool"</span>];</span><br><span class="line">    <span class="built_in">NSInteger</span> age = [defaults integerForKey:<span class="string">@"age"</span>];</span><br><span class="line">    <span class="keyword">double</span> height = [defaults doubleForKey:<span class="string">@"height"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name=%@,isCool=%d,age=%ld,height=%.2f"</span>,name,isCool,(<span class="keyword">long</span>)age,height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-属性文件"><a href="#2-属性文件" class="headerlink" title="2.属性文件"></a>2.属性文件</h4><ul>
+<li>数据存储在.plist文件中</li>
+<li>plist文件可以存储的7中数据类型：array、dictionary、string、bool、data、date、number。</li>
+</ul>
+<p>demo</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUpPlist&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *path = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingString:<span class="string">@"/dyf.plist"</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath======%@"</span>,filePath);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = @&#123;</span><br><span class="line">                          <span class="string">@"name"</span>:<span class="string">@"xiaoming"</span>,</span><br><span class="line">                          <span class="string">@"age"</span>:@<span class="number">25</span>,</span><br><span class="line">                          <span class="string">@"height"</span>:@<span class="number">1.75</span>f,</span><br><span class="line">                          <span class="string">@"weight"</span>:@<span class="number">55</span></span><br><span class="line">                          &#125;;</span><br><span class="line">    [dic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic1 = [<span class="built_in">NSDictionary</span> dictionaryWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dic1=====%@"</span>,dic1);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-归档-NSKeyedValueArchiver"><a href="#3-归档-NSKeyedValueArchiver" class="headerlink" title="3.归档 (NSKeyedValueArchiver)"></a>3.归档 (NSKeyedValueArchiver)</h4><blockquote>
+<p>数据化归档时经过加密处理的,所以安全性远高于plist,数据归档可以存储一些复杂的对象,数据保存前会经过二进制处理.注意:使用这种方案是需要前提的, 使用前必须要遵守NSCoding协议并且实现协议中的两个方法</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">实现<span class="built_in">NSCoding</span>协议</span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder;</span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数据存储archive文件中</li>
+<li>优点是可以将复杂的对象写入文件可以归档集合类，所以无论添加多少对象，将对象写入磁盘的方式都是一样，不会增加工作量;</li>
+</ul>
+<h4 id="4-数据库-sqlite"><a href="#4-数据库-sqlite" class="headerlink" title="4.数据库(sqlite)"></a>4.数据库(sqlite)</h4><ul>
+<li>splite是一个轻量级,跨平台的小型数据库,可移植性比较高,有着和MySpl几乎相同的数据库语句,以及无需服务器即可使用的优点.</li>
+</ul>
+<blockquote>
+<p>数据库的优点:</p>
+<p>1, 该方案可以存储大量的数据,存储和检索的速度非常快.</p>
+<p>2, 能对数据进行大量的聚合,这样比起使用对象来讲操作要快. </p>
+<p>数据库的缺点:</p>
+<p>1, 它没有提供数据库的创建方式</p>
+<p>2, 它的底层是基于C语言框架设计的, 没有面向对象的API, 用起来非常麻烦</p>
+<p>3, 发杂的数据模型的数据建表,非常麻烦</p>
+</blockquote>
+<h5 id="FMDB"><a href="#FMDB" class="headerlink" title="FMDB"></a><strong>FMDB</strong></h5><p>第三方开源的数据库,该数据库是基于splite封装的面向对象的框架.</p>
+<h6 id="1-FMDB的使用"><a href="#1-FMDB的使用" class="headerlink" title="1.FMDB的使用"></a>1.FMDB的使用</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用FMDB前，需要先了解下<span class="number">3</span>个主要类：</span><br><span class="line">- FMDatabase：表示一个SQLite数据库，用于执行SQL语句。</span><br><span class="line">- FMResultSet：表示在FMDatabase执行一个查询的结果集。</span><br><span class="line">- FMDatabaseQueue：如果要在多个线程上执行查询和更新，则使用此类。它描述了下面的“线程安全”部分。</span><br></pre></td></tr></table></figure>
+<h4 id="5-CoraData"><a href="#5-CoraData" class="headerlink" title="5.CoraData"></a>5.CoraData</h4><blockquote>
+<p>coreData是苹果官方在iOS5之后推出的综合性数据库,其使用了对象关系映射技术,将对象转换成数据,将数据存储在本地的数据库中.coreData为了提高效率,需要将数据存储在不同的数据库中,比如:在使用的时候,最好是将本地的数据保存到内存中,这样的目的是访问速度比较快.</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/shu-ju-chi-jiu-hua/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-fen-lei" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1170,103 +1305,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/未来数学家的挑战1/">未来数学家的挑战1</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/未来数学家的挑战1/" class="archive-article-date">
-  	<time datetime="2018-03-22T08:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/index.html" target="_blank" rel="noopener">原文链接</a></li>
-</ul>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有数学家说过「一个好的问题胜过十个好解答」。 因为解答一出，此问题已是到了终点，对不断求创新的人们而言，已不构成挑战。 而新的问题是源头活水，能开拓新的境界。多数人都不愿沉醉在好的解答中不断的玩味，而希望找到新的问题，不断的思考，摸索。</p>
-<p>大家在《数播》上已看见了不少好的问题，尤其最近康明昌教授谈到的费马定理，几何三大难题，都是极有趣的问题。 有的已有了解答，有的尚待解决。 除了上面的题目外，像四色问题（即任何一个地图只要用四种颜色就可以把国界分开），五次以上方程式的公式解，及数论上质数分佈问题，都曾在职业及业馀数学家的心目中佔有相当的地位。 本文所要介绍的是一个最近（1970年代开始）一种许多数学家及电子计算机学家所关心的大问题──NP 问题。 NP 所代表的意思，你看完本文之后自然会明白，现在你不妨记住「NP-hard」这个伟大的字。 将来如果你对某人说你的问题是「NP-hard」，他也许就要对你刮目相看了，NP-hard 不但代表 hard（难），而且是 NP 的难！</p>
-<p>NP 问题的代表问题之一是售货员旅行问题 (traveling salesman problem)。有一个售货员要开汽车到 n 个指定的城市去推销货物，他必须经过全部的 n 个城。现在他有一个有此 n 城的地图及各城之间的公路距离，试问他应如何取最短的行程从家中出发再到家中？<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/mm_10_2_04_01.gif" alt=""></p>
-<p>如图1中，A,B,C,…,G 表示 7 个城市，而售货员要从 A 城出发再回到 A 城并访问 B,C,…,G，所有的城，一个可行的方法是 </p>
-<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img1.gif" alt=""></p>
-<p>问题是：这是否是最短的途径？也许<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img1.gif" alt=""></p>
-<p>更近呢？加起来的结果第一路径总长235里，而第二路径总长为230里，故第二路径较短， 但是否存在一个更短的路径呢？目前的方法接近一个一个的排着试，还没有找到更好可以寻得最短路径的方法。对七个城而言，共有 6!=720 个排法，尚不算难，但若有 20 个城，则排法就有 19! 种。因<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img3.gif" alt=""></p>
-<p>故<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img4.gif" alt=""></p>
-<p>在排列组合裡 n! 写起来轻鬆，但 1.21 x 10^17 是一个大得不得了的数字，若每秒钟排一次，要排 3.84 x 10^9 年（一年约为 3.15 x 10^7 秒）， 即使使用计算机，每秒排一百万次（不容易做到）也得重做三千年才能找到答桉。「生也有涯，知也无涯」，想不到区区二十个城，要三十个世纪才能找到答桉。<br>由于电子计算机的发展，有许多以前认为枉费时的计算，像行列式之值，反矩阵，高次方程式的解，都可以在极短的时间内解决。但也突然出现了一些新问题，连大型计算机也望之兴叹。像售货员问题，因为找不到比硬排好得很多的做法，使得数学家们开始想要证明，根本找不到比硬排好得很多的做法。这个证明至今尚未找到。就像以前一角三等分问题一样，既然找了几千年找不到用圆规直尺三等分任一角的方法，也许我们可以证明绝对不可能用圆规直尺三等分一角。 现在我们要证明绝不可能写一个计算机程式大大的简化售货员旅行问题。与三等分一角问题不同的是，前者是一种数学上的好奇，而当今的问题与实际用途却有密切的关连。</p>
-<p>在此我们一直强调一个好得很多的方法。原因是对这类的问题，你若能计算快一倍或十倍、千倍，往往起不了什麽大作用，好像刚才的二十城旅行问题，即使快了千倍，仍需三年的计算时间，而再加三城立刻就把这个计算法的效果抵消了，因此我们所要的是计算量基本层次的减少，这就是我们在下一节所要讨论的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1380,15 +1418,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1416,7 +1454,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1424,7 +1462,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
