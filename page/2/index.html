@@ -180,6 +180,127 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-iOS程序流程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/iOS程序流程/">iOS程序的基本执行流程</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/iOS程序流程/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:31:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##iOS程序的基本执行流程</p>
+<p><strong>iOS 程序的启动执行状态</strong></p>
+<p>1.程序的入口——&gt; 进入main函数，设置AppDelegate代理</p>
+<p>2.程序完成加载</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>3.创建windows窗口</p>
+<p>4 .程序被激活</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)applicationDidBecomeActive:(<span class="built_in">UIApplication</span> *)application &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>5.程序取消激活状态</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)applicationWillResignActive:(<span class="built_in">UIApplication</span> *)application &#123;&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>程序进入后台 </li>
+</ol>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)applicationDidEnterBackground:(<span class="built_in">UIApplication</span> *)application &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>7.程序回到前台</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)applicationWillEnterForeground:(<span class="built_in">UIApplication</span> *)application &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>8.当程序将要退出时调用， 通常是用来保存数据和一些退出之前的清理工作</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)applicationWillTerminate:(<span class="built_in">UIApplication</span> *)application &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/1430021-c2e42dfc1be91ed9.jpg" alt="enter image description here"></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.m 入口函数</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// UIApplicationMain 将根据第三个参数初始化一个UIApplication或其子类的对象并开始接收事件（传入nil，那么它的值将从Info.plist中获</span></span><br><span class="line"><span class="comment">//    取，如果Info.plist中没有，则默认为UIApplication。)</span></span><br><span class="line"><span class="comment">// 最后一个参数指定了APPDelegate类作为应用的委托，用来接收与应用生命周期相关的委托方法。</span></span><br></pre></td></tr></table></figure>
+<p>AppDelegate来处理这些工作：</p>
+<ul>
+<li><p>1.app的启动代码；</p>
+</li>
+<li><p>2.响应app的状态，比如app切换到后台和前台等状态；</p>
+</li>
+<li><p>3.响应外部传递给app的通知，比如说push，low-memory warnings；</p>
+</li>
+<li><p>4.决定了app的状态是否应该保存或者恢复；</p>
+</li>
+<li><p>5.响应不是发送给特定view或者vc，而是发送给app本身的事件；</p>
+</li>
+<li><p>6.用来保存一些不属于特定vc的数据。</p>
+</li>
+</ul>
+<h4 id="UIView-和-UIViewController-的生命周期"><a href="#UIView-和-UIViewController-的生命周期" class="headerlink" title="UIView 和 UIViewController 的生命周期"></a><strong>UIView 和 UIViewController 的生命周期</strong></h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//生命周期</span></span><br><span class="line">- (<span class="keyword">void</span>)loadView;</span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad;</span><br><span class="line">- (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line">- (<span class="keyword">void</span>)viewWillLayoutSubviews;</span><br><span class="line">- (<span class="keyword">void</span>)viewDidLayoutSubviews;</span><br><span class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line">- (<span class="keyword">void</span>)viewWillDisappear:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line">- (<span class="keyword">void</span>)viewDidDisappear:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line"><span class="comment">//释放内存</span></span><br><span class="line">- (<span class="keyword">void</span>)didReceiveMemoryWarning;</span><br></pre></td></tr></table></figure>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/2491655-f507e043f3e3bc69.jpeg" alt="enter image description here"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/iOS程序流程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-delegate" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1502,123 +1623,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-chu-shi-hua" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/chu-shi-hua/">iOS初始化</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/chu-shi-hua/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:17:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相关文章</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/1d391faa4eb4" target="_blank" rel="noopener">http://www.jianshu.com/p/1d391faa4eb4</a> （Initializer 和 dealloc 初始化）</li>
-<li><a href="http://www.cnblogs.com/smileEvday/p/designated\_initializer.html" target="_blank" rel="noopener">http://www.cnblogs.com/smileEvday/p/designated\_initializer.html</a>   （iOS: 聊聊 Designated Initializer(指定初始化函数）</li>
-</ul>
-<h4 id="init-方法的结构"><a href="#init-方法的结构" class="headerlink" title="init 方法的结构"></a>init 方法的结构</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init]; <span class="comment">// call the designated initializer</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">// Custom initialization</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>alloc 负责创建对象，这个过程包括分配足够的内存来保存对象，<strong>写入 isa 指针</strong>，初始化引用计数，以及重置所有实例变量。</p>
-</li>
-<li><p>init 负责初始化对象，这意味着使对象处于可用状态。这通常意味着为对象的实例变量赋予合理有用的值。</p>
-</li>
-</ul>
-<h4 id="指定和间接初始化的区别"><a href="#指定和间接初始化的区别" class="headerlink" title="指定和间接初始化的区别"></a><strong>指定和间接初始化的区别</strong></h4><blockquote>
-<p>designated 初始化方法是提供所有的参数，</p>
-<p>secondary 初始化方法是一个或多个，并且提供一个或者更多的默认参数来调用 designated 初始化的初始化方法。</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ZOCEvent</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法一</span></span><br><span class="line">                         date:(<span class="built_in">NSDate</span> *)date</span><br><span class="line">                     location:(<span class="built_in">CLLocation</span> *)location</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _title    = title;</span><br><span class="line">        _date     = date;</span><br><span class="line">        _location = location;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法二</span></span><br><span class="line">                         date:(<span class="built_in">NSDate</span> *)date</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithTitle:title date:date location:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法三</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithTitle:title date:[<span class="built_in">NSDate</span> date] location:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>initWithTitle:date:location: 就是 designated 初始化方法</p>
-<p>方法二和方法三为secondary 初始化方法</p>
-<ul>
-<li>一个类应该有且只有一个 designated 初始化方法，其他的初始化方法应该调用这个 designated 的初始化方法</li>
-</ul>
-<h4 id="规范"><a href="#规范" class="headerlink" title="规范"></a><strong>规范</strong></h4><blockquote>
-<p>1.子类如果有指定初始化函数，那么指定初始化函数实现时必须调用它的直接父类的指定初始化函数。</p>
-<ol start="2">
-<li><p>如果子类有指定初始化函数，那么便利初始化函数必须调用<strong>自己</strong>的其它初始化函数(包括指定初始化函数以及其他的便利初始化函数)，不能调用super的初始化函数。</p>
-</li>
-<li><p>如果子类提供了指定初始化函数，那么一定要实现所有父类的指定初始化函数。</p>
-</li>
-</ol>
-</blockquote>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/init_1.png" alt=""></p>
-<p>当我们为自己创建的类添加指定初始化函数时，必须准确的识别并覆盖直接父类所有的指定初始化函数，这样才能保证整个子类的初始化过程可以覆盖到所有继承链上的成员变量得到合适的初始化。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/chu-shi-hua/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1720,11 +1724,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1736,23 +1752,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1776,7 +1780,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1784,7 +1788,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">

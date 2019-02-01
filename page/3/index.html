@@ -180,6 +180,123 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-chu-shi-hua" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/chu-shi-hua/">iOS初始化</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/chu-shi-hua/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:17:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/1d391faa4eb4" target="_blank" rel="noopener">http://www.jianshu.com/p/1d391faa4eb4</a> （Initializer 和 dealloc 初始化）</li>
+<li><a href="http://www.cnblogs.com/smileEvday/p/designated\_initializer.html" target="_blank" rel="noopener">http://www.cnblogs.com/smileEvday/p/designated\_initializer.html</a>   （iOS: 聊聊 Designated Initializer(指定初始化函数）</li>
+</ul>
+<h4 id="init-方法的结构"><a href="#init-方法的结构" class="headerlink" title="init 方法的结构"></a>init 方法的结构</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init]; <span class="comment">// call the designated initializer</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">// Custom initialization</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>alloc 负责创建对象，这个过程包括分配足够的内存来保存对象，<strong>写入 isa 指针</strong>，初始化引用计数，以及重置所有实例变量。</p>
+</li>
+<li><p>init 负责初始化对象，这意味着使对象处于可用状态。这通常意味着为对象的实例变量赋予合理有用的值。</p>
+</li>
+</ul>
+<h4 id="指定和间接初始化的区别"><a href="#指定和间接初始化的区别" class="headerlink" title="指定和间接初始化的区别"></a><strong>指定和间接初始化的区别</strong></h4><blockquote>
+<p>designated 初始化方法是提供所有的参数，</p>
+<p>secondary 初始化方法是一个或多个，并且提供一个或者更多的默认参数来调用 designated 初始化的初始化方法。</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ZOCEvent</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法一</span></span><br><span class="line">                         date:(<span class="built_in">NSDate</span> *)date</span><br><span class="line">                     location:(<span class="built_in">CLLocation</span> *)location</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _title    = title;</span><br><span class="line">        _date     = date;</span><br><span class="line">        _location = location;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法二</span></span><br><span class="line">                         date:(<span class="built_in">NSDate</span> *)date</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithTitle:title date:date location:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法三</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithTitle:title date:[<span class="built_in">NSDate</span> date] location:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>initWithTitle:date:location: 就是 designated 初始化方法</p>
+<p>方法二和方法三为secondary 初始化方法</p>
+<ul>
+<li>一个类应该有且只有一个 designated 初始化方法，其他的初始化方法应该调用这个 designated 的初始化方法</li>
+</ul>
+<h4 id="规范"><a href="#规范" class="headerlink" title="规范"></a><strong>规范</strong></h4><blockquote>
+<p>1.子类如果有指定初始化函数，那么指定初始化函数实现时必须调用它的直接父类的指定初始化函数。</p>
+<ol start="2">
+<li><p>如果子类有指定初始化函数，那么便利初始化函数必须调用<strong>自己</strong>的其它初始化函数(包括指定初始化函数以及其他的便利初始化函数)，不能调用super的初始化函数。</p>
+</li>
+<li><p>如果子类提供了指定初始化函数，那么一定要实现所有父类的指定初始化函数。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/init_1.png" alt=""></p>
+<p>当我们为自己创建的类添加指定初始化函数时，必须准确的识别并覆盖直接父类所有的指定初始化函数，这样才能保证整个子类的初始化过程可以覆盖到所有继承链上的成员变量得到合适的初始化。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/chu-shi-hua/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-shu-ju-chi-jiu-hua" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1212,99 +1329,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/未来数学家的挑战2/">未来数学家的挑战2</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/未来数学家的挑战2/" class="archive-article-date">
-  	<time datetime="2018-03-22T08:51:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/index.html" target="_blank" rel="noopener">原文链接</a></li>
-</ul>
-<h2 id="二、计算量"><a href="#二、计算量" class="headerlink" title="二、计算量"></a>二、计算量</h2><p>计算量，顾名思意，是指解决某问题所需要计算的时间，但因每个複杂问题的计算往往都要经过许多不同的运算，除加减乘除四则外，还要包含比较，取数据，存数据等等，若仔细计算起来，十分困难，一般都只绘出一两个主要的量，加以统计，以上节中售货员旅行问题为例，其主要的工作是对每一个排法加起总路径之长，因对 n 城而言，有 (n-1)! 的排法，我们就定其计算量为 O(n!)，即在 n! 之层次（order 即 O 缩写之来源）之内。</p>
-<p>举二个例子，我们若要求 n 个数的和或平均值，则其计算量为 O(n)。 但若我们要把 n 个数字依次排列，则其计算量会因做法的不同而有相当的差别，一个直接了当的方法是，先求出最大的（比 (n-1) 次），再从不是最大的中间求次大的（比 (n-2) 次），再求第三大的（比 (n-3) 次），……如此一共比了<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img5.gif" alt=""></p>
-<p>次就可以完成此工作。因此我们以 O(n2)，即在 n2 之层次来表此方法的计算量。 另外一种快排法，先把 n 个数分成若干小块，每块排好之后再合起来， 则可以证明此种方法之计算量为 O(nlog2(n))，因排数字与排名字，电话号码相同，这种排法很有实用价值， 例如某大城有一百万户，则 n2=1012，而 nlog_2n 只有 2 x 10^7，其差别三个月与一分钟之比。<br>一般计算量的层次多以下表来区分，<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img9.gif" alt=""></p>
-<p>在上表中，k 为某一大于 2 的正整数，它们中间都有一道鸿沟，有基本层之不同，在计算机理论上，若某人能发现一个新的方法，降低一个层次的计算量，那麽他的新方法有资格称之为一个突破，可以不朽矣。表1 有一个对上项各量之比较，是以计算机每秒作一百万次 (10^6) 计算为原则。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmpng3.png" alt=""></p>
-<p>表一：以计算机每秒做一百万次时完成各层次计算量所约需的时间（若无单位，均以秒为单位）</p>
-<p>在这个表中，特别注意 n^3 与 2^n 中之差异，一般称 2^n 为计算量呈指数上升，而 n^3 或 n^k 之计算量呈 n 的方次上升， 对目前及未来的计算机而言，一个呈方次上升的计算量应可以应付，但对一个呈指数上升的计算量在 n 相当大时则毫无希望。 因此计算机学家所集中精力的方向在如何将一个呈指数上升的计算量问题，简化成一个方次上升的计算量问题。 我们定义凡对一个问题中最重要的参数 n 而言，若能找到一个方法可以以方次上升的计算量完成， 我们称此问题为一 P-问题（P 为英文多项式 Polynomial 之第一字母），包含所有此类问题之集合以 P 表示之。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1406,11 +1430,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1422,23 +1458,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1462,7 +1486,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1470,7 +1494,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
