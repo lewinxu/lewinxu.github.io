@@ -180,6 +180,199 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CS里partial关键字的作用(转摘)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/CS里partial关键字的作用(转摘)/">C Sharp里partial关键字的作用(转载)</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/19/CS里partial关键字的作用(转摘)/" class="archive-article-date">
+  	<time datetime="2016-07-19T08:14:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-什么是局部类型？"><a href="#1-什么是局部类型？" class="headerlink" title="1. 什么是局部类型？"></a>1. 什么是局部类型？</h4><blockquote>
+<p><code>C#</code> 2.0 引入了局部类型的概念。局部类型允许我们将一个类、结构或接口分成几个部分，分别实现在几个不同的<code>.cs</code>文件中。</p>
+</blockquote>
+<p><strong>局部类型适用于以下情况：</strong></p>
+<p>(1) 类型特别大，不宜放在一个文件中实现。<br>(2) 一个类型中的一部分代码为自动化工具生成的代码，不宜与我们自己编写的代码混合在一起。<br>(3) 需要多人合作编写一个类。</p>
+<p><code>局部类型</code>是一个纯语言层的编译处理，不影响任何执行机制——事实上C#编译器在编译的时候仍会将各个部分的局部类型合并成一个完整的类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public partial class Program</span><br><span class="line">&#123;</span><br><span class="line">  static void Main(string[] args)</span><br><span class="line">  &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">partial class Program</span><br><span class="line">&#123; </span><br><span class="line">  public void Test()</span><br><span class="line">  &#123; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-局部类型的限制"><a href="#2-局部类型的限制" class="headerlink" title="2. 局部类型的限制"></a>2. 局部类型的限制</h4><p>(1) 局部类型只适用于类、接口、结构，不支持委托和枚举。<br>(2) 同一个类型的各个部分必须都有修饰符 partial。<br>(3) 使用局部类型时，一个类型的各个部分必须位于相同的命名空间中。<br>(4) 一个类型的各个部分必须被同时编译。</p>
+<h4 id="3-局部类型的注意点"><a href="#3-局部类型的注意点" class="headerlink" title="3. 局部类型的注意点"></a>3. 局部类型的注意点</h4><p>(1) 关键字partial是一个上下文关键字，只有和 class、struct、interface 放在一起时才有关键字的含义。因此partial的引入不会影响现有代码中名称为partial的变量。<br>(2) 局部类型的各个部分一般是分开放在几个不同的.cs文件中，但C#编译器允许我们将他们放在同一文件中。</p>
+<h4 id="4-局部类型的应用特性"><a href="#4-局部类型的应用特性" class="headerlink" title="4. 局部类型的应用特性"></a>4. 局部类型的应用特性</h4><p>在局部类型上的特性具有“累加”效应。<br>[Attribute1, Attribute2(“Hello”)]<br>partial class Class1{}</p>
+<p>[Attribute3, Attribute2(“Exit”)]<br>partial class Class1{}</p>
+<p>相当于<br>[Attribute1, Attribute2(“Hello”), Attribute3, Attribute2(“Exit”)]<br>class Class1 {}</p>
+<p>注：Attribute2属性允许在类上多次使用。</p>
+<h4 id="5-局部类型上的修饰符"><a href="#5-局部类型上的修饰符" class="headerlink" title="5. 局部类型上的修饰符"></a>5. 局部类型上的修饰符</h4><p>(1) 一个类型的各个部分上的访问修饰符必须维持一致性。<br>(2) 如果一个部分类使用了abstract修饰符，那么整个类都将被视为抽象类。<br>(3) 如果一个部分类使用了 sealed 修饰符，那么整个类都将被视为密封类。<br>(4) 一个类的各个部分不能使用相互矛盾的修饰符，比如不能在一个部分上使用abstract，又在另一个部分上使用sealed。<br>(5)如果一个部分类使用了 static修饰符，那么整个类都将被视为静态类。</p>
+<h4 id="6-局部类型的基类和接口"><a href="#6-局部类型的基类和接口" class="headerlink" title="6. 局部类型的基类和接口"></a>6. 局部类型的基类和接口</h4><p><em>(1) 一个类型的各个部分上指定的基类必须一致。某个部分可以不指定基类，但如果指定，则必须相同。</em><br><em>(2) 局部类型上的接口具有“累加”效应。</em><br>partial class Class2: Iinterface1, Iinterface2 {}<br>partial class Class2: Iinterface3 {}<br>partial class Class2: Iinterface2 {}</p>
+<p>相当于<br>class Class2: Iinterface1, Iinterface2, Iinterface3 {}</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C Sharp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/19/CS里partial关键字的作用(转摘)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MSP430常用寄存器" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/11/MSP430常用寄存器/">MSP430常用寄存器(持续更新)</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/11/MSP430常用寄存器/" class="archive-article-date">
+  	<time datetime="2016-07-11T06:09:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Edit By Lewinxu</p>
+<blockquote>
+<p><strong>P1OUT: I/O口输出设定寄存器</strong><br>                如设定P1.1和P1.2输出高电平<br>                操作为： P1OUT |=（BIT1+BIT2）。<br><strong>P1IN:     I/O口输入设定寄存器</strong><br>                如设定P1.1和P1.2的输入为低电平<br>                 操作为： P1IN &amp;=~（BIT1+BIT2）。<br><strong>P1DIR:    I/O方向设定寄存器</strong><br>                如设定P1.1和P1.2为输出状态<br>                操作为： P1DIR |=（BIT1+BIT2）<br><strong>P1SEL:   功能选择寄存器</strong><br><strong>PXREN: 上拉/下拉电阻使能寄存器</strong><br>                  低电平该寄存器为无效状态；<br>                  高电平该寄存器为有效状态；<br><strong>PxIFGx     中断标志寄存器：</strong><br>                只有相应的中断使能PXIE打开且总中断GIE打开，该寄存器才有效。<br>                  低电平表示没有中断请求等待响应；<br>                 高电平表示有中断请求等待响应；<br><strong>PxIE     中断使能寄存器   </strong><br>            低电平表示中断关闭；<br>            高电平表示中断允许；<br><strong>PXIES    中断触发方式选择寄存器 </strong><br>                  低电平表示上升沿触发；<br>                  高电平表示下降沿触发；</p>
+</blockquote>
+<h3 id="设置P2-2为下降沿触发"><a href="#设置P2-2为下降沿触发" class="headerlink" title="设置P2.2为下降沿触发"></a>设置P2.2为下降沿触发</h3><pre><code>P2IFG = 0x00;    //清除P2口的中断标志
+P2IE = BIT2;    //P2.2开启中断
+P2IES = 0xff;   //P2为下降沿触发
+P2IN = BIT2; //P2.2输入拉高，因此开关闭合时会拉低产生下降沿（即中断）
+P2OUT = 0xff;
+P2REN = 0xff;   //作为输入的时候一定要配置上拉电阻（很重要，容易忘记，我就在这错了-_’） 
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/单片机//" class="article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/11/MSP430常用寄存器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-优秀软件推荐(持续更新)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -989,11 +1182,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1009,15 +1206,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1034,6 +1231,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1062,10 +1263,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
             
             <div class="clearfix"></div>

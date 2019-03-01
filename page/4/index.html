@@ -180,6 +180,216 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-未来数学家的挑战5" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/未来数学家的挑战5/">五、NP-complete 问题之近似解</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/22/未来数学家的挑战5/" class="archive-article-date">
+  	<time datetime="2018-03-22T08:52:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>NP-complete 问题既找不到可行的解法，而很大部分的 NP-complete 问题都在计算机语言，程式，电路设计，统计学，程式作业上有大用，因此只好退而求其次找一个可行的近似解。很可惜的是，所有的 NP-complete 问题虽在 NP 的层次上相联，在近似解上往往各需不同的解法，这些解法多从直观而来，我们在此举二个例子。</p>
+<p><strong>例1</strong><br>在第三节问题5，包装问题中，若采取「能装就装」法，即现有的盒子若可以装得下，就不用新盒子，则此法所需用之盒子数 k1 与最可能少的盒子数 k0 满足<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk1.gif" alt="">。</p>
+<p><strong>证明</strong></p>
+<p>今令 n 个物品之重为 w1,w2,…,wn 公斤，因每个盒子只可以装1公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/k0.gif" alt=""></p>
+<p>另一方面，「能装就装」法不可能有两个以上的盒子同时少于 0.5公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk11.gif" alt=""></p>
+<p>本例得证。<br>这个问题的结果是说，我们大约可以用「能装就装」法做得最好情形的一半好。 经过较複杂的证明，Johnson 在1974年证得，当 n 很大时，<br><img src="http://ozrhqzqeu.bkt.clouddn.com/png1.png" alt=""><br>也就是用「能装就装」法不会坏到 70% 以上，但可以坏到多用了 70% 的盒子。</p>
+<p>售货员旅行问题的一个直观走法是先访问最近那个尚未访问过的城，称为「先访近城」法，以图1为例，其走法为<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt=""></p>
+<p>Rosenkrantz 等在1977年证明这并不是一个很理想的走法，他们证出若各城间的距离满足三角不等式 ，则「先访近城」法所走之总程 D1 与最短路径 D0 之关系为</p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img30.gif" alt=""></p>
+<p>且当 n 很大时，可以有一种情形使得 </p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img31.gif" alt=""></p>
+<p>上式中之 [x] 表示大于 x 之最小整数，例如 [5]=5, [2.5]=3。 因log2(n)当 n 大时可以很大，故 D1 可与 D0 相差非常之大，但在同一篇论文之中，Rosenkrantz 等证明另一种复杂的「直观」走法可以达到D1&lt;=2D0之地步。<br>在上面的定理中，三角不等式的条件很重要，若城之距离无此关系存在时，Sahni 与Gonzalez 在1976年证得：若P!= NP，则不可能存在一个有限的 m，及一个 O(n^k) 计算量的走法，能使其全程长 D1 在任何 n 时满足<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img35.gif" alt=""></p>
+<p>即上式中 m 非等于无限大不可，亦即所有 O(n^k) 的做法都不很好。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-未来数学家的挑战6" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/未来数学家的挑战6/">六、NP-hardness 与围棋</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/22/未来数学家的挑战6/" class="archive-article-date">
+  	<time datetime="2018-03-22T08:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不是所有的难题都可归结为 NP 问题，像下得一手绝对好的围棋现在目前的推测是比所有 NP 问题还要难的计算问题，即 NP-hard 问题，NP-hard 问题的定义如下：</p>
+<p>定义： 若 x 为 NP-hard 问题，则若 NP != P，则 x不属于P。<br>也就是说，即使 P= NP，x 还不一定属于 P，但 P != NP, 则 x 绝不比 NP 的问题容易。在第三节中的问题1、3不一定是 NP 问题，但若能以 O(n^k) 的计算量解决它们，则比较容易的问题2与4也可以 O(n^k) 解决， 故若问题1、3属于P 则问题2、4属于P，又因2、4是 NP-complete，即推出 NP=P。 这与 NP-hard 之定义相合，故问题1、3均为 NP-hard 问题。 同理问题5也属于 NP-hard，不过这些 NP-hard 似乎比 NP 难不了多少，但下棋问题可能比 NP 问题要难得多，围棋问题可以作如下观。</p>
+<p><strong>问题11.（围棋问题）</strong></p>
+<p>以平常的围棋规则在一个 n*n 的棋盘上下，给定一个残局（下了二个子就可以算残局），首先，是否可以确定黑子在最好的下法之下，一定会赢？<br>这个问题不能用一般的方法证明它是不是为 NP。 因为目前没有人能猜一个必胜的下法且在 O(n^p) 时内证明它是对的，因为它与对方如何应付有关，而敌方的应付又与他对你以后的下法的推测有关，如此往下走，首先发生困难的是记忆上亮了红灯，即所需要的记忆可能呈方次以上的进展。</p>
+<p>因每一个存储至少要用（来计算）一次，否则这个存储就不如不要，因此一个问题的存储若呈指数上升，则其计算量亦非呈指数似的上升不可，但若某问题只需要方次上升的存储，即不能保证它只需要方次上升的计算量。</p>
+<p>因此计算机学家定义三个新的集合：</p>
+<blockquote>
+<p>PSPACE={x：x 只需要方次上升的存储 }<br>注：x均指问题</p>
+<p>PSPACE-complete：</p>
+<p>若 x属于PSPACE,<br>又 x属于 PSPACE-complete,<br>且 x属于P,<br>则 P = PSPACE。</p>
+<p>PSPACE-hard：</p>
+<p>若 x属于PSPACE-hard,<br>且 x属于P,<br>则 P= PSPACE。</p>
+</blockquote>
+<p>注意在上式中 PSPACE-complete 属于 PSPACE，即 PSPACE-complete 是 PSPACE 中的难题，但 PSPACE-hard 不一定属于 PSPACE。 Stockmeyer and Meyer 在1937年证明了一个与古克相似的定理。</p>
+<p>若 表示存在一个 x，对所有的 x，x 为布尔值0与1，则我们称 f(Q1 x1,Q2 x2,…,Qn xn) 为一量化布氏公式。若 f 有可能为1，则 f 称之为可满足，例如把第四节中之(1)式改写成<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img44.gif" alt=""></p>
+<p><strong>定理：</strong><br>检定一个量化布氏公式为可满足是一个 PSPACE-complete 问题。<br>当我们下棋面对着一盘残局沉思的时候，我们的要求是</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>对我是否存在一着必胜棋可以对付 </li>
+<li>敌人任何一着应付棋 </li>
+<li>此后我是否存在一着必胜棋可以对付 </li>
+<li>敌人任何一着应付棋 </li>
+<li>…… </li>
+<li>我是否存在一着必胜棋可以对付 </li>
+<li>敌人任何一着棋 </li>
+<li>我赢了</li>
+</ul>
+<p>因此这完全是 存在，任意,… 之交替作用与Stockmeyer 与 Meyer 定理之关係至为密切， Robertson 与 Munro 在1918年证得围棋是一种 PSPACE-hard 的问题， 目前有人计算到围棋必胜法之存储计算量在 10^600 以上，不论人脑或电脑的存储绝少不了一个原子， 而现今所知的宇宙原子数约只有 10^75。棋之道，大矣哉！要做一个下围棋必胜的机器人是谈何容易！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-未来数学家的挑战3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1068,206 +1278,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-tensorflow安装教程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/17/tensorflow安装教程/">TensorFlow安装教程</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/17/tensorflow安装教程/" class="archive-article-date">
-  	<time datetime="2017-12-17T12:58:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-Mac-CPU-Installing-with-virtualenv"><a href="#1-Mac-CPU-Installing-with-virtualenv" class="headerlink" title="1.Mac+CPU (Installing with virtualenv)"></a>1.Mac+CPU (Installing with virtualenv)</h3><p>参考教程：<a href="https://www.tensorflow.org/install/install_mac" target="_blank" rel="noopener">TensorFlow的官方指导</a></p>
-<h5 id="1-安装pip以及Virtualenv"><a href="#1-安装pip以及Virtualenv" class="headerlink" title="1.安装pip以及Virtualenv"></a>1.安装pip以及Virtualenv</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo easy_install pip</span><br><span class="line">$ sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure>
-<h5 id="2-在目录中创建一个Virtualenv的工作环境-tensorflow"><a href="#2-在目录中创建一个Virtualenv的工作环境-tensorflow" class="headerlink" title="2.在目录中创建一个Virtualenv的工作环境~/tensorflow:"></a>2.在目录中创建一个Virtualenv的工作环境~/tensorflow:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv --system-site-packages ~/tensorflow               # for Python 2.7</span><br><span class="line">$ virtualenv --system-site-packages -p python3 ~/tensorflow    # for Python 3.n</span><br></pre></td></tr></table></figure>
-<h5 id="3-激活Virtualenv的环境："><a href="#3-激活Virtualenv的环境：" class="headerlink" title="3.激活Virtualenv的环境："></a>3.激活Virtualenv的环境：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/tensorflow/bin/activate</span><br></pre></td></tr></table></figure>
-<h5 id="4-Pip-installation方式一样安装TensorFlow"><a href="#4-Pip-installation方式一样安装TensorFlow" class="headerlink" title="4.Pip installation方式一样安装TensorFlow"></a>4.Pip installation方式一样安装TensorFlow</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade tensorflow   # for Python 2.7</span><br><span class="line">(tensorflow)$ pip3 install --upgrade tensorflow  # for Python 3.n</span><br></pre></td></tr></table></figure>
-<h5 id="5-确认你的安装"><a href="#5-确认你的安装" class="headerlink" title="5.确认你的安装"></a>5.确认你的安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ deactivate $ source ~/tensorflow/bin/activate             //激活tensorflow</span><br><span class="line">(tensorflow)$ deactivate $ cd tensorflow/</span><br><span class="line">(tensorflow)$ deactivate $ vim test.py                                  //创建并编辑test.py</span><br><span class="line"></span><br><span class="line">              import tensorflow as tf</span><br><span class="line">              hello = tf.constant(&apos;Hello,Tensorflow!&apos;)</span><br><span class="line">              sess = tf.Session()</span><br><span class="line">              print(sess.run(hello))</span><br><span class="line">              :wq </span><br><span class="line">                                                                        //保存退出</span><br><span class="line">(tensorflow)$ deactivate $ python test.py                               //运行</span><br><span class="line">              Hello,Tensorflow!                                         //输出</span><br><span class="line">(tensorflow)$ deactivate                                                //退出tensorflow</span><br></pre></td></tr></table></figure>
-<h3 id="2-Ubuntu-CPU-Installing-with-virtualenv"><a href="#2-Ubuntu-CPU-Installing-with-virtualenv" class="headerlink" title="2.Ubuntu+CPU (Installing with virtualenv)"></a>2.Ubuntu+CPU (Installing with virtualenv)</h3><h5 id="1-安装pip以及Virtualenv-1"><a href="#1-安装pip以及Virtualenv-1" class="headerlink" title="1.安装pip以及Virtualenv"></a>1.安装pip以及Virtualenv</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install python-pip python-dev python-virtualenv       # for Python 2.7</span><br><span class="line">$ sudo apt-get install python3-pip python3-dev python-virtualenv     # for Python 3.n</span><br></pre></td></tr></table></figure>
-<h5 id="2-在目录中创建一个Virtualenv的工作环境-tensorflow-1"><a href="#2-在目录中创建一个Virtualenv的工作环境-tensorflow-1" class="headerlink" title="2.在目录中创建一个Virtualenv的工作环境~/tensorflow:"></a>2.在目录中创建一个Virtualenv的工作环境~/tensorflow:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv --system-site-packages ~/tensorflow               # for Python 2.7</span><br><span class="line">$ virtualenv --system-site-packages -p python3 ~/tensorflow    # for Python 3.n</span><br></pre></td></tr></table></figure>
-<h5 id="3-激活Virtualenv的环境：-1"><a href="#3-激活Virtualenv的环境：-1" class="headerlink" title="3.激活Virtualenv的环境："></a>3.激活Virtualenv的环境：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/tensorflow/bin/activate</span><br><span class="line">$ (tensorflow)$ easy_install -U pip            //确认pip安装了</span><br></pre></td></tr></table></figure>
-<h5 id="4-Pip-installation方式一样安装TensorFlow-1"><a href="#4-Pip-installation方式一样安装TensorFlow-1" class="headerlink" title="4.Pip installation方式一样安装TensorFlow"></a>4.Pip installation方式一样安装TensorFlow</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade tensorflow   # for Python 2.7</span><br><span class="line">(tensorflow)$ pip3 install --upgrade tensorflow  # for Python 3.n</span><br><span class="line">(tensorflow)$ pip install --upgrade tensorflow-gpu  # for Python 2.7 and GPU</span><br><span class="line">(tensorflow)$ pip3 install --upgrade tensorflow-gpu # for Python 3.n and GPU</span><br></pre></td></tr></table></figure>
-<h5 id="5-确认你的安装-1"><a href="#5-确认你的安装-1" class="headerlink" title="5.确认你的安装"></a>5.确认你的安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ deactivate $ source ~/tensorflow/bin/activate             //激活tensorflow</span><br><span class="line">(tensorflow)$ deactivate $ cd tensorflow/</span><br><span class="line">(tensorflow)$ deactivate $ vim test.py                                  //创建并编辑test.py</span><br><span class="line"></span><br><span class="line">              import tensorflow as tf</span><br><span class="line">              hello = tf.constant(&apos;Hello,Tensorflow!&apos;)</span><br><span class="line">              sess = tf.Session()</span><br><span class="line">              print(sess.run(hello))</span><br><span class="line">              :wq </span><br><span class="line">                                                                        //保存退出</span><br><span class="line">(tensorflow)$ deactivate $ python test.py                               //运行</span><br><span class="line">              Hello,Tensorflow!                                         //输出</span><br><span class="line">(tensorflow)$ deactivate                                                //退出tensorflow</span><br></pre></td></tr></table></figure>
-<h3 id="3-Ubuntu-docker"><a href="#3-Ubuntu-docker" class="headerlink" title="3.Ubuntu+docker"></a>3.Ubuntu+docker</h3><blockquote>
-<p>ubuntu 14.04 LTS</p>
-<p>docker</p>
-<p>sudo docker run -it -p 8888:8888 tensorflow/tensorflow</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/实用技能//" class="article-tag-list-link color5">实用技能</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/17/tensorflow安装教程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nei-cun-guan-li" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/23/nei-cun-guan-li/">iOS中的内存管理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/23/nei-cun-guan-li/" class="archive-article-date">
-  	<time datetime="2017-11-23T08:21:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相关文章</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/d544cd964ced" target="_blank" rel="noopener">http://www.jianshu.com/p/d544cd964ced</a></li>
-</ul>
-<h5 id="C语言-的内存分布图"><a href="#C语言-的内存分布图" class="headerlink" title="C语言 的内存分布图"></a>C语言 的内存分布图</h5><p><img src="http://ozrhqzqeu.bkt.clouddn.com/memory_2.png" alt=""></p>
-<h5 id="iOS内存管理机制的原理是引用计数"><a href="#iOS内存管理机制的原理是引用计数" class="headerlink" title="iOS内存管理机制的原理是引用计数"></a>iOS内存管理机制的原理是<strong>引用计数</strong></h5><ul>
-<li><p>当这块内存被创建出来的时候，它的引用计数从0增加到1，表示有一个对象或指针持有这块内存，拥有这块内存的所有权</p>
-</li>
-<li><p>当一块内存的引用计数变为0，表示没有任何对象或指针持有这块内存，系统便会立刻释放掉这块内存。</p>
-</li>
-<li><p>引用计数又分为ARC（自动内存管理）和MRC（手动内存管理）</p>
-</li>
-<li><p>在MRC中会引起引用计数变化的关键字有：alloc，retain，copy，release，autorelease。（strong关键字只用于ARC，作用等同于retain）</p>
-</li>
-</ul>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/memory_1.png" alt=""></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/23/nei-cun-guan-li/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1365,11 +1375,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1385,15 +1399,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1410,6 +1424,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1438,10 +1456,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
             
             <div class="clearfix"></div>
