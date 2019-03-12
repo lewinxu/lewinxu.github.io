@@ -180,6 +180,506 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-iOS完整学习路线图" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/21/iOS完整学习路线图/">iOS完整学习路线图</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/21/iOS完整学习路线图/" class="archive-article-date">
+  	<time datetime="2017-11-21T09:39:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ios完整学习路线图"><a href="#ios完整学习路线图" class="headerlink" title="ios完整学习路线图"></a>ios完整学习路线图</h1><p>来自传智播客 ，原图链接（<a href="http://www.cnblogs.com/mjios/archive/2013/02/26/2933200.html" target="_blank" rel="noopener">http://www.cnblogs.com/mjios/archive/2013/02/26/2933200.html</a>）<br><img src="http://ozrhqzqeu.bkt.clouddn.com/fullsizeoutput_11f.jpeg" alt="ios完整学习路线图"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/21/iOS完整学习路线图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Git远程库版本回滚" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/21/Git远程库版本回滚/">Git 远程库版本回滚</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/21/Git远程库版本回滚/" class="archive-article-date">
+  	<time datetime="2017-11-21T03:05:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>git代码库回滚: 指的是将代码库某分支退回到以前的某个commit id</p>
+<p>【本地代码库回滚】：</p>
+<p>git reset –hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除</p>
+<p>git reset –hard HEAD~3：将最近3次的提交回滚</p>
+<p>【远程代码库回滚】：</p>
+<p>这个是重点要说的内容，过程比本地回滚要复杂</p>
+<p>应用场景：自动部署系统发布后发现问题，需要回滚到某一个commit，再重新发布</p>
+<p>原理：先将本地分支退回到某个commit，删除远程分支，再重新push本地分支</p>
+<p>操作步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout the_branch</span><br><span class="line">git pull</span><br><span class="line">git branch the_branch_backup //备份一下这个分支当前的情况</span><br><span class="line">git reset --hard the_commit_id //把the_branch本地回滚到the_commit_id</span><br><span class="line">git push origin :the_branch //删除远程 the_branch</span><br><span class="line">git push origin the_branch //用回滚后的本地分支重新建立远程分支</span><br><span class="line">git push origin :the_branch_backup //如果前面都成功了，删除这个备份分支</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Git//" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/21/Git远程库版本回滚/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2017计划" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/04/2017计划/">2017 计划</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/04/2017计划/" class="archive-article-date">
+  	<time datetime="2017-02-04T07:55:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">plan</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Git//" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/04/2017计划/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java,CS的数组定义" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/20/Java,CS的数组定义/">Java、C_Sharp定义数组区别</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/20/Java,CS的数组定义/" class="archive-article-date">
+  	<time datetime="2016-07-20T10:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-Java"><a href="#1-Java" class="headerlink" title="(1)Java"></a><strong>(1)Java</strong></h4><p><strong> 一维数组</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) int[] a; //声明,没有初始化</span><br><span class="line"></span><br><span class="line">2) int[] a=new int[5]; //初始化为默认值,int型为0</span><br><span class="line"></span><br><span class="line">3) int[] a=&#123;1,2,3,4,5&#125;; //初始化为给定值</span><br><span class="line"></span><br><span class="line">4) int[] a=new int[]&#123;1,2,3,4,5&#125;; //同(3) int[] a=new int[5]&#123;1,2,3,4,5&#125;; //错误,如果提供了数组初始化操作，则不能定义维表达式</span><br><span class="line"></span><br><span class="line">5) int[] a; a=new int[5]; //正确,同(2)一样</span><br><span class="line"></span><br><span class="line">int[] a; a=&#123;1,2,3,4,5&#125;; //错误,数组常量只能在初始化操作中使用，如（3）</span><br><span class="line"></span><br><span class="line">6) int a[]; a[0]=1; //错误,因为数组没有初始化,不能赋值 a[1]=2;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 二维数组 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) int[][] a; //声明,没有初始化</span><br><span class="line"></span><br><span class="line">2) int[][] a=new int[2][3]; //初始化为默认值,int型为0</span><br><span class="line"></span><br><span class="line">3) int[][] a=&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4&#125;&#125;; //初始化为给定值 int[][] a=&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //没有错,数组空间不是连续分配的，所以不要求每一维的大小相同</span><br><span class="line"></span><br><span class="line">4) int[][] a=new int[2][]; a[0]=new int[3]; //a[0]其实就是一个数组 a[1]=new int[4]; //每一维的大小可以不一样;</span><br><span class="line"></span><br><span class="line">5) int[][] a=new int[][]&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //同(3) int[] a=new int[5]&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //错误,如果提供了数组初始化操作，则不能定义维表达式</span><br><span class="line"></span><br><span class="line">int[][] a=new int[2][]; a[0]=&#123;1,2,3,4,5&#125;; //错误,数组常量只能在初始化操作中使用</span><br><span class="line"></span><br><span class="line">6) int[][] a=new int[2][]; a[0][1]=1; //错误,第二维没有初始化,不能赋值,java.lang.NullPointerException异常</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>总结:<br>1.二维就是数组的数组,里面的数组大小不要求一样<br>2.不管一维还是二维,在使用前(赋值,访问)必须初始化,可以用new默认初始化,也可以用数组常量初始化</p>
+</blockquote>
+<blockquote>
+<p><strong>1.动态初始化：数组定义与为数组分配空间和赋值的操作分开进行； （一般用指针实现动态数组，返回数组首地址）</strong><br><strong>2.静态初始化：在定义数字的同时就为数组元素分配空间并赋值；</strong><br><strong>3.默认初始化：数组是引用类型，它的元素相当于类的成员变量，因此数组分配空间后，每个元素也被按照成员变量的规则被隐式初始化。</strong></p>
+</blockquote>
+<h4 id="2-C-Sharp"><a href="#2-C-Sharp" class="headerlink" title="(2)C_Sharp"></a><strong>(2)C_Sharp</strong></h4><p><strong> 数组概述 </strong></p>
+<blockquote>
+<p>C# 数组从零开始建立索引，即数组索引从零开始。C# 中数组的工作方式与在大多数其他流行语言中的工作方式类似。但还有一些差异应引起注意。</p>
+</blockquote>
+<p><em>声明数组时，方括号 ([]) 必须跟在类型后面，而不是标识符后面。在 C# 中，将方括号放在标识符后是不合法的语法。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] table; // not int table[];</span><br></pre></td></tr></table></figure></p>
+<p><em>另一细节是，数组的大小不是其类型的一部分，而在 C 语言中它却是数组类型的一部分。这使您可以声明一个数组并向它分配 int 对象的任意数组，而不管数组长度如何。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int[] numbers; // declare numbers as an int array of any size</span><br><span class="line">numbers = new int[10]; // numbers is a 10-element array</span><br><span class="line">numbers = new int[20]; // now it&apos;s a 20-element array</span><br></pre></td></tr></table></figure></p>
+<p><strong> 声明数组 </strong></p>
+<blockquote>
+<p>C# 支持一维数组、多维数组（矩形数组）和数组的数组（交错的数组）。下面的示例展示如何声明不同类型的数组：<br><code>一维数组</code>：int[] numbers;<br><code>多维数组</code>：string[,] names;<br><code>数组的数组（交错的)</code>：byte[][] scores; </p>
+</blockquote>
+<p>声明数组（如上所示）并不实际创建它们。在 C# 中，数组是对象（本教程稍后讨论），必须进行实例化。下面的示例展示如何创建数组：</p>
+<blockquote>
+<ul>
+<li>一维数组：int[] numbers = new int[5]; </li>
+<li>多维数组：string[,] names = new string[5,4]; </li>
+<li>数组的数组（交错的）：<br>byte[][] scores = new byte[5][];<br>for (int x = 0; x &lt; scores.Length; x++)<br>{<br>scores[x] = new byte[4];<br>} </li>
+<li>还可以有更大的数组。例如，可以有三维的矩形数组：<br>int[,,] buttons = new int[4,5,3]; </li>
+<li>甚至可以将矩形数组和交错数组混合使用。例如，下面的代码声明了类型为 int 的二维数组的三维数组的一维数组。<br>int[][,,][,] numbers; </li>
+</ul>
+</blockquote>
+<p><strong> 初始化数组  </strong></p>
+<blockquote>
+<p>C# 通过将初始值括在大括号 ({}) 内为在声明时初始化数组提供了简单而直接了当的方法。下面的示例展示初始化不同类型的数组的各种方法。</p>
+</blockquote>
+<p>注意如果在声明时没有初始化数组，则数组成员将自动初始化为该数组类型的默认初始值。另外，如果将数组声明为某类型的字段，则当实例化该类型时它将被设置为默认值 null。</p>
+<p><strong> 一维数组 </strong></p>
+<blockquote>
+<ul>
+<li>int[] numbers = new int[5] {1, 2, 3, 4, 5};<br>string[] names = new string[3] {“Matt”, “Joanne”, “Robert”};</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>可省略数组的大小，如下所示：<br>int[] numbers = new int[] {1, 2, 3, 4, 5};<br>string[] names = new string[] {“Matt”, “Joanne”, “Robert”}; </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>如果提供了初始值设定项，则还可以省略 new 运算符，如下所示：<br>int[] numbers = {1, 2, 3, 4, 5};<br>string[] names = {“Matt”, “Joanne”, “Robert”}; </li>
+</ul>
+</blockquote>
+<p><strong> 多维数组 </strong></p>
+<blockquote>
+<ul>
+<li>int[,] numbers = new int[3, 2] { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = new string[2, 2] { {“Mike”,”Amy”}, {“Mary”,”Albert”} }; </li>
+<li>可省略数组的大小，如下所示：<br>int[,] numbers = new int[,] { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = new string[,] { {“Mike”,”Amy”}, {“Mary”,”Albert”} }; </li>
+<li>如果提供了初始值设定项，则还可以省略 new 运算符，如下所示：<br>int[,] numbers = { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = { {“Mike”, “Amy”}, {“Mary”, “Albert”} }; </li>
+<li>交错的数组（数组的数组）<br>可以像下例所示那样初始化交错的数组：<br>int[][] numbers = new int[2][] { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br>可省略第一个数组的大小，如下所示：<br>int[][] numbers = new int[][] { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br>－或－<br>int[][] numbers = { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br><strong>请注意，对于交错数组的元素没有初始化语法。</strong></li>
+</ul>
+</blockquote>
+<p><strong> C#示例程序 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            //------------------声明数组------------------</span><br><span class="line">            int[][] myArray1 = new int[3][];    //交叉数据</span><br><span class="line">            int[][] myArray2 = new int[3][] &#123; new int[3] &#123; 5, 6, 2 &#125;, new int[5] &#123; 6, 9, 7, 8, 3 &#125;, new int[3] &#123; 3, 2, 4 &#125; &#125;;    //交叉数据(赋值)</span><br><span class="line">           int[,] myArray5 = new int[3, 3];    //二维数据</span><br><span class="line">           int[,] myArray6 = new int[3, 3] &#123; &#123; 5, 6, 2 &#125;, &#123; 7, 8, 3 &#125;, &#123; 3, 2, 4 &#125; &#125;;    //二维数据(赋值)</span><br><span class="line">            //交叉数据</span><br><span class="line">            myArray1[0] = new int[] &#123; 5, 3, 7, 1, 9 &#125;;</span><br><span class="line">            Console.WriteLine(myArray1[0].Count());    //OutPut: 5</span><br><span class="line">            //Console.WriteLine(myArray1[1][2]);    //抛出未将对象运用到实例</span><br><span class="line">            Console.WriteLine(myArray2[0][2]);     //OutPut: 2</span><br><span class="line">           //二维数据</span><br><span class="line">            myArray5[0, 2] = 8;</span><br><span class="line">            Console.WriteLine(myArray5[0, 2]);    //OutPut: 8</span><br><span class="line">            Console.WriteLine(myArray5[1, 2]);    //OutPut: 0</span><br><span class="line">            Console.WriteLine(myArray6[2, 2]);    //OutPut: 4</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数组</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/20/Java,CS的数组定义/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CS概述" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/CS概述/">C Sharp概述</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/19/CS概述/" class="archive-article-date">
+  	<time datetime="2016-07-19T08:25:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>C#语言是微软于2000年发布，基于.NET Framewrok框架的、面向对象的高级语言。经过近十三年的发展，经历了5次大的升级，最新版本为C#5.0(对应于.NET Framework 4.5)，下面是C#语言发展过程的简单性总结：</em><br> <img src="http://i1.piimg.com/4851/b3542cbbd7fcffb6.png" alt="enter image description here"></p>
+<blockquote>
+<p>托管代码(managed code)：指由”运行时”控制程序的主要行为，管理诸如内存分配、安全性和JIT编译等方面。</p>
+</blockquote>
+<p>C#作为一门托管语言，和C/C++这些本地语言不同；C/C++经过编译后直接变成处理器可执行的机器码，而C#编译器则会将C#转换为CIL(简称IL)代码，而不是机器码，我们知道C#是基于.NET Framework 框架的语言，CIL代码转换为可执行的代码还需要经过CLR的转换，CLR根据需要编译CIL代码，这个过程称为JIT编译(Just-in-time)或即时编译。下面是C#代码编译到执行的过程：<br><img src="https://i-msdn.sec.s-msft.com/dynimg/IC210180.png" alt="enter image description here"></p>
+<p>###C# 代码执行过程<br> 　　学习一种语言最开的方式就是开始动手写程序，我们先从一个最简单的Hello world开始：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">class test</span><br><span class="line">&#123;</span><br><span class="line">	public static void Main(string[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		Console.WriteLine(&quot;Hello!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>程序编写完成后将代码所在文件保存为以.cs为后缀(C#编译器允许为C#源代码文件使用任何扩展名，但通常都是使用*.cs)；接下来可以直接使用控制台(如果你想使用<code>Visual Studio</code>也可以)调用编译器进行编译(具体步骤参考：通过控制台调用编译器和IL反汇编工具)，根据前面的示例图，我们知道C#源码经过C#编译器编译后会生成一个托管模块，如下：<br><img src="http://i2.piimg.com/567571/2d87df0f93529617.png" alt="enter image description here"><br>我们打开源文件所在目录，源码经过编译器编译后生成了一个exe文件，点击即可运行。在这里我们需要注意：在进行一次成功的C#编译之后，生成的肯定是一个程序集，无论它是一个程序，还是一个库。在前面我们知道：为了执行一个方法，首先必须把它的IL转换成本地的CPU指令(由CLR的JIT编译器负责)，下面展示了Hello World程序首次调用时发生的情况：<br><img src="http://i2.piimg.com/567571/3645d57de72c53bd.png" alt="enter image description here"><br>一个方法只有在首次调用的时候会调用JIT编译器编译成本地代码，以后对该方法所有的调用都以本地代码的形式全速运行，无需重新验证IL并把它编译成本地代码。因为JIT编译器会将本地CPU指令存储到动态内存中。下面是方法第二次被调用时的示意图：<br><img src="http://i2.piimg.com/567571/d22ff3861b8fd951.png" alt="enter image description here"></p>
+<blockquote>
+<p>这里我们需要注意，一旦程序终止，编译好的代码也会被丢弃。如果再次运行应用程序，JIT编译器将会再次将IL编译成本地代码。</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C Sharp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/19/CS概述/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CS里partial关键字的作用(转摘)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -634,460 +1134,9 @@ P2REN = 0xff;   //作为输入的时候一定要配置上拉电阻（很重要�
 
 
   
-    <article id="post-资源搜索资源大全" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/07/资源搜索资源大全/">资源搜索资源大全</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/07/资源搜索资源大全/" class="archive-article-date">
-  	<time datetime="2016-07-07T05:20:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://unsplash.it/1000/300/?random" alt="enter image description here"><br><strong>一、找资源利器</strong></p>
-<blockquote>
-<p>去转盘网:<a href="http://www.quzhuanpan.com/" target="_blank" rel="noopener">http://www.quzhuanpan.com/</a><br>西林街：<a href="http://www.xilinjie.com/" target="_blank" rel="noopener">http://www.xilinjie.com/</a><br>EV搜索：<a href="http://www.evsou.com/" target="_blank" rel="noopener">http://www.evsou.com/</a><br>找文件：<a href="http://www.zhaofile.com/" target="_blank" rel="noopener">http://www.zhaofile.com/</a><br>胖次：<a href="http://www.panc.cc/" target="_blank" rel="noopener">http://www.panc.cc/</a><br>呆木瓜：<a href="http://www.daimugua.com/" target="_blank" rel="noopener">http://www.daimugua.com/</a><br>爱挖盘：<a href="http://www.iwapan.com/" target="_blank" rel="noopener">http://www.iwapan.com/</a></p>
-</blockquote>
-<p><strong>二、公开课网站</strong></p>
-<blockquote>
-<p>网易公开课：<a href="http://open.163.com/" target="_blank" rel="noopener">http://open.163.com/</a><br>中国大学MOOC：<a href="http://www.icourse163.org/" target="_blank" rel="noopener">http://www.icourse163.org/</a><br>新浪公开课：<a href="http://open.sina.com.cn/" target="_blank" rel="noopener">http://open.sina.com.cn/</a><br>央视网–公开课：<a href="http://opencla.cntv.cn/" target="_blank" rel="noopener">http://opencla.cntv.cn/</a><br>爱课堂：<a href="http://www.icourses.cn/home/" target="_blank" rel="noopener">http://www.icourses.cn/home/</a><br>MOOC中国：<a href="http://www.mooc.cn/" target="_blank" rel="noopener">http://www.mooc.cn/</a><br>超星公开课：<a href="http://openv.chaoxing.com/" target="_blank" rel="noopener">http://openv.chaoxing.com/</a></p>
-</blockquote>
-<p><strong>三、高清电影资源网站</strong></p>
-<blockquote>
-<p>高清控联盟：<a href="http://www.gaoqingkong.com/" target="_blank" rel="noopener">http://www.gaoqingkong.com/</a><br>藏云阁高清网：<a href="http://www.cangyunge.com/" target="_blank" rel="noopener">http://www.cangyunge.com/</a><br>电影王国：<a href="http://www.moviewg.com/" target="_blank" rel="noopener">http://www.moviewg.com/</a><br>蓝影网：<a href="http://www.lanyingwang.com/" target="_blank" rel="noopener">http://www.lanyingwang.com/</a><br>[22个电影资源网站：<a href="http://weibo.com/p/1001603822968198317617?mod=zwenzhang]" target="_blank" rel="noopener">http://weibo.com/p/1001603822968198317617?mod=zwenzhang]</a></p>
-</blockquote>
-<p><strong>四、六个纪录片精品网站</strong></p>
-<blockquote>
-<p>Ary Heaven：<a href="http://documentaryheaven.com/" target="_blank" rel="noopener">http://documentaryheaven.com/</a><br>Free DocumentAries：<a href="http://freedocumentaries.org/" target="_blank" rel="noopener">http://freedocumentaries.org/</a><br>Top DocumentaryFilm：<a href="http://topdocumentaryfilms.com/" target="_blank" rel="noopener">http://topdocumentaryfilms.com/</a><br>District 7 Media:<a href="http://www.district7media.net/main/" target="_blank" rel="noopener">http://www.district7media.net/main/</a><br>Citizen 4Film:<a href="https://citizenfourfilm.com/" target="_blank" rel="noopener">https://citizenfourfilm.com/</a></p>
-</blockquote>
-<p><strong>五、外文书籍（文献）下载网站</strong></p>
-<blockquote>
-<p>Library Genesis：<a href="http://gen.lib.rus.ec/" target="_blank" rel="noopener">http://gen.lib.rus.ec/</a><br>Book ZZ：<a href="http://bookzz.org/" target="_blank" rel="noopener">http://bookzz.org/</a><br>Free-Ebooks：<a href="http://www.free-ebooks.net/" target="_blank" rel="noopener">http://www.free-ebooks.net/</a><br>Bookboon：<a href="http://bookboon.com/en" target="_blank" rel="noopener">http://bookboon.com/en</a><br>ManyBooks：<a href="http://manybooks.net/" target="_blank" rel="noopener">http://manybooks.net/</a><br>SnipFiles：<a href="http://www.snipfiles.com/" target="_blank" rel="noopener">http://www.snipfiles.com/</a><br>Open Library：<a href="https://openlibrary.org/" target="_blank" rel="noopener">https://openlibrary.org/</a><br>Bookyards：<a href="http://www.bookyards.com/" target="_blank" rel="noopener">http://www.bookyards.com/</a></p>
-</blockquote>
-<p><strong>六、中文书籍下载网站</strong></p>
-<blockquote>
-<p>书林网：<a href="http://www.booksforest.com/" target="_blank" rel="noopener">http://www.booksforest.com/</a><br>钱氏藏书：<a href="http://qscs.haotui.com/?fromuid=272" target="_blank" rel="noopener">http://qscs.haotui.com/?fromuid=272</a><br>大熊图书馆：<a href="http://dxlibrary.haotui.com/bbs.php" target="_blank" rel="noopener">http://dxlibrary.haotui.com/bbs.php</a><br>大众图书馆：<a href="http://dztsg.info/forum.php" target="_blank" rel="noopener">http://dztsg.info/forum.php</a><br>读远：<a href="http://www.readfar.com/" target="_blank" rel="noopener">http://www.readfar.com/</a><br>Bucee杂志馆：<a href="http://bucee.net/" target="_blank" rel="noopener">http://bucee.net/</a><br>汉川草庐：<a href="http://www.sidneyluo.net/index.html" target="_blank" rel="noopener">http://www.sidneyluo.net/index.html</a></p>
-</blockquote>
-<p><strong>七、非常强大的翻译平台</strong></p>
-<blockquote>
-<p>CNKI翻译助手：<a href="http://dict.cnki.net/" target="_blank" rel="noopener">http://dict.cnki.net/</a><br>句酷：<a href="http://www.jukuu.com/" target="_blank" rel="noopener">http://www.jukuu.com/</a><br>词都：<a href="http://www.dictall.com/" target="_blank" rel="noopener">http://www.dictall.com/</a><br>LINE Dictionary：<a href="http://ce.linedict.com/dict.html#/cnen/" target="_blank" rel="noopener">http://ce.linedict.com/dict.html#/cnen/</a><br>Glosbe：<a href="https://glosbe.com/" target="_blank" rel="noopener">https://glosbe.com/</a></p>
-</blockquote>
-<p><strong>八、神站系列</strong></p>
-<blockquote>
-<p>大软坊：<a href="http://app.hustonline.net/major" target="_blank" rel="noopener">http://app.hustonline.net/major</a><br>香当网：<a href="http://www.xiangdang.net/" target="_blank" rel="noopener">http://www.xiangdang.net/</a><br>Smallpdf：<a href="http://smallpdf.com/" target="_blank" rel="noopener">http://smallpdf.com/</a><br>MSDN：<a href="http://www.itellyou.cn/" target="_blank" rel="noopener">http://www.itellyou.cn/</a></p>
-</blockquote>
-<p><strong>九、考研资料相关网站</strong></p>
-<blockquote>
-<p>考研圈：<a href="http://www.zhuansoo.com/vbar/c/vc.html?id=19" target="_blank" rel="noopener">http://www.zhuansoo.com/vbar/c/vc.html?id=19</a><br>考试点社区:<a href="http://bbs.kaoshidian.com/resource" target="_blank" rel="noopener">http://bbs.kaoshidian.com/resource</a><br>考研论坛：<a href="http://download.bbs.kaoyan.com/" target="_blank" rel="noopener">http://download.bbs.kaoyan.com/</a><br>小木虫论坛：<a href="http://emuch.net/bbs/index.php" target="_blank" rel="noopener">http://emuch.net/bbs/index.php</a><br>传媒人网：<a href="http://www.chuanmeiren.cn/bbs/" target="_blank" rel="noopener">http://www.chuanmeiren.cn/bbs/</a></p>
-</blockquote>
-<p><strong>十、动漫资源网站</strong></p>
-<blockquote>
-<p>Animation World Network：<a href="http://www.awn.com/" target="_blank" rel="noopener">http://www.awn.com/</a><br>卡通酿造：<a href="http://www.cartoonbrew.com/" target="_blank" rel="noopener">http://www.cartoonbrew.com/</a><br>皮克斯帝国：<a href="http://pixarempire.com/" target="_blank" rel="noopener">http://pixarempire.com/</a><br>动漫花园：<a href="http://share.dmhy.org" target="_blank" rel="noopener">http://share.dmhy.org</a><br>漫游BT：<a href="http://share.popgo.org" target="_blank" rel="noopener">http://share.popgo.org</a><br>简单动漫：<a href="http://www.36dm.com/" target="_blank" rel="noopener">http://www.36dm.com/</a><br>漫画书：<a href="http://manhuashu.net/" target="_blank" rel="noopener">http://manhuashu.net/</a><br>旋风动漫：<a href="http://bt.xfsub.com/" target="_blank" rel="noopener">http://bt.xfsub.com/</a><br>Documentary：<a href="http://documentaryaddict.com/" target="_blank" rel="noopener">http://documentaryaddict.com/</a></p>
-</blockquote>
-<p><strong>十一、下载国内外杂志的资源网站</strong></p>
-<blockquote>
-<p>高清杂志网：<a href="http://www.gqzzw.com/" target="_blank" rel="noopener">http://www.gqzzw.com/</a><br>PDF magazines：<a href="http://pdfmagazines.org/" target="_blank" rel="noopener">http://pdfmagazines.org/</a><br>PDF-giant：<a href="http://pdf-giant.com/" target="_blank" rel="noopener">http://pdf-giant.com/</a><br>PDF之家：<a href="http://www.pdfzj.com/" target="_blank" rel="noopener">http://www.pdfzj.com/</a><br>十月杂志网：<a href="http://shiyue.me/" target="_blank" rel="noopener">http://shiyue.me/</a></p>
-</blockquote>
-<p><strong>十二、有声读物网站</strong></p>
-<blockquote>
-<p>天方听书<a href="http://www.tingbook.com/" target="_blank" rel="noopener">http://www.tingbook.com/</a><br>静雅思听<a href="http://www.justing.com.cn/" target="_blank" rel="noopener">http://www.justing.com.cn/</a><br>书喇叭<a href="http://shulaba.com/" target="_blank" rel="noopener">http://shulaba.com/</a><br>爱听网<a href="http://www.aitingwang.com/" target="_blank" rel="noopener">http://www.aitingwang.com/</a><br>酷听网<a href="http://www.kting.cn/" target="_blank" rel="noopener">http://www.kting.cn/</a><br>家常读书<a href="http://www.jiachangdushu.com/portal.php" target="_blank" rel="noopener">http://www.jiachangdushu.com/portal.php</a></p>
-</blockquote>
-<p><strong>十三、旧书交易类网站</strong></p>
-<blockquote>
-<p>孔夫子旧书网<a href="http://shop.kongfz.com/" target="_blank" rel="noopener">http://shop.kongfz.com/</a><br>布衣书局<a href="http://www.booyee.com.cn/index.jsp" target="_blank" rel="noopener">http://www.booyee.com.cn/index.jsp</a><br>有路网<a href="http://www.youlu.net/" target="_blank" rel="noopener">http://www.youlu.net/</a><br>中国旧书网<a href="http://www.jiushu.cn/" target="_blank" rel="noopener">http://www.jiushu.cn/</a><br>天下旧书网<a href="http://www.jiushu.net/" target="_blank" rel="noopener">http://www.jiushu.net/</a></p>
-</blockquote>
-<p><strong>十四、免费音效资源类网站</strong></p>
-<blockquote>
-<p>闪吧音效库<a href="http://www.flash8.net/download.shtml" target="_blank" rel="noopener">http://www.flash8.net/download.shtml</a><br>中国素材网音效库: <a href="http://www.sucai.com/duomeiti/yx/" target="_blank" rel="noopener">http://www.sucai.com/duomeiti/yx/</a><br>日本的音效库: <a href="http://koukaongen.com/" target="_blank" rel="noopener">http://koukaongen.com/</a><br>站长素材-音效: <a href="http://sc.chinaz.com/yinxiao/" target="_blank" rel="noopener">http://sc.chinaz.com/yinxiao/</a><br>Soundsnap: <a href="http://www.soundsnap.com/" target="_blank" rel="noopener">http://www.soundsnap.com/</a><br>Freeplay Music:<a href="http://www.freeplaymusic.com/" target="_blank" rel="noopener">http://www.freeplaymusic.com/</a><br>Ilovewavs:<a href="http://www.ilovewavs.com/" target="_blank" rel="noopener">http://www.ilovewavs.com/</a><br>Breakout:<a href="http://www.breakout4u.com/en/" target="_blank" rel="noopener">http://www.breakout4u.com/en/</a></p>
-</blockquote>
-<p><strong>十五、影视后期教程类网站</strong></p>
-<blockquote>
-<p>我要自学网<a href="http://t.cn/hgWA5w" target="_blank" rel="noopener">http://t.cn/hgWA5w</a><br>翼虎网<a href="http://t.cn/RhcgNMN" target="_blank" rel="noopener">http://t.cn/RhcgNMN</a><br>飞特网<a href="http://t.cn/hbBHpZ" target="_blank" rel="noopener">http://t.cn/hbBHpZ</a><br>Videocopilot:<a href="http://www.videocopilot.net/" target="_blank" rel="noopener">http://www.videocopilot.net/</a><br>Vfxinfo:<a href="http://vfxinfo.net/" target="_blank" rel="noopener">http://vfxinfo.net/</a><br>BW Design:<a href="http://benwattsdesign.com/" target="_blank" rel="noopener">http://benwattsdesign.com/</a></p>
-</blockquote>
-<p><strong>十六、免费视频素材/模板下载网站</strong></p>
-<blockquote>
-<p>视崛<a href="http://www.shij001.com/" target="_blank" rel="noopener">http://www.shij001.com/</a><br>92素材网<a href="http://www.92sucai.com/" target="_blank" rel="noopener">http://www.92sucai.com/</a><br>新GG儿<a href="http://www.newcger.com/" target="_blank" rel="noopener">http://www.newcger.com/</a><br>千图网<a href="http://www.58pic.com/shipin/" target="_blank" rel="noopener">http://www.58pic.com/shipin/</a><br>39视频<a href="http://www.39video.com/" target="_blank" rel="noopener">http://www.39video.com/</a><br>模板天空<a href="http://www.mobantiankong.com/" target="_blank" rel="noopener">http://www.mobantiankong.com/</a><br>人人素材社区<a href="http://www.rr-sc.com/?fromuid=201838" target="_blank" rel="noopener">http://www.rr-sc.com/?fromuid=201838</a></p>
-</blockquote>
-<p><strong>十七、Photoshop教程网站</strong></p>
-<blockquote>
-<p>我要自学网<a href="http://www.51zxw.net/" target="_blank" rel="noopener">http://www.51zxw.net/</a><br>大师之路<a href="http://99ut.blueidea.com/text/photoshop/basic/index.html" target="_blank" rel="noopener">http://99ut.blueidea.com/text/photoshop/basic/index.html</a><br>52photoshop:<a href="http://www.52photoshop.cn/" target="_blank" rel="noopener">http://www.52photoshop.cn/</a><br>PSDFAN:<a href="http://psd.fanextra.com/" target="_blank" rel="noopener">http://psd.fanextra.com/</a><br>Photoshop Tutorials:<a href="http://www.photoshoptutorials.ws/" target="_blank" rel="noopener">http://www.photoshoptutorials.ws/</a><br>PS Brushes:<a href="http://www.psbrushes.net/" target="_blank" rel="noopener">http://www.psbrushes.net/</a><br>ps联盟<a href="http://www.68ps.com/" target="_blank" rel="noopener">http://www.68ps.com/</a></p>
-</blockquote>
-<p><strong>十八、专业影评类网站</strong></p>
-<blockquote>
-<p>时光网<a href="http://www.mtime.com/community/" target="_blank" rel="noopener">http://www.mtime.com/community/</a><br>豆瓣电影<a href="http://movie.douban.com/" target="_blank" rel="noopener">http://movie.douban.com/</a><br>烂番茄<a href="http://www.rottentomatoes.com/" target="_blank" rel="noopener">http://www.rottentomatoes.com/</a><br>IMBD:<a href="http://www.imdb.com/" target="_blank" rel="noopener">http://www.imdb.com/</a><br>美国广播影评人协会<a href="http://www.criticschoice.com/" target="_blank" rel="noopener">http://www.criticschoice.com/</a><br>纽约影评家协会<a href="http://www.nyfcc.com/" target="_blank" rel="noopener">http://www.nyfcc.com/</a><br>Film:<a href="http://www.film.com/" target="_blank" rel="noopener">http://www.film.com/</a><br>GoodFil.ms:<a href="http://goodfil.ms/" target="_blank" rel="noopener">http://goodfil.ms/</a><br>Cinephilia:<a href="http://cinephilia.net/" target="_blank" rel="noopener">http://cinephilia.net/</a><br>ScreenJunkies:<a href="http://www.screenjunkies.com/" target="_blank" rel="noopener">http://www.screenjunkies.com/</a><br>IndieWire:<a href="http://www.indiewire.com/" target="_blank" rel="noopener">http://www.indiewire.com/</a></p>
-</blockquote>
-<p><strong>十九、小语种系列学习资源</strong></p>
-<blockquote>
-<p>小语种入门：<a href="http://www.yingyurumen.com/" target="_blank" rel="noopener">http://www.yingyurumen.com/</a><br>小语种学习网：<a href="http://xyz.tingroom.com/" target="_blank" rel="noopener">http://xyz.tingroom.com/</a><br>其他小语种学习资源：<a href="http://www.cmzyk.com/h-nd-633.html" target="_blank" rel="noopener">http://www.cmzyk.com/h-nd-633.html</a></p>
-</blockquote>
-<p><strong>二十、其他系列资源</strong></p>
-<blockquote>
-<p>学术网站大全：<a href="http://dir.cnki.net/" target="_blank" rel="noopener">http://dir.cnki.net/</a><br>常用二十六大学术搜素引擎：<a href="http://cmzyk.lofter.com/post/1cb13862_27ea8a6" target="_blank" rel="noopener">http://cmzyk.lofter.com/post/1cb13862_27ea8a6</a><br>歌谱简谱搜索下载网站：<a href="http://suo.im/gz9xj" target="_blank" rel="noopener">http://suo.im/gz9xj</a><br>10个LOGO资源站：<a href="http://www.uisdc.com/top-logo-design-resources" target="_blank" rel="noopener">http://www.uisdc.com/top-logo-design-resources</a><br>10个无版权限制的大图特供网站：<a href="http://www.uisdc.com/free-hd-picture-website" target="_blank" rel="noopener">http://www.uisdc.com/free-hd-picture-website</a><br>找工作必备网站大全：<a href="http://www.cmzyk.com/h-nd-j-79-4_5.html" target="_blank" rel="noopener">http://www.cmzyk.com/h-nd-j-79-4_5.html</a><br>查询国内外文献资料的实用网站：<a href="http://cmzyk.lofter.com/post/1cb13862_5cc54cb" target="_blank" rel="noopener">http://cmzyk.lofter.com/post/1cb13862_5cc54cb</a><br>法律网站大全：<a href="http://cmzyk.lofter.com/post/1cb13862_3189e56" target="_blank" rel="noopener">http://cmzyk.lofter.com/post/1cb13862_3189e56</a><br>财经类网站大全：<a href="http://www.cmzyk.com/h-nd-j-182-4_5.html" target="_blank" rel="noopener">http://www.cmzyk.com/h-nd-j-182-4_5.html</a><br>国外免费期刊全文数据库：<a href="http://cmzyk.lofter.com/post/1cb13862_27ea88a" target="_blank" rel="noopener">http://cmzyk.lofter.com/post/1cb13862_27ea88a</a><br>免费论文检测网站大全：<a href="http://cmzyk.lofter.com/post/1cb13862_26d5117" target="_blank" rel="noopener">http://cmzyk.lofter.com/post/1cb13862_26d5117</a><br>33个最值得读的世界级社科博客榜单：<a href="http://www.cmzyk.com/h-nd-101-109_361.html" target="_blank" rel="noopener">http://www.cmzyk.com/h-nd-101-109_361.html</a></p>
-</blockquote>
-<p>原文:<a href="http://www.jianshu.com/p/52146ccb551a/comments/2973301#comment-2973301" target="_blank" rel="noopener">点击转到</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">资源搜索</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/实用技能//" class="article-tag-list-link color5">实用技能</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/07/资源搜索资源大全/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-单片机" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/07/单片机/">单片机最小系统</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/07/单片机/" class="archive-article-date">
-  	<time datetime="2016-07-07T04:08:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>为什么称之为单片机最小系统呢？<strong>单片机最小系统，也叫做单片机最小应用系统，是指用最少的原件组成单片机可以工作的系统。</strong>单片机最小系统的三要素就是电源、晶振、复位电路，如图2-1所示。<br><img src="http://upload-images.jianshu.io/upload_images/292783-4364f5dfc81c19e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="tu1"><br>图2-1  单片机最小系统电路</p>
-<blockquote>
-<p>这张最小系统的电路图节选自我们的 KST-51 开发板原理图，下面我们就照这张电路图来具体分析最小系统的三要素。</p>
-</blockquote>
-<p>1) 电源<br>这个很好理解，电子设备都需要供电，就连我们的家用电器（手电筒^_^）也不例外。<code>目前主流单片机的电源分为 5 V 和 3.3 V 这两个标准</code>，当然现在还有对电压要求更低的单片机系统，一般多用在一些特定场合，在学习中我们不做过多的关注。</p>
-<p><code>我们所选用的 STC89C52，它需要 5V 的供电系统</code>，我们的开发板是使用 USB 口输出的 5 V 直流直接供电的。从图2-1可以看到，供电电路在40脚和20脚的位置上，40脚接的是 +5 V，通常也称为 VCC 或 VDD，代表的是电源正极，20脚接的是 GND，代表的是电源的负极。+5 V 和 GND 之间还有个电容，作用我们下节课介绍。</p>
-<p>这个地方我们还要普及一个看原理图的知识。电路原理图是为了表达这个电路的工作原理而存在的，很多器件在绘制的时候更多考虑的是方便原理分析，而不是表达各个器件实际位置。比如原理图中的单片机引脚图，引脚的位置我们是可以随意放的，但是每个引脚上有一个数字标号，这个数字标号代表的才是单片机真正的引脚位置。一般情况下，这种双列直插封装的芯片，左上角是1脚，逆时针旋转引脚号依次增加，一直到右上角是最大脚位，我们现在选用的单片机一共是40个引脚，因此右上角就是40（在表示芯片的方框的内部），如图2-2所示，大家要分清原理图引脚标号和实际引脚位置的区别。<br><img src="http://i2.piimg.com/4851/f3654d54b3ce278d.jpg" alt="tu2"></p>
-<p>图2-2 单片机封装图</p>
-<p>2) 晶振<br><code>晶振，又叫晶体振荡器，从这个名字我们就可以看出来，它注定一生都要不停振荡的。</code></p>
-<p>他起到的作用是为单片机系统提供基准时钟信号，类似于我们部队训练时喊口令的人，单片机内部所有的工作都是以这个时钟信号为步调基准来进行工作的。STC89C52 单片机的18脚和19脚是晶振引脚，我们接了一个 11.0592 M 的晶振（它每秒钟振荡11,059,200次），外加两个 20 pF 的电容，电容的作用是帮助晶振起振，并维持振荡信号的稳定。</p>
-<p>3) 复位电路<br>在图2-1左侧是一个复位电路，接到了单片机的9脚 RST(Reset)复位引脚上，这个复位电路如何起作用我们后边再讲，现在着重讲一下复位对单片机的作用。<code>单片机复位一般是3种情况：上电复位、手动复位、程序自动复位。</code></p>
-<p>假如我们的单片机程序有100行，当某一次运行到第50行的时候，突然停电了，这个时候单片机内部有的区域数据会丢失掉，有的区域数据可能还没丢失。那么下次打开设备的时候，我们希望单片机能正常运行，所以上电后，单片机要进行一个内部的初始化过程，这个过程就可以理解为上电复位，上电复位保证单片机每次都从一个固定的相同的状态开始工作。这个过程跟我们打开电脑电源开电脑的过程是一致的。</p>
-<p>当我们的程序运行时，如果遭受到意外干扰而导致程序死机，或者程序跑飞的时候，我们就可以按下一个复位按键，让程序重新初始化重新运行，这个过程就叫做手动复位，最典型的就是我们电脑的重启按钮。</p>
-<p>当程序死机或者跑飞的时候，我们的单片机往往有一套自动复位机制，比如看门狗，具体应用以后再了解。在这种情况下，如果程序长时间失去响应，单片机看门狗模块会自动复位重启单片机。还有一些情况是我们程序故意重启复位单片机。</p>
-<p>电源、晶振、复位构成了单片机最小系统的三要素，也就是说，一个单片机具备了这三个条件，就可以运行我们下载的程序了，其他的比如 LED 小灯、数码管、液晶等设备都是属于单片机的外部设备，即外设。最终完成我们想要的功能就是通过对单片机编程来控制各种各样的外设实现的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单片机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/单片机//" class="article-tag-list-link color4">单片机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/07/单片机/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-简单科普hosts文件原理与制作" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/04/简单科普hosts文件原理与制作/">简单科普hosts文件原理与制作</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/04/简单科普hosts文件原理与制作/" class="archive-article-date">
-  	<time datetime="2016-07-04T13:46:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>转载自<a href="http://laod.cn" target="_blank" rel="noopener">老D</a> </p>
-</blockquote>
-<p><code>hosts文件是一个用于储存计算机网络中各节点信息的计算机文件。这个文件负责将主机名映射到相应的IP地址。hosts文件通常用于补充或取代网络中DNS的功能。和DNS不同的是，计算机的用户可以直接对hosts文件进行控制。</code></p>
-<p><img src="http://laod.cn/wp-content/themes/mujj2.01/timthumb.php?src=http://laod.cn/wp-content/uploads/2015/12/hosts.png&amp;h=150&amp;w=240&amp;zc=1" alt="Host"><br>    为了方便用户记忆，我们将IP变成一个个的域名来输入到浏览器进行访问。而这使得访问网站时要先将其域名解析成 IP 。<code>DNS (Domain Name Server)</code>的作用就是进行 IP 解析，把域名对应到 IP。<br>在<code>Great FireWall</code> 的 5 种封锁方法中，有一种简单而效果很好的方法是 <code>DNS 污染</code>。GFW 会对 DNS 的解析过程进行干扰，这会使对某些被干扰的域名返回一个错误的 IP 地址给你的主机，使你无法正确连接到你要的服务器上读取正确的信息。<br>Hosts 文件本来是用来提高解析效率。在进行 DNS 请求以前，系统会先检查自己的 Hosts 文件中是否有这个地址映射关系，如果有则调用这个 IP 地址映射，如果没有再向已知的 DNS 服务器提出域名解析。<code>也就是说 Hosts 的请求级别比 DNS 高。</code>当你的 Hosts 文件里面有对应的 IP 时，它就会直接访问那个 IP，而不用通过 DNS。<br>所以，当我们直接将 Google、Twitter、Facebook 之类的 IP 放入 Hosts 文件后，就可以跳过 DNS 的解析这一步，直接就行 IP 访问，不受 GFW 的 DNS 污染干扰了。<br>补充一条，就是为什么 Hosts 的 IP 要时不时更改，为什么 FB、Twitter 会仍旧上不去。是因为 GFW 的第二个大招，<code>IP 封锁。</code>比如访问国外一个 IP 无法访问，Ping 不通，tracert 这个 IP 后发现，全部在边缘路由器 (GFW) 附近被拦截。换言之，<code>GFW 直接拦截带有这个 IP 头的数据包</code>。所以，如果你更改的 IP 被封锁了，就算你过了 DNS 这一关，也仍旧不能翻过 GFW。<br>    所以hosts才会频繁的更新新的ip、域名。<br><strong>有很多人问：“怎么制作Google hosts？”</strong></p>
-<p>首先要弄明白https、“google.com”(域名)、ip地址、ping都是做什么的。</p>
-<blockquote>
-<ul>
-<li>先说https，Hypertext Transfer Protocol Secure是超文本传输协议和SSL/TLS的组合，用以提供加密通讯及对网络服务器身份的鉴定。简单的说就是加密的http协议。说到http协议，大家应该都知道默认是采用<code>80端口</code>，而https协议默认为<code>443端口</code>。</li>
-<li><code>域名</code>，简单说就是ip地址的名字，好记呗。上面问题中的“google.com”还 不算是完整域名，而是一个域 的名字（简称域）。有人说前面要加的“www”前缀，又叫主机，与域形成完整域名“<a href="http://www.google.com”。这就是为什么要加”www”,因为“google.com”是一个域，只有指出某一主机才能ping。问题又来了，可为什么有时只用域，如“google.com”也能ping，也能打开网页呢？这是因为在DNS中特别设置了主机解析记录。（个人自认为做了这个设置的都是注重细节的好网站）跑偏了。。。" target="_blank" rel="noopener">www.google.com”。这就是为什么要加”www”,因为“google.com”是一个域，只有指出某一主机才能ping。问题又来了，可为什么有时只用域，如“google.com”也能ping，也能打开网页呢？这是因为在DNS中特别设置了主机解析记录。（个人自认为做了这个设置的都是注重细节的好网站）跑偏了。。。</a></li>
-<li><code>ip地址</code>，估计不需要多说了。</li>
-<li><code>ping</code>，网络测试工具，当然用来获得ip是可行的。</li>
-<li><code>GoGo Tester</code>寻找IP作为最后解决方案(目前成功率很低)</li>
-</ul>
-</blockquote>
-<p><strong>http与https</strong><br>http是HTTP协议运行在TCP之上。所有传输的内容都是明文，客户端和服务器端都无法验证对方的身份。</p>
-<p>https是HTTP运行在SSL/TLS之上，SSL/TLS运行在TCP之上。所有传输的内容都经过加密，加密采用对称加密，但对称加密的密钥用服务器方的证书进行了非对称加密。此外客户端可以验证服务器端的身份，如果配置了客户端验证，服务器方也可以验证客户端的身份。</p>
-<p><code>封域名/内容过滤</code>，用http协议发送数据的时候，墙检测到你要发送的域名，然后给你过滤掉，返回空或者出错等。用https可以解决这个问题，因为墙不知道你发送的是什么数据。如果用了https，因为无法检测内容，所以墙会在dns解析的时候，返回给你错误ip，dns没有加密，所以同样虽然用了https，但由于dns解析错误，还是无法访问网站。所以在hosts给域名指向正确的ip，那么我们就可以跨越过“长城”了。<br>https 网站如何制作hosts？如获得<code>https://google.com</code> 的ip地址，ping命令不行。<br>从1中可知，http和https都是协议，区别只是对应端口不同。那么ip呢？其实“<code>http://google.com</code>“与“<code>https://google.com</code>“在ip解析时是一样的，只是指向了不同端口，这个端口是TCP端口。<br>所以在ping时，是不需要加协议前缀的。只需要ping域名就ok。<br>hosts中同理。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">科学上网</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/实用技能//" class="article-tag-list-link color5">实用技能</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/04/简单科普hosts文件原理与制作/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-马克思哲学题库分享" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/04/马克思哲学题库分享/">马克思哲学题库分享</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/04/马克思哲学题库分享/" class="archive-article-date">
-  	<time datetime="2016-07-04T13:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Links:<a href="https://www.jianguoyun.com/p/DXTmG70Qt4v4BRiRjxc" target="_blank" rel="noopener">请点击获取</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">马克思原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/课程复习//" class="article-tag-list-link color5">课程复习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/04/马克思哲学题库分享/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 
@@ -1182,19 +1231,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1202,15 +1247,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1218,7 +1263,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1246,11 +1299,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1258,11 +1311,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
             
             <div class="clearfix"></div>

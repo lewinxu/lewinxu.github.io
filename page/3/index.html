@@ -180,6 +180,665 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-autolayout" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/autolayout/">iOS AutoLayout自动布局</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/autolayout/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:30:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/b94b28a8a642" target="_blank" rel="noopener">http://www.jianshu.com/p/b94b28a8a642</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AutoLayout是一种基于约束的，描述性的布局系统。 </span><br><span class="line">（Auto Layout Is a Constraint-Based, Descriptive Layout System.）</span><br><span class="line">显示一个控件需要设置她的位置和尺寸，约束就是对控件的大小或者位置进行约束，参照就是以某个控件的位置进行约束。</span><br></pre></td></tr></table></figure>
+<p>Autolayout的实现有很多种，苹果原API，之后的VFL，storyboard，第三方Masonry…</p>
+<p>在 Storyboard 中，AutoLayout 有以下 3 个常用面板：</p>
+<ul>
+<li><p>Align（对齐）</p>
+</li>
+<li><p>Pin（相对）</p>
+</li>
+<li><p>Resolve Auto Layout Issues（约束处理）</p>
+</li>
+</ul>
+<p><strong>创建约束对象（NSLayoutConstraint）的常用方法</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">id</span>)constraintWithItem:(<span class="keyword">id</span>)view1 attribute:(<span class="built_in">NSLayoutAttribute</span>)attr1 relatedBy:(<span class="built_in">NSLayoutRelation</span>)relation toItem:(<span class="keyword">id</span>)view2 attribute:(<span class="built_in">NSLayoutAttribute</span>)attr2 multiplier:(<span class="built_in">CGFloat</span>)multiplier constant:(<span class="built_in">CGFloat</span>)c;</span><br></pre></td></tr></table></figure>
+<p><strong>参数介绍</strong></p>
+<ul>
+<li><p>view1: 要约束的控件</p>
+</li>
+<li><p>attr1: 约束的类型（常量），就是要做怎么样的约束，大家可以进去看看都有什么常量（这里是NSLayoutAttributeLeft）</p>
+</li>
+<li><p>relation: 与参照控件之间的关系（常量），包括等于、大于等于、小于等于（NSLayoutRelationEqual 是指等于）</p>
+</li>
+<li><p>view2: 参照的控件（self.view）</p>
+</li>
+<li><p>attr2: 约束的类型（常量），就是要做怎么样的约束，大家可以进去看看都有什么常量（这里是NSLayoutAttributeLeft）（NSLayoutAttributeLeft）</p>
+</li>
+<li><p>multiplier: 乘数，就是多少倍（1.0）</p>
+</li>
+<li><p>c: 常量，做好了上述的约束之后会加上这个常量（100）</p>
+</li>
+</ul>
+<p><strong>AutoLayout 计算公式</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj1.property1 =（obj2.property2 * multiplier）+ constant value</span><br></pre></td></tr></table></figure>
+<p><strong>代码实现 AutoLayout 的注意事项</strong></p>
+<p>（1）要先禁止 autoresizing 功能，防止 AutoresizingMask 转换成 Constraints，避免造成冲突，需要设置 view 的下面属性为 NO：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<p>（2）添加约束之前，一定要保证相关控件都已经在各自的父控件上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议先写 [self.view addSubview:purpleView]; 之后，再专心写约束。</span><br></pre></td></tr></table></figure>
+<p>（3）不用再给 view 设置 frame</p>
+<p>Apple 为了简化 AutoLayout 复杂的代码，开发了一种 VFL 语言（Visual format language）</p>
+<p>（<a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html</a>）</p>
+<p>或者使用第三方框架 Masonry，GitHub:<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="noopener">https://github.com/SnapKit/Masonry</a></p>
+<h5 id="NSLayoutAnchor"><a href="#NSLayoutAnchor" class="headerlink" title="NSLayoutAnchor"></a>NSLayoutAnchor</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">NSLayoutAnchor</span> <span class="keyword">class</span> is a factory <span class="keyword">class</span> <span class="keyword">for</span> creating <span class="built_in">NSLayoutConstraint</span> objects using a fluent API.</span><br><span class="line"> Use these constraints to programatically define your layout using Auto Layout.</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLayoutAnchor</span>是一个专门用于创建<span class="built_in">NSLayoutConstraint</span>的工厂类，其API简明，流畅。</span><br><span class="line">利用所创建的约束，以代码的形式搭建使用自动布局技术的界面。</span><br><span class="line"><span class="comment">//基本属性</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutYAxisAnchor</span> *bottomAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutXAxisAnchor</span> *centerXAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutYAxisAnchor</span> *centerYAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutYAxisAnchor</span> *firstBaselineAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutDimension</span> *heightAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutYAxisAnchor</span> *lastBaselineAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutXAxisAnchor</span> *leadingAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutXAxisAnchor</span> *leftAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutXAxisAnchor</span> *rightAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutYAxisAnchor</span> *topAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutXAxisAnchor</span> *trailingAnchor</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSLayoutDimension</span> *widthAnchor</span><br></pre></td></tr></table></figure>
+<p>NSLayoutAnchor有三个子类，对应三种锚点类型：<br><img src="http://ozrhqzqeu.bkt.clouddn.com/auto_4.png" alt="enter image description here"><br>假设有视图A，布局要求如下：</p>
+<ol>
+<li>A高100pt；</li>
+<li>A的宽度是父视图的一半；</li>
+<li>A的垂直中心与父视图重合；</li>
+<li>A的前边距离父视图的后边为-50pt。</li>
+</ol>
+<p>使用NSLayoutAnchor创建约束，代码如下</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A高100pt</span></span><br><span class="line">[A.heightAnchor constraintEqualToConstant:<span class="number">100.0</span>].active = <span class="literal">YES</span>; </span><br><span class="line"><span class="comment">// A的宽度是父视图的一半</span></span><br><span class="line">[A.widthAnchor constraintEqualToAnchor:A.superView.widthAnchor multiplier:<span class="number">0.5</span> constant:<span class="number">0.0</span>].active = <span class="literal">YES</span>; </span><br><span class="line"><span class="comment">// A的垂直中心与父视图重合</span></span><br><span class="line">[A.centerYAnchor constraintEqualToAnchor:A.superView.centerYAnchor].active = <span class="literal">YES</span>;</span><br><span class="line"> <span class="comment">// A的前边距离父视图的前边为10pt</span></span><br><span class="line">[A.leadingAnchor constraintEqualToAnchor:A.superView.trailingAnchor constant:<span class="number">-50.0</span>].active = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="写一个demo（分别用代码和storyboard实现自动布局）"><a href="#写一个demo（分别用代码和storyboard实现自动布局）" class="headerlink" title="写一个demo（分别用代码和storyboard实现自动布局）"></a>写一个demo（分别用代码和storyboard实现自动布局）</h2><p>(方式一)<img src="http://ozrhqzqeu.bkt.clouddn.com/auto_1.png" alt="enter image description here">（方式二）<img src="http://ozrhqzqeu.bkt.clouddn.com/auto_2.png" alt="enter image description here"></p>
+<p>（方式三）<img src="http://ozrhqzqeu.bkt.clouddn.com/auto3.png" alt="enter image description here"></p>
+<p>相关代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// AutoLayout</span></span><br><span class="line">    <span class="built_in">UIView</span> *purpleView = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    purpleView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line">    <span class="comment">// 禁止将 AutoresizingMask 转换为 Constraints</span></span><br><span class="line">    purpleView.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:purpleView];</span><br><span class="line">    <span class="comment">// 添加 width 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *widthConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeWidth</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">0.0</span> constant:<span class="number">150</span>];</span><br><span class="line">    [purpleView addConstraint:widthConstraint];</span><br><span class="line">    <span class="comment">// 添加 height 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *heightConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeHeight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">0.0</span> constant:<span class="number">150</span>];</span><br><span class="line">    [purpleView addConstraint:heightConstraint];</span><br><span class="line">    <span class="comment">// 添加 left 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *leftConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeLeft</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span>.view attribute:<span class="built_in">NSLayoutAttributeLeft</span> multiplier:<span class="number">1.0</span> constant:<span class="number">100</span>];</span><br><span class="line">    [<span class="keyword">self</span>.view addConstraint:leftConstraint];</span><br><span class="line">    <span class="comment">// 添加 top 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *topConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeTop</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span>.view attribute:<span class="built_in">NSLayoutAttributeTop</span> multiplier:<span class="number">1.0</span> constant:<span class="number">200</span>];</span><br><span class="line">    [<span class="keyword">self</span>.view addConstraint:topConstraint];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Masonry</span></span><br><span class="line">    <span class="built_in">UIView</span> *purpleView = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    purpleView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:purpleView];</span><br><span class="line">    [purpleView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        <span class="comment">// 在这个 block 里面，利用 make 对象创建约束</span></span><br><span class="line">        make.size.mas_equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">150</span>, <span class="number">150</span>));</span><br><span class="line">        <span class="comment">//make.center.mas_equalTo(self.view);</span></span><br><span class="line">        make.top.mas_equalTo(<span class="number">200</span>);</span><br><span class="line">        make.left.mas_equalTo(<span class="number">100</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/autolayout/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kvo" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/kvo/">iOS的通知以及KVO</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/kvo/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:30:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/ebd1953a655d" target="_blank" rel="noopener">http://www.jianshu.com/p/ebd1953a655d</a></li>
+<li><a href="http://www.jianshu.com/p/e59bb8f59302" target="_blank" rel="noopener">http://www.jianshu.com/p/e59bb8f59302</a></li>
+<li><a href="https://magicalboy.com/kvc_and_kvo/" target="_blank" rel="noopener">https://magicalboy.com/kvc_and_kvo/</a></li>
+</ul>
+<p><strong>iOS的一种设计模式，观察者Observer模式（也叫发布/订阅，即Publich/Subscribe模式）。<br>观察者模式，包含:</strong></p>
+<ul>
+<li>通知机制（notification）</li>
+<li>KVO机制</li>
+</ul>
+<h4 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h4><p><strong>通知机制</strong>：委托机制是代理“一对一”的对象之间的通信，而通知机制是广播“一对多”的对象之间的通信</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当A类发送一条信息给通知中心时，注册为用户(观察者)的B类群就会收到相应的通知，并作出反应。</span><br></pre></td></tr></table></figure>
+<h5 id="通知中心-NSNotificationCenter"><a href="#通知中心-NSNotificationCenter" class="headerlink" title="通知中心(NSNotificationCenter)"></a>通知中心(NSNotificationCenter)</h5><p>发布、注册、解除通知都需要使用<strong>通知中心</strong>，负责协助不同对象、不同类之间的消息通信。</p>
+<h5 id="发布者-（发送通知）"><a href="#发布者-（发送通知）" class="headerlink" title="发布者 （发送通知）"></a><strong>发布者 （发送通知）</strong></h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)postNotification:(<span class="built_in">NSNotification</span> *)notification;</span><br><span class="line">- (<span class="keyword">void</span>)postNotificationName:(<span class="built_in">NSString</span> *)aNameobject:(<span class="keyword">id</span>)anObject;</span><br><span class="line">- (<span class="keyword">void</span>)postNotificationName:(<span class="built_in">NSString</span> *)aNameobject:(<span class="keyword">id</span>)anObject userInfo:</span><br><span class="line">(<span class="built_in">NSDictionary</span> *)aUserInfo;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>postNotificationName:指定消息名称；</p>
+</li>
+<li><p>object：指定发消息者；</p>
+</li>
+<li><p>userInfo：通知中用于传递参数的载体，传递的方法是把参数放在NSDictionary类型的userInfo中。例如：NSDictionary *dict = [notification userInfo];</p>
+</li>
+<li><p>一般使用第三个方法，如果参数不需要的，可以设置为nil.</p>
+</li>
+</ul>
+<h5 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addObserver:(<span class="keyword">id</span>)observer selector:(SEL)aSelector name:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br><span class="line"><span class="comment">//@selector中为回调方法，在本类中对通知进行相应的处理，name为通知名称、object为对象；</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>object==nil，那么客户对象（self）将收到任何对象发出NSWindowDidBecomeMainNotification的通知消息；</p>
+</li>
+<li><p>name==nil,那么观察者将接收到object对象的所有消息，但是确定不了接收这些消息的顺序。</p>
+</li>
+<li><p>object==nil，name==nil，那么该观察者将收到所有对象的所有消息。</p>
+</li>
+</ul>
+<h5 id="移除通知"><a href="#移除通知" class="headerlink" title="移除通知"></a><strong>移除通知</strong></h5><p>注册过的对象必须在释放之前注销掉</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以在 - (void)didReceiveMemoryWarning 中移除；建议在-(void)dealloc )&#123;&#125; 中移除</span></span><br><span class="line"><span class="comment">//释放所有通知</span></span><br><span class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="keyword">id</span>)observer;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放名称为aName的通知</span></span><br><span class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="keyword">id</span>)observer name:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br></pre></td></tr></table></figure>
+<h5 id="示例程序（Mydemo1）"><a href="#示例程序（Mydemo1）" class="headerlink" title="示例程序（Mydemo1）"></a>示例程序（<a href="https://github.com/Azuo520/Mydemo1" target="_blank" rel="noopener">Mydemo1</a>）</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发布者</span></span><br><span class="line"><span class="comment">//1.创建userInfo携带的信息</span></span><br><span class="line">        <span class="built_in">NSString</span> *str = <span class="keyword">self</span>.myTextView.text;</span><br><span class="line">        <span class="built_in">NSDictionary</span> *dictData = [<span class="built_in">NSDictionary</span> dictionaryWithObject:str forKey:<span class="string">@"MyUserInfoKey"</span>];</span><br><span class="line"><span class="comment">//2.发布信息</span></span><br><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter]postNotificationName:<span class="string">@"MyNotificationName"</span> object:<span class="literal">nil</span> userInfo:dictData];</span><br><span class="line"></span><br><span class="line"><span class="comment">//观察者</span></span><br><span class="line"><span class="comment">//1.注册为观察者</span></span><br><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter]addObserver:<span class="keyword">self</span> </span><br><span class="line">                    selector:<span class="keyword">@selector</span>(AMethod:) name:<span class="string">@"MyNotificationName"</span> object:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调方法：AMethod:</span></span><br><span class="line">-(<span class="keyword">void</span>)AMethod:(<span class="built_in">NSNotification</span> *)notification</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//2.获取通知携带的数据</span></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dictData = [notification userInfo];</span><br><span class="line">    <span class="built_in">NSString</span> *str = [dictData objectForKey:<span class="string">@"MyUserInfoKey"</span>];</span><br><span class="line">    <span class="comment">//self.myLabel.text = str;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="系统通知名称"><a href="#系统通知名称" class="headerlink" title="系统通知名称"></a>系统通知名称</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIApplicationDidFinishLaunchingNotification</span>   <span class="comment">// 应用程序启动后</span></span><br><span class="line"><span class="built_in">UIApplicationDidBecomActiveNotification</span>       <span class="comment">//进入前台</span></span><br><span class="line"><span class="built_in">UIApplicationWillResignActiveNotification</span>     <span class="comment">//应用将要进入后台</span></span><br><span class="line"><span class="built_in">UIApplicationDidEnterBackgroundNotification</span>   <span class="comment">//进入后台</span></span><br><span class="line"><span class="built_in">UIKeyboardWillShowNotification</span>       <span class="comment">// 键盘即将显示</span></span><br><span class="line"><span class="built_in">UIKeyboardDidShowNotification</span>        <span class="comment">// 键盘显示完毕</span></span><br><span class="line"><span class="built_in">UIKeyboardWillHideNotification</span>       <span class="comment">// 键盘即将隐藏</span></span><br><span class="line"><span class="built_in">UIKeyboardDidHideNotification</span>        <span class="comment">// 键盘隐藏完毕</span></span><br></pre></td></tr></table></figure>
+<h4 id="KVC"><a href="#KVC" class="headerlink" title="KVC"></a>KVC</h4><p>即是指<a href="https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Protocols/NSKeyValueCoding_Protocol/Reference/Reference.html#//apple_ref/occ/cat/NSKeyValueCoding" target="_blank" rel="noopener">NSKeyValueCoding</a>，一个非正式的 Protocol，提供一种机制来间接访问对象的属性。KVO 就是基于 KVC 实现的关键技术之一。</p>
+<p>一个对象拥有某些属性。比如说，一个 Person 对象有一个 name 和一个 address 属性。以 KVC 说法，Person 对象分别有一个 value 对应他的 name 和 address 的 key。 key 只是一个字符串，它对应的值可以是任意类型的对象。从最基础的层次上看，KVC 有两个方法：一个是设置 key 的值，另一个是获取 key 的值。</p>
+<h4 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h4><p>KVO 提供一种机制，指定一个被观察对象(例如 A 类)，当对象某个属性(例如 A 中的字符串 name)发生更改时，对象会获得通知，并作出相应处理；【且不需要给被观察的对象添加任何额外代码，就能使用 KVO 机制】</p>
+<ul>
+<li>在 MVC 设计架构下的项目，KVO 机制很适合实现 mode 模型和 view 视图之间的通讯。</li>
+</ul>
+<h5 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h5><p><strong>A.注册观察者：</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个参数 observer：观察者 （这里观察self.myKVO对象的属性变化）</span></span><br><span class="line"><span class="comment">//第二个参数 keyPath： 被观察的属性名称(这里观察 self.myKVO 中 num 属性值的改变)</span></span><br><span class="line"><span class="comment">//第三个参数 options： 观察属性的新值、旧值等的一些配置（枚举值，可以根据需要设置，例如这里可以使用两项）</span></span><br><span class="line"><span class="comment">//第四个参数 context： 上下文，可以为 KVO 的回调方法传值（例如设定为一个放置数据的字典）</span></span><br><span class="line">[<span class="keyword">self</span>.myKVO addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"num"</span> options:</span><br><span class="line"><span class="built_in">NSKeyValueObservingOptionOld</span>|<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p><strong>B. 属性(keyPath)的值发生变化时，收到通知，调用以下方法:</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//keyPath:属性名称</span></span><br><span class="line"><span class="comment">//object:被观察的对象</span></span><br><span class="line"><span class="comment">//change:变化前后的值都存储在 change 字典中</span></span><br><span class="line"><span class="comment">//context:注册观察者时，context 传过来的值</span></span><br><span class="line">-(<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/kvo/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-block" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/block/">iOS中的block</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/block/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:30:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><p><a href="http://www.jianshu.com/p/649fca982c6e" target="_blank" rel="noopener">http://www.jianshu.com/p/649fca982c6e</a>     (Block 详细介绍)</p>
+</li>
+<li><p><a href="http://www.jianshu.com/p/3f8040766a7f" target="_blank" rel="noopener">http://www.jianshu.com/p/3f8040766a7f</a>  （Block的生成，即C语言的结构体）</p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000003093017" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003093017</a> （Block的使用）</p>
+</li>
+</ul>
+<p><strong>带有局部变量的匿名函数，Block还可以保存一段代码,在需要的时候调用,目前Block已经广泛应用于iOS开发中,常用于GCD、动画、排序及各类回调。</strong></p>
+<h4 id="Block的使用"><a href="#Block的使用" class="headerlink" title="Block的使用"></a>Block的使用</h4><p>特点</p>
+<ul>
+<li><p>没有函数名</p>
+</li>
+<li><p>带有”^”符号,”脱字符”</p>
+</li>
+</ul>
+<p>Block变量的声明：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (^ablock)(<span class="built_in">NSInteger</span> a, <span class="built_in">NSInteger</span> b);         <span class="comment">//形参可以省略</span></span><br></pre></td></tr></table></figure>
+<p>Block变量的赋值:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ablock = ^(<span class="built_in">NSInteger</span> a, <span class="built_in">NSInteger</span> b)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%ld + %ld = %ld."</span>,a, b,a+b);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>声明Block变量的同时进行赋值</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>(^myBlock)(<span class="keyword">int</span>) = ^(<span class="keyword">int</span> num)&#123;</span><br><span class="line">    <span class="keyword">return</span> num * <span class="number">5</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">void</span> (^person)(<span class="built_in">NSString</span> *str, <span class="built_in">NSInteger</span> i) = ^(<span class="built_in">NSString</span> *str, <span class="built_in">NSInteger</span> i)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ is %ld years old!"</span>,str,(<span class="keyword">long</span>)i);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Block变量的调用</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">person(<span class="string">@"xiaoming"</span>,<span class="number">17</span>);                 <span class="comment">//输出     xiaoming is 17 years old!</span></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%d"</span>,myBlock(<span class="number">6</span>));                <span class="comment">//输出     30</span></span><br><span class="line">ablock(<span class="number">1</span>,<span class="number">2</span>);                            <span class="comment">//输出     1 + 2 = 3</span></span><br></pre></td></tr></table></figure>
+<p>使用typedef 定义Block 类型</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个无返回值无参数的Block类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^Aloha)();</span><br><span class="line"><span class="comment">//声明变量</span></span><br><span class="line">Aloha aloha = ^()&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Aloha!"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//调用=</span></span><br><span class="line">aloha();</span><br></pre></td></tr></table></figure>
+<h4 id="Block内访问局部变量，-block局部变量，全局变量，静态变量"><a href="#Block内访问局部变量，-block局部变量，全局变量，静态变量" class="headerlink" title="Block内访问局部变量，_block局部变量，全局变量，静态变量"></a>Block内访问局部变量，_block局部变量，全局变量，静态变量</h4><ul>
+<li>在Block中可以访问局部变量</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明局部变量global</span></span><br><span class="line"><span class="keyword">int</span> global = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>(^myBlock)() = ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"global = %d"</span>, global);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 调用后控制台输出"global = 100"</span></span><br><span class="line">myBlock();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>在声明Block之后、调用Block之前对局部变量进行修改,在调用Block时局部变量值是修改之前的旧值</strong></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明局部变量global</span></span><br><span class="line"><span class="keyword">int</span> global = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>(^myBlock)() = ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"global = %d"</span>, global);</span><br><span class="line">&#125;;</span><br><span class="line">global = <span class="number">101</span>;</span><br><span class="line"><span class="comment">// 调用后控制台输出"global = 100"</span></span><br><span class="line">myBlock();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>在Block中不可以直接修改局部变量</strong></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明局部变量global</span></span><br><span class="line"><span class="keyword">int</span> global = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>(^myBlock)() = ^&#123;</span><br><span class="line">    global ++;      <span class="comment">// 报错，不可以修改。</span></span><br><span class="line">                    <span class="comment">//在Block定义时便是将局部变量的值传给Block变量所指向的结构体,</span></span><br><span class="line">                    <span class="comment">//因此在调用Block之前对局部变量进行修改并不会影响Block内部的值,同时内部的值也是不可修改的</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"global = %d"</span>, global);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 调用后控制台输出"global = 100"</span></span><br><span class="line">myBlock();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>Block内访问__block修饰的局部变量可以修改值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注解：_在局部变量前使用\_\_block修饰,在Block定义时便是将局部变量的指针传给Block变量所指向的结构体,因此在调用Block之前对局部变量进行修改会影响Block内部的值,同时内部的值也是可以修改的_</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Block中可以<strong>直接修改全局变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注解：_全局变量所占用的内存只有一份,供所有函数共同调用,在Block定义时并未将全局变量的值或者指针传给Block变量所指向的结构体,因此在调用Block之前对局部变量进行修改会影响Block内部的值,同时内部的值也是可以修改的_</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Block中可以<strong>直接修改静态变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注解：_在Block定义时便是将静态变量的指针传给Block变量所指向的结构体,因此在调用Block之前对静态变量进行修改会影响Block内部的值,同时内部的值也是可以修改的_</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Block在MRC及ARC下的内存管理"><a href="#Block在MRC及ARC下的内存管理" class="headerlink" title="Block在MRC及ARC下的内存管理"></a>Block在MRC及ARC下的内存管理</h4><h5 id="Block在MRC下的内存管理"><a href="#Block在MRC下的内存管理" class="headerlink" title="Block在MRC下的内存管理"></a>Block在MRC下的内存管理</h5><p>默认情况下,Block的内存存储在栈中,不需要开发人员对其进行内存管理。</p>
+<ul>
+<li>当Block变量出了作用域,Block的内存会被自动释放</li>
+<li>如果在Block中引用了外面的对象,不会对所引用的对象进行任何操作</li>
+</ul>
+<p>如果对Block进行一次<strong>copy操作</strong>,那么<strong>Block的内存会被移动到堆中</strong>,这时需要开发人员对其进行release操作来管理内存</p>
+<ul>
+<li>如果在Block中引用了外面的对象,会对所引用的对象进行一次retain操作,为了不对所引用的对象进行一次retain操作,可以在对象的前面使用下划线下划线block来修饰</li>
+<li>如果对象内部有一个Block属性,而在Block内部又访问了该对象,那么会造成循环引用，解决循环引用的办法是在对象的前面使用下划线下划线block来修饰,以避免Block对对象进行retain操作</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="keyword">typeof</span>(<span class="keyword">self</span>) p = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
+<h5 id="Block在ARC下的内存管理"><a href="#Block在ARC下的内存管理" class="headerlink" title="Block在ARC下的内存管理"></a>Block在ARC下的内存管理</h5><p>在ARC默认情况下,Block的内存存储在堆中,ARC会自动进行内存管理,程序员只需要避免循环引用即可</p>
+<ul>
+<li>在Block的内存存储在堆中时,如果在Block中引用了外面的对象,会对所引用的对象进行强引用,但是在Block被释放时会自动去掉对该对象的强引用,所以不会造成内存泄漏</li>
+<li>如果对象内部有一个Block属性,而在Block内部又访问了该对象,那么会造成循环引用,解决循环引用的办法是使用一个弱引用的指针指向该对象,然后在Block内部使用该弱引用指针来进行操作,这样避免了Block对对象进行强引用</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(p) weakP = p;</span><br></pre></td></tr></table></figure>
+<h5 id="block关键字在MRC和ARC下的不同"><a href="#block关键字在MRC和ARC下的不同" class="headerlink" title="__block关键字在MRC和ARC下的不同"></a><strong>__block关键字在MRC和ARC下的不同</strong></h5><p>__block在MRC下有两个作用</p>
+<ul>
+<li>_1. 允许在Block中访问和修改局部变量 _</li>
+<li><em>2. 禁止Block对所引用的对象进行隐式retain操作</em></li>
+</ul>
+<p>__block在ARC下只有一个作用</p>
+<ul>
+<li><em>1. 允许在Block中访问和修改局部变量</em></li>
+</ul>
+<h4 id="使用Block进行排序"><a href="#使用Block进行排序" class="headerlink" title="使用Block进行排序"></a>使用Block进行排序</h4><p>在开发中,我们一般使用数组的如下两个方法来进行排序</p>
+<ul>
+<li><p>不可变数组的方法: - (NSArray *)sortedArrayUsingComparator:(NSComparator) cmptr</p>
+</li>
+<li><p>可变数组的方法 : - (void)sortUsingComparator:(NSComparator) cmptr</p>
+</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明数组</span></span><br><span class="line"><span class="built_in">NSArray</span> *myArr = @[<span class="string">@"a"</span>,<span class="string">@"c"</span>,<span class="string">@"f"</span>,<span class="string">@"e"</span>,<span class="string">@"p"</span>,<span class="string">@"m"</span>];</span><br><span class="line"><span class="comment">// 排序数组</span></span><br><span class="line"><span class="built_in">NSArray</span> *sort = [myArr sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span> obj1, <span class="keyword">id</span> obj2) &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *str1 = obj1;                    <span class="comment">//对什么对象排序就用相应的对象接收</span></span><br><span class="line">    <span class="built_in">NSString</span> *str2 = obj2;</span><br><span class="line">    <span class="keyword">return</span> [str1 compare:str2];</span><br><span class="line">&#125;];</span><br><span class="line"><span class="comment">// 打印排序数组</span></span><br><span class="line">[sort enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, obj);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/block/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-uitableview" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/uitableview/">UITableView</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/uitableview/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:29:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/d8957a0ef419" target="_blank" rel="noopener">http://www.jianshu.com/p/d8957a0ef419</a></li>
+<li><a href="http://www.cocoachina.com/ios/20140922/9710.html" target="_blank" rel="noopener">http://www.cocoachina.com/ios/20140922/9710.html</a></li>
+<li><a href="http://www.jianshu.com/p/284fd7d8c9e9" target="_blank" rel="noopener">http://www.jianshu.com/p/284fd7d8c9e9</a></li>
+</ul>
+<h4 id="UITableView"><a href="#UITableView" class="headerlink" title="UITableView"></a>UITableView</h4><ul>
+<li><blockquote>
+<ul>
+<li>展示<strong>列表数据</strong></li>
+</ul>
+</blockquote>
+</li>
+<li><blockquote>
+<ul>
+<li>继承自UIScrollView，因此支持垂直滚动</li>
+</ul>
+</blockquote>
+<h4 id="TableView层次结构"><a href="#TableView层次结构" class="headerlink" title="TableView层次结构"></a>TableView层次结构</h4><p><img src="http://ozrhqzqeu.bkt.clouddn.com/table_1.png" alt=""></p>
+</li>
+</ul>
+<h4 id="UITableView显示数据的两种样式"><a href="#UITableView显示数据的两种样式" class="headerlink" title="UITableView显示数据的两种样式"></a>UITableView显示数据的两种样式</h4><blockquote>
+<p>单组样式 UITableViewStylePlain</p>
+</blockquote>
+<ul>
+<li>展示单组数据，没有分组</li>
+</ul>
+<blockquote>
+<p>分组样式 UITableViewStyleGrouped</p>
+</blockquote>
+<ul>
+<li>展示多组数据，有分组，每一组可以有不同的行数</li>
+</ul>
+<h4 id="UITableView的使用步骤"><a href="#UITableView的使用步骤" class="headerlink" title="UITableView的使用步骤"></a>UITableView的使用步骤</h4><p>第一步：设置数据源对象</p>
+<p><code>self.tableView.dataSource = self;</code></p>
+<ul>
+<li>设置的语句写在控制器的<code>- (void)viewDidLoad</code>方法中</li>
+</ul>
+<p>第二步：设置的数据源对象要遵守协议</p>
+<p>设置为数据源对象的类一定要遵守<code>UITableViewDataSource</code>协议</p>
+<p>第三步：实现数据源协议中的方法</p>
+<h4 id="UITableView的常见属性"><a href="#UITableView的常见属性" class="headerlink" title="UITableView的常见属性"></a>UITableView的常见属性</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UITableView的两种样式</span></span><br><span class="line"><span class="built_in">UITableViewStylePlain</span> / <span class="built_in">UITableViewStyleGrouped</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.tableView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置索引条内部文字颜色</span></span><br><span class="line"><span class="keyword">self</span>.tableView.sectionIndexColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">1</span> green:<span class="number">1</span> blue:<span class="number">1</span> alpha:<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置索引条背景颜色</span></span><br><span class="line"><span class="keyword">self</span>.tableView.sectionIndexBackgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">0</span> green:<span class="number">0</span> blue:<span class="number">0</span> alpha:<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//1. 修改tableView的行高</span></span><br><span class="line"><span class="keyword">self</span>.tableView.rowHeight = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.组头组尾的高</span></span><br><span class="line"><span class="keyword">self</span>.tableView.sectionHeaderHeight = <span class="number">55</span>;</span><br><span class="line"><span class="keyword">self</span>.tableView.sectionFooterHeight = <span class="number">22</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.设置整个tablView的头部/尾部视图</span></span><br><span class="line"><span class="keyword">self</span>.tableView.tableHeaderView = [[<span class="built_in">UISwitch</span> alloc] init];</span><br><span class="line"><span class="keyword">self</span>.tableView.tableFooterView = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeInfoDark</span>];</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 4.设置我们分割线颜色(clearColor相当于取消系统分割线)</span></span><br><span class="line"><span class="keyword">self</span>.tableView.separatorColor = [<span class="built_in">UIColor</span> clearColor];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5.设置分割线样式</span></span><br><span class="line"><span class="keyword">self</span>.tableView.separatorStyle = <span class="built_in">UITableViewCellSeparatorStyleNone</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="需要实现的方法"><a href="#需要实现的方法" class="headerlink" title="需要实现的方法"></a>需要实现的方法</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - 数据源方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回分组数 </span></span><br><span class="line">-(<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView;</span><br><span class="line"><span class="comment">// 返回每组行数 </span></span><br><span class="line">-(<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section;</span><br><span class="line"><span class="comment">// 返回每行的单元格 </span></span><br><span class="line">-(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// 返回每组头标题</span></span><br><span class="line">-(<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForHeaderInSection:(<span class="built_in">NSInteger</span>)section;</span><br><span class="line"><span class="comment">// 返回每组尾部标题</span></span><br><span class="line">-(<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForFooterInSection:(<span class="built_in">NSInteger</span>)section;</span><br><span class="line"><span class="comment">// 返回 Cell 是否在滑动时是否可以编辑</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView canEditRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// 返回 Cell 是否可以移动</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView canMoveRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// TableView 右侧建立一个索引表需要的数组内容</span></span><br><span class="line">-(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)sectionIndexTitlesForTableView:(<span class="built_in">UITableView</span> *)tableView; </span><br><span class="line"><span class="comment">// 对 Cell 编辑结束后的回调</span></span><br><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView commitEditingStyle:(<span class="built_in">UITableViewCellEditingStyle</span>)editingStyle forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// 对 Cell 移动结束后的回调</span></span><br><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView moveRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)sourceIndexPath toIndexPath:(<span class="built_in">NSIndexPath</span> *)destinationIndexPath;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - 代理方法</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  设置行高</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 添加每组的组头</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView viewForHeaderInSection:(<span class="built_in">NSInteger</span>)section&#123;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回每组的组尾</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView viewForFooterInSection:(<span class="built_in">NSInteger</span>)section&#123;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 选中某行cell时会调用</span></span><br><span class="line">- (<span class="keyword">void</span>)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"选中didSelectRowAtIndexPath row = %ld"</span>, indexPath.row);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消选中某行cell会调用 (当我选中第0行的时候，如果现在要改为选中第1行 - 》会先取消选中第0行，然后调用选中第1行的操作)</span></span><br><span class="line">- (<span class="keyword">void</span>)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView didDeselectRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"取消选中 didDeselectRowAtIndexPath row = %ld "</span>, indexPath.row);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置UITableView的索引条，返回数组字符串集</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)sectionIndexTitlesForTableView:(<span class="built_in">UITableView</span> *)tableView;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/uitableview/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-uiview" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/uiview/">UIView的层次关系</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/uiview/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:29:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/3a22c0d14802" target="_blank" rel="noopener">http://www.jianshu.com/p/3a22c0d14802</a>      （iOS 之UIView）</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************UIView-层次关系***************/</span></span><br><span class="line">    <span class="comment">//添加视图：addSubview</span></span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:view5];</span><br><span class="line">    <span class="comment">//移除视图：removeFromSuperview</span></span><br><span class="line"><span class="comment">//    [view5 removeFromSuperview];</span></span><br><span class="line">    <span class="comment">//将某个视图移动到最上面  bringSubviewToFront:</span></span><br><span class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:view1];</span><br><span class="line">    <span class="comment">//将某个视图移动到最下面   sendSubviewToBack:</span></span><br><span class="line">    [<span class="keyword">self</span>.view sendSubviewToBack:view1];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的上面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 aboveSubview:view3];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的下面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 belowSubview:view2];</span><br><span class="line">    <span class="comment">//将某个视图放到指定的位置</span></span><br><span class="line"><span class="comment">//    [self.view insertSubview:view1 atIndex:3];</span></span><br><span class="line">    <span class="comment">//交换两个视图的位置</span></span><br><span class="line">    [<span class="keyword">self</span>.view exchangeSubviewAtIndex:<span class="number">1</span> withSubviewAtIndex:<span class="number">4</span>];</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/uiview/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-lei-de-ji-cheng" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -966,595 +1625,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-fen-lei" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/fen-lei/">分类 和 类扩展</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/fen-lei/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:17:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相关文章</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/75818790c1ed" target="_blank" rel="noopener">http://www.jianshu.com/p/75818790c1ed</a> （深入浅出理解分类(category）和类扩展(extension)）</li>
-<li><a href="http://www.jianshu.com/p/823c5d58ca0e" target="_blank" rel="noopener">http://www.jianshu.com/p/823c5d58ca0e</a> （一张图分清类别和拓展）</li>
-</ul>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h5 id="1-分类（category）的作用"><a href="#1-分类（category）的作用" class="headerlink" title="1.分类（category）的作用"></a>1.分类（category）的作用</h5><p>1.1作用：可以在不修改原来类的基础上，为一个类扩展方法。<br>1.2最主要的用法：给系统自带的类扩展方法。</p>
-<h5 id="2-分类中的内容"><a href="#2-分类中的内容" class="headerlink" title="2.分类中的内容"></a>2.分类中的内容</h5><p>2.1分类中只能添加“方法”，不能增加成员变量。<br>2.2分类中可以访问原来类中的成员变量，但是只能访问@protect和@public形式的变量。如果想要访问本类中的私有变量，分类和子类一样，只能通过方法来访问。<br>2.3如果一定要在分类中添加成员变量，可以通过getter，setter手段进行添加</p>
-<h5 id="3-分类的书写方法"><a href="#3-分类的书写方法" class="headerlink" title="3.分类的书写方法"></a>3.分类的书写方法</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line">-(<span class="keyword">void</span>) eat&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"I can eat!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Person+Singer.h</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>  (<span class="title">Singer</span>)</span></span><br><span class="line">-(<span class="keyword">void</span>) sing;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Person+Singer.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person+Singer.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span> (<span class="title">Singer</span>)</span></span><br><span class="line">-(<span class="keyword">void</span>) sing&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Sing a Song!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line">    Person *singer = [Person new];</span><br><span class="line">    [singer eat];</span><br><span class="line">    [singer sing];</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">I can eat!</span><br><span class="line">Sing a Song!</span><br></pre></td></tr></table></figure>
-<ul>
-<li><em><strong>在本类和分类有相同的方法时，优先调用分类的方法再调用本类的方法。</strong></em></li>
-</ul>
-<h5 id="4-应用场景"><a href="#4-应用场景" class="headerlink" title="4.应用场景"></a>4.应用场景</h5><blockquote>
-<p>1.对框架提供类的扩展(没有源码,不不能修改);<br>2.不想生成⼀个新的⼦类的情况下,例如对NSArry的扩展;<br>3.⽅便做项目管理，可以将⼀份源码在多个地方共享或者做方法版本管理、多人协作开发、⽤本地版本替换公共版本实现</p>
-</blockquote>
-<h5 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5.注意事项"></a>5.注意事项</h5><blockquote>
-<ol>
-<li>Category的方法不⼀定⾮要在@implement中实现,也可以在其他位置中实现。但是当调用Category的⽅法时,依据继承树没有找到该方法的实现,程序则会崩溃;并且,Category的方法优先级较高,可以覆盖原类的方法;</li>
-<li>在实际开发中要注意的是,Category 方法可能会覆盖于同一个类class 的其它 category 中的方法。但也可能被覆盖，因为不不法预知他们的加载优先顺序，出现这种情况通常会在编译时出错。如果在一个开发的SDK中使用了类别， 就最好保证类别名不同于使用者的类别名以及类别方法也不同于使用者的类别方法名， 通常通过加前缀来做到。</li>
-<li>Category的方法中,不可以调用super方法;</li>
-<li><strong>Category理论上不能添加【成员变量】,但是可以使用@dynamic(即运行时Runtime)来弥补这种不足.</strong></li>
-</ol>
-</blockquote>
-<h3 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h3><h5 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h5><ul>
-<li>能为某个类附加额外的属性，成员变量，方法声明</li>
-<li>一般的类扩展写到.m文件中</li>
-<li>一般的私有属性写到类扩展</li>
-</ul>
-<h5 id="2-使用格式"><a href="#2-使用格式" class="headerlink" title="2.使用格式"></a>2.使用格式</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Mitchell</span>()</span></span><br><span class="line"><span class="comment">//属性</span></span><br><span class="line"><span class="comment">//方法</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<h5 id="3-与分类的区别"><a href="#3-与分类的区别" class="headerlink" title="3.与分类的区别"></a>3.与分类的区别</h5><ul>
-<li>分类的小括号中必须有名字</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> 类名（分类名字）</span></span><br><span class="line"><span class="comment">/*方法声明*/</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span>类名（分类名字）</span></span><br><span class="line"><span class="comment">/*方法实现*/</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>分类只能扩充方法，不能扩展属性和成员变量（如果包含成员变量会直接报错）</p>
-</li>
-<li><p>如果分类中声明了一个属性，那么分类只会生成这个属性的set、get方法声明，需要手动添加代码实现。</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/fen-lei/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-copy" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/copy/">iOS中的Copy</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/copy/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:17:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相关文章</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/5f776a4816ee" target="_blank" rel="noopener">http://www.jianshu.com/p/5f776a4816ee</a></li>
-</ul>
-<h4 id="copy-和-mutableCopy"><a href="#copy-和-mutableCopy" class="headerlink" title="copy 和 mutableCopy"></a>copy 和 mutableCopy</h4><p>官方文档</p>
-<blockquote>
-<p>In Objective-C, the methods copy and mutableCopy are inherited by all objects and intended for performing copies; the latter is for creating a mutable type of the original object. These methods in turn call the copyWithZone and mutableCopyWithZone methods, respectively, to perform the copying. An object must implement the corresponding copyWithZone method to be copyable.</p>
-<p>在oc中 copy和mutableCopy两个方法是被所有对象(继承自NSObject的类)继承的，这两个方法就是为copy准备的。</p>
-<p>其中，mutableCopy是为了创建原始对象的可变类型的copy。</p>
-<p>这两个方法分别调用copyWithZone和mutableCopyWithZone两个方法来进行copy。</p>
-<p>一个类必须实现copyWithZone或者mutableCopyWithZone，才能进行copy或者mutableCopy。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="class"><span class="keyword">@protocol</span> <span class="title">NSCopying</span></span></span><br><span class="line">&gt; － (<span class="keyword">id</span>)copyWithZone:(<span class="keyword">nullable</span> <span class="built_in">NSZone</span> *)zone;</span><br><span class="line">&gt; <span class="keyword">@end</span></span><br><span class="line">&gt; <span class="class"><span class="keyword">@protocol</span> <span class="title">NSMutableCopying</span></span></span><br><span class="line">&gt; － (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="keyword">nullable</span> <span class="built_in">NSZone</span> *)zone;</span><br><span class="line">&gt; <span class="keyword">@end</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h4 id="shallow-copy-和-deep-copy"><a href="#shallow-copy-和-deep-copy" class="headerlink" title="shallow copy 和 deep copy"></a>shallow copy 和 deep copy</h4><p>1.定义</p>
-<blockquote>
-<p>对象拷贝有两种方式：浅复制和深复制。顾名思义，浅复制，并不拷贝对象本身，仅仅是拷贝指向对象的指针；深复制是除了拷贝指向对象的指针，而且直接拷贝整个对象内存到另一块内存中。再简单些说：浅复制就是指针拷贝；深复制就是内容拷贝。</p>
-</blockquote>
-<p>2.区别</p>
-<blockquote>
-<p>浅copy: 指针复制，不会创建一个新的对象。</p>
-<p>深copy: 内容复制，会创建一个新的对象。</p>
-</blockquote>
-<p>3.影响</p>
-<blockquote>
-<p>浅copy，类似strong，持有原始对象的指针，会使retainCount加一。浅copy和strong引用的区别仅仅是浅copy多执行一步copyWithZone:方法。</p>
-<p>深copy，会创建一个新的对象，不会对原始对象的retainCount变化。</p>
-</blockquote>
-<p>4.使用原则</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">class</th>
-<th style="text-align:left">copy</th>
-<th style="text-align:left">mutablecopy</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">不可变，如NSString</td>
-<td style="text-align:left">（浅拷贝） 返回本身</td>
-<td style="text-align:left">（深拷贝）创建新的可变对象</td>
-</tr>
-<tr>
-<td style="text-align:left">可变，如NSMutableString</td>
-<td style="text-align:left">（深拷贝）创建新的不可变对象</td>
-<td style="text-align:left">（深拷贝 ）创建新的可变对象</td>
-</tr>
-</tbody>
-</table>
-<h4 id="关键字copy"><a href="#关键字copy" class="headerlink" title="关键字copy"></a>关键字copy</h4><p>strong  和 copy 的区别</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *str;</span><br></pre></td></tr></table></figure>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2.</span><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *str;</span><br></pre></td></tr></table></figure>
-<p>分别对1和2执行下述代码</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mutableStr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="keyword">self</span>.str = mutableStr;</span><br><span class="line"></span><br><span class="line">[mutableStr appendString:<span class="string">@"456"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="keyword">self</span>.str);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%p"</span>, <span class="keyword">self</span>.str);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, mutableStr);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%p"</span>, mutableStr);</span><br></pre></td></tr></table></figure>
-<p>输出</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//strong</span></span><br><span class="line"><span class="number">123456</span></span><br><span class="line"><span class="number">0x608000071040</span></span><br><span class="line"><span class="number">123456</span></span><br><span class="line"><span class="number">0x608000071040</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//copy</span></span><br><span class="line"><span class="number">123</span></span><br><span class="line"><span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">123456</span></span><br><span class="line"><span class="number">0x60000007bbc0</span></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/copy/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-dan-li-mo-shi" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/dan-li-mo-shi/">单例模式</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/dan-li-mo-shi/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:16:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 相关文章</p>
-<ul>
-<li><p><a href="http://www.jianshu.com/p/b3f5f3392c0f" target="_blank" rel="noopener">Singleton is an angel but an evil！</a></p>
-</li>
-<li><p><a href="http://www.jianshu.com/p/8e59f9bb44a0" target="_blank" rel="noopener">iOS 单例模式</a></p>
-</li>
-</ul>
-<h4 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h4><blockquote>
-<p><strong>Quote from Wikipedia</strong></p>
-<p><strong>I</strong>n mathematics, a singleton, also known as a unit set, is a set with exactly one element. </p>
-<p>For example, the set {0} is a singleton.</p>
-</blockquote>
-<blockquote>
-<p>iOS单例模式(Singleton)单例模式的意思就是只有一个实例。单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。这个类称为单例类。</p>
-</blockquote>
-<p><strong>优点</strong></p>
-<p>1.实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确保所有对象都访问唯一实例。　　<br>2.灵活性：因为类控制了实例化过程，所以类可以更加灵活修改实例化过程 IOS中的单例模式</p>
-<h4 id="2-实现"><a href="#2-实现" class="headerlink" title="2.实现"></a>2.实现</h4><p><strong>单例模式写法：</strong></p>
-<ul>
-<li><p>我们知道，创建对象的步骤分为<strong>申请内存(alloc)、初始化(init)</strong>这两个步骤，我们要确保对象的唯一性，因此在第一步这个阶段我们就要拦截它。</p>
-</li>
-<li><p>当我们调用alloc方法时，oc内部会调用<strong>allocWithZone</strong>这个方法来申请内存，我们<strong>覆写</strong>这个方法，然后在这个方法中调用<strong>shareInstance</strong>方法返回单例对象，这样就可以达到我们的目的。</p>
-</li>
-<li><p>拷贝对象也是同样的原理，覆写<strong>copyWithZone</strong>方法，然后在这个方法中调用<strong>shareInstance</strong>方法返回单例对象。</p>
-</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Singleton.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="keyword">static</span> Singleton* _instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">instancetype</span>) shareInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:<span class="literal">NULL</span>] init] ;</span><br><span class="line">    &#125;) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _instance ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">id</span>) allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>) copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="meta">#pragma mark --------单例测试</span></span><br><span class="line">    Singleton* obj1 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj1 = %@."</span>, obj1) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj2 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj2 = %@."</span>, obj2) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj3 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj3 = %@."</span>, obj3) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj4 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj4 = %@."</span>, [obj4 <span class="keyword">copy</span>]) ;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">obj1 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj2 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj3 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj4 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/dan-li-mo-shi/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mei-ju" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/mei-ju/">iOS 枚举</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/mei-ju/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:16:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-C语言中的枚举类型"><a href="#1-C语言中的枚举类型" class="headerlink" title="1.C语言中的枚举类型"></a>1.C语言中的枚举类型</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Test</span><br><span class="line">&#123;</span><br><span class="line">    TestA = <span class="number">0</span>,</span><br><span class="line">    TestB = <span class="number">1</span>,</span><br><span class="line">    TestC = <span class="number">2</span>,</span><br><span class="line">    TestD = <span class="number">3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="2-OC语言中的枚举"><a href="#2-OC语言中的枚举" class="headerlink" title="2.OC语言中的枚举"></a>2.OC语言中的枚举</h4><ul>
-<li><strong>NS_ENUM</strong></li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, Test)</span><br><span class="line">&#123;</span><br><span class="line">    TestA = <span class="number">0</span>,</span><br><span class="line">    TestB,</span><br><span class="line">    TestC,</span><br><span class="line">    TestD</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>NS_OPTIONS</strong></li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, Test) &#123;</span><br><span class="line">    TestA = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line">    TestB = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line">    TestC = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line">    TestD = <span class="number">1</span> &lt;&lt; <span class="number">3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><em>带有移位运算的枚举多用于同一个枚举变量可以同时赋值多个枚举成员的情况</em></p>
-<p>例如：</p>
-<p>枚举变量test同时赋值枚举成员TestA、TestB与TestC</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Test test = TestA | TestB;</span><br><span class="line">test |= TestC;</span><br></pre></td></tr></table></figure>
-<p>使用按位异或(^)为枚举变量test去掉一个枚举成员TestC或者添加一个TestC</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test ^= TestC;</span><br></pre></td></tr></table></figure>
-<p>使用按位与(&amp;)判断枚举变量test是否赋值了枚举成员TestA</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Test test = TestA | TestB;</span><br><span class="line"><span class="keyword">if</span> (test &amp; TestA)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"yes"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"no"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/mei-ju/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-未来数学家的挑战4" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/未来数学家的挑战4/">四、古克定律与 NP-completeness</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/未来数学家的挑战4/" class="archive-article-date">
-  	<time datetime="2018-03-22T08:52:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/page4.html" target="_blank" rel="noopener">原文链接</a></li>
-</ul>
-<p>古克定律的证明很难，就是了解它也不容易，我们将从几个角度来看这个问题，试着去了解它。它的主要结果是把前节那类问题大部归于一个较易证明的集合，称之为 NP，而在 NP 中找到一批互依的问题称之为 NP-complete 类并得到下面的结果。</p>
-<ol>
-<li>若有一个 NP-complete 问题可以用 O(n^k) 计算量来解决， 则全体的 NP 问题都可以用 O(n^k) 之计算量来解决，即</li>
-</ol>
-<blockquote>
-<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt=""> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt="">P，则 P=NP。</p>
-</blockquote>
-<p>又换句话说，NP-complete 是 NP 中的难题，NP-complete 解决了， NP 就解决了。但若有一个属于 NP 而不属于 NP-complete 的问题解决了，则其他的 NP 问题不一定可以解决。</p>
-<p>什么叫做 NP？NP 是英文 non-deterministic polynomial 的缩写，意思就是<strong>非确定性的多项式时间</strong>。要了解这个字。我们先看一看普通计算机的作用。</p>
-<p>现在已知用一个计算机，要解决售货员旅行问题非常困难，但若我们有许多计算机同时用，是否可以快到把原问题在 O(n^k) 时间内解决？「许多」，不是一、二，多一二个是于事无补的，多百个千个仍是杯水车薪，不能有很大的作用，因为就是一千个机子可以分开做，也最多只能快一千倍，在第一节内已说过，帮助不大。 因此计算机学家先放眼望去，干脆允许你可以无限的增加机器。 现在我们要注意的是并不是有了无限多的机器所有的问题就可以立刻解决了，因有的问题有先后次序，例如在算下式的时候</p>
-<p><code>[(a1+a2)a3+a4]a5+a6</code></p>
-<p>除非换个形式，否则必须一步一步的解括弧，机子多了并不能加快计算的速度，而且机子多了，其间之联络千变万化，一个机子要应付千千万万别的机子送来的信号也疲于奔命了。 因此我们只假定所有的机子都只承上启下，单线作业，不作任何横向联络，也就是说，机器1可以把它的结果传给它下面的机子，像 a1,a2,…,an 而每一个机子又可以把它们的结果传给自己的子机， 但在 a1,a2,…,an 之间不互相联络。 以售货员旅行问题为例，若有20个城，第一个机子开始，叫下面19个机子各取一个不同的城及计算与 A 距离， 而这个19个机子又将它所求得的距离交给自己的18个子机令它们取一个与自己不同的城加上距离，如此往下，在第十次时， 第十阶段的机子把它已取9城及总距离告诉下一个机子，叫他们再取一与已取之城不同之城加上距离，如此一直做到第19次， 所有路线的距离都有了，在时间上求得所有的距离是 O(n)（但用了 19! 个计算机）， 古克定义凡可以在 O(n^k) 时间内用无限多计算机解决的问题为一 NP 问题。</p>
-<p> 现在要记住的是由于无横向连络，在所有路径的距离都有了之后，并没有解决售货员问题（甲），因为不知谁是最短（若加以比较以求最短距离，则要 O(n!) 个比较），因此我们不能说售货员旅行问题（甲）是一个 NP 问题。 但上节问题2，售货员旅行问题乙，任何一个单线都可以知道它的总距离是否不大于 B， 因此每单线都有一个「Yes」或「No」的答桉。 只要有一个「Yes」的答桉，我们即知道本问题已解决，故问题二是一个 NP 问题。在单线作业中，每个机子可以作三件事。</p>
-<ul>
-<li>1.目前答案不明确，大家各自作业。</li>
-<li>2.某线已找到答案，立刻叫停，大家停止作业，解题完毕。</li>
-<li>3.此路不通，本线不再作业，但不叫停，别线仍然作业。</li>
-</ul>
-<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt=""></p>
-<p>我们无法知道此路是否最短，但在(B)问题中，一个「Yes」或「No」的结果只要7个加法就可以回答了。 因此根据新的定义，问题2是一个 NP 问题。<br>由这两个定义，读者不难看出问题2,4,6,7,8,9（乙）与10皆为 NP 问题，特别是问题9之（甲），（乙）， 其实是一样的问题，但如果你猜二个 m,n，立刻就可知道 a 是否是 mn。</p>
-<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt=""></p>
-<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt=""></p>
-<p>永为 0，故此 f 为不可满足。<br>直觉上，这类问题除了将 u1, u2,…,un 一个一个以 0,1 代入检查 2n 次之外，显无捷径可循，古克1971年之论文即证明这是一切 NP 问题之母。</p>
-<p><strong>古克定理：</strong><br>满足问题为 NP-complete。现在已可证明在前节中之问题，除了问题1,3,5,9 之外，全是 NP-complete 问题</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -1649,19 +1722,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1669,15 +1738,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1685,7 +1754,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1713,11 +1790,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1725,11 +1802,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
             
             <div class="clearfix"></div>

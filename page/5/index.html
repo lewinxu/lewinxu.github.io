@@ -180,6 +180,603 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-A* 搜索算法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/A* 搜索算法/">A* 搜索算法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/22/A* 搜索算法/" class="archive-article-date">
+  	<time datetime="2018-03-22T07:15:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>From <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank" rel="noopener">Wikipedia</a></p>
+</blockquote>
+<p>在计算机科学中，A*（发音为“A star”）是一种计算机算法，广泛用于路径搜索和图的遍历，即在多个点之间绘制有效定向路径的过程，称为“节点”。 由于其性能和准确性，它广泛使用。 然而，在实际的旅行路线系统中，它通常优于可以预处理该图以获得更好性能的算法，尽管在其他工作已经发现A* 优于其他方法。</p>
+<p>斯坦福研究所（现为SRI国际）的Peter Hart，Nils Nilsson和Bertram Raphael首先在1968年描述了该算法。它是<a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra" target="_blank" rel="noopener">Edsger Dijkstra</a>在1959年提出的迪杰斯特拉（Dijkstra）算法的延伸。 A*通过使用启发式指导搜索来实现更好的性能。</p>
+<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>1968年，人工智能研究人员Nils Nilsson试图改进<a href="https://en.wikipedia.org/wiki/Shakey_the_robot" target="_blank" rel="noopener">Shakey the robot</a>的路径规划，该机器人可以导航通过包含障碍物的房间。 Nilsson称之为A1的路径寻找算法是当时最为人所知的用于查找图中的最短路径的Dijkstra算法的更快版本。 Bertram Raphael在这个算法上提出了一些重要的改进，称为修订版本A2。 然后Peter E. Hart提出了一个论点，基于建立的A2只作出较小的变化，就成为了寻找最短路径的最佳算法。Hart，Nilsson和Raphael共同创造了证据，证明修正的A2算法对于在某些明确定义的条件下找到最短路径是最佳的。</p>
+<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>A*是知情搜索算法或最佳优先搜索，这意味着它通过在解决方案的所有可能路径（目标）中搜索导致成本最小（行进距离最短，时间最短等）的问题来解决问题。 ），并且在这些路径中，它首先考虑那些似乎最快速地引导到解决方案的路径。 它是根据加权图制定的：从图的特定节点开始，它构造从该节点开始的路径树，一次一步地扩展路径，直到其一个路径在预定目标节点处结束。</p>
+<p>在其主循环的每次迭代中，A*都需要确定将哪些部分路径扩展为一个或多个更长的路径。 它是基于成本（总权重）的估计仍然到达目标节点。 具体而言，A*选择最小化的路径<strong>f(n)=g(n)+h(n)</strong>。其中n是路径上的最后一个节点，g(n)是从起始节点到n的路径的开销，h(n)是一个启发式，用于估计从n到目标花费最少的路径。 启发式函数是针对于特定问题的。 为了找到实际最短路径的算法，启发函数必须是可接受的，这意味着它永远不会高估实际成本到达最近的目标节点。</p>
+<p>A*的典型实现是使用优先级队列来重复性的选择要扩展的最小（估计）成本节点。 这个优先级队列被称为open集合或边缘。 在算法的每一步，从队列中删除具有最低f（x）值的节点，相应地更新其邻居的f和g值，并将这些邻居添加到队列中。 该算法一直持续到目标节点的f值低于队列中的任何节点（或直到队列为空）。目标的f值就是最短路径的长度，因为h在目标处在可接受的启发式函数值为零。</p>
+<p>到目前为止描述的算法只给出了最短路径的长度。 为了找到实际的步骤序列，可以很容易地修改该算法，使路径上的每个节点都跟踪其前一个。 运行此算法后，结束节点将指向其前节点，依此类推，直到某个节点的前节点是起始节点。</p>
+<p>举个例子，当在地图上搜索最短路线时，h(x)可能代表到目标的直线距离，因为这实际上是任意两点之间最小的可能距离。</p>
+<p>如果启发式函数h满足图的每个边（x，y）（其中d表示该边的长度）的附加条件h（x）≤d（x，y）+ h（y），则称h单调或一致。 在这种情况下，A*可以更有效地执行-粗略地说，不需要多次处理节点（参见下面的闭集） - 而A*相当于以降低的成本运行Dijkstra算法d’（x， y）= d（x，y）+ h（y）-h（x）。</p>
+<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">function A*(start, goal)</span><br><span class="line">    // The set of nodes already evaluated</span><br><span class="line">    closedSet := &#123;&#125;</span><br><span class="line"></span><br><span class="line">    // The set of currently discovered nodes that are <span class="keyword">not</span> evaluated yet.</span><br><span class="line">    // Initially, only the start node <span class="keyword">is</span> known.</span><br><span class="line">    openSet := &#123;start&#125;</span><br><span class="line"></span><br><span class="line">    // For each node, which node it can most efficiently be reached <span class="keyword">from</span>.</span><br><span class="line">    // If a node can be reached <span class="keyword">from</span> many nodes, cameFrom will eventually contain the</span><br><span class="line">    // most efficient previous step.</span><br><span class="line">    cameFrom := an empty map</span><br><span class="line"></span><br><span class="line">    // For each node, the cost of getting <span class="keyword">from</span> the start node to that node.</span><br><span class="line">    gScore := map <span class="keyword">with</span> default value of Infinity</span><br><span class="line"></span><br><span class="line">    // The cost of going <span class="keyword">from</span> start to start <span class="keyword">is</span> zero.</span><br><span class="line">    gScore[start] := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    // For each node, the total cost of getting <span class="keyword">from</span> the start node to the goal</span><br><span class="line">    // by passing by that node. That value <span class="keyword">is</span> partly known, partly heuristic.</span><br><span class="line">    fScore := map <span class="keyword">with</span> default value of Infinity</span><br><span class="line"></span><br><span class="line">    // For the first node, that value <span class="keyword">is</span> completely heuristic.</span><br><span class="line">    fScore[start] := heuristic_cost_estimate(start, goal)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> openSet <span class="keyword">is</span> <span class="keyword">not</span> empty</span><br><span class="line">        current := the node <span class="keyword">in</span> openSet having the lowest fScore[] value</span><br><span class="line">        <span class="keyword">if</span> current = goal</span><br><span class="line">            <span class="keyword">return</span> reconstruct_path(cameFrom, current)</span><br><span class="line"></span><br><span class="line">        openSet.Remove(current)</span><br><span class="line">        closedSet.Add(current)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> each neighbor of current</span><br><span class="line">            <span class="keyword">if</span> neighbor <span class="keyword">in</span> closedSet</span><br><span class="line">                <span class="keyword">continue</span>		// Ignore the neighbor which <span class="keyword">is</span> already evaluated.</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> neighbor <span class="keyword">not</span> <span class="keyword">in</span> openSet	// Discover a new node</span><br><span class="line">                openSet.Add(neighbor)</span><br><span class="line">            </span><br><span class="line">            // The distance <span class="keyword">from</span> start to a neighbor</span><br><span class="line">            //the <span class="string">"dist_between"</span> function may vary <span class="keyword">as</span> per the solution requirements.</span><br><span class="line">            tentative_gScore := gScore[current] + dist_between(current, neighbor)</span><br><span class="line">            <span class="keyword">if</span> tentative_gScore &gt;= gScore[neighbor]</span><br><span class="line">                <span class="keyword">continue</span>		// This <span class="keyword">is</span> <span class="keyword">not</span> a better path.</span><br><span class="line"></span><br><span class="line">            // This path <span class="keyword">is</span> the best until now. Record it!</span><br><span class="line">            cameFrom[neighbor] := current</span><br><span class="line">            gScore[neighbor] := tentative_gScore</span><br><span class="line">            fScore[neighbor] := gScore[neighbor] + heuristic_cost_estimate(neighbor, goal) </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> failure</span><br><span class="line"></span><br><span class="line">function reconstruct_path(cameFrom, current)</span><br><span class="line">    total_path := [current]</span><br><span class="line">    <span class="keyword">while</span> current <span class="keyword">in</span> cameFrom.Keys:</span><br><span class="line">        current := cameFrom[current]</span><br><span class="line">        total_path.append(current)</span><br><span class="line">    <span class="keyword">return</span> total_path</span><br></pre></td></tr></table></figure>
+<p>注意：上述伪代码假设启发式函数是单调的（或一致的，见下文），这在许多实际问题中是常见的情况，例如道路网络中的最短距离路径。 但是，如果假设不成立，封闭集合中的节点可能会被重新发现并且其成本得到改善。 换句话说，如果一个解决方案是存在的，或者如果算法是适应的，那么只有当它们的f值比f值低的时候，新的节点才会被添加到开放集合中，闭合集合可以省略（产生树搜索算法） 在任何以前的迭代。</p>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>一个A*算法的实例，其中节点是与道路连接的城市，h（x）是到目标点的直线距离：</p>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/AstarExampleEn.gif" alt=""></p>
+<p>注：绿色：开始; 蓝色：目标; 橙色：访问过<br><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Astar_progress_animation.gif" alt=""></p>
+<blockquote>
+<p>A*查找在机器人运动规划问题中查找从起始节点到目标节点的路径的插图。 空的圆圈代表开放集合中的节点，即那些仍然有待探索的节点，并且填充的节点在闭合集合中。 每个封闭节点上的颜色表示距离开始的距离：越绿，越远。 人们可以首先看到A *在目标方向上以直线移动，然后在碰到障碍物时探索通过开放集合中节点的替代路线。</p>
+</blockquote>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/Weighted_A_star_with_eps_5.gif" alt=""></p>
+<blockquote>
+<p>使用5.0（=ε）乘以一致启发式的启发式搜索，并获得次优路径。</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/22/A* 搜索算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-TailMap" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/21/TailMap/">初识瓦片地图与墨卡托投影</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/21/TailMap/" class="archive-article-date">
+  	<time datetime="2018-03-21T03:09:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="初识瓦片地图与墨卡托投影"><a href="#初识瓦片地图与墨卡托投影" class="headerlink" title="初识瓦片地图与墨卡托投影"></a>初识瓦片地图与墨卡托投影</h1><p><img src="https://wiki.earthdata.nasa.gov/download/attachments/73142768/OGC-WMTS-TilePyramid-flipped.png?version=1&amp;modificationDate=1467933417746&amp;api=v2" alt="瓦片金字塔"><br>An image tile pyramid (from <a href="http://www.opengeospatial.org/standards/wmts" target="_blank" rel="noopener">OGC WMTS 1.0.0 specification</a>)</p>
+<h2 id="瓦片地图"><a href="#瓦片地图" class="headerlink" title="瓦片地图"></a>瓦片地图</h2><p>互联网地图服务商的在线地图都通过瓦片的方式提供，称为<a href="https://en.wikipedia.org/wiki/Tile_Map_Service" target="_blank" rel="noopener">瓦片地图服务</a>。最常见的地图瓦片是图片格式的，现在有的地图服务商也提供了矢量的瓦片数据，然后在用户端使用Canvas渲染成图片。</p>
+<p>在进行地图开发时，为获取特定经纬度所在区域的瓦片和获取瓦片上像素点对应的经纬度，经常需要进行经纬度坐标与瓦片坐标、像素坐标的相互转换。</p>
+<p>国际标准的经纬度坐标是WGS84，Open Street Map、外国版的Google Map都是采用WGS84；高德地图使用的坐标系是GCJ-02；百度地图使用的坐标系是BD-09。</p>
+<h2 id="墨卡托投影"><a href="#墨卡托投影" class="headerlink" title="墨卡托投影"></a>墨卡托投影</h2><p>使用经纬度表示位置的大地坐标系虽然可以描述地球上点的位置，但是对于地图地理数据在二维平面内展示的场景，需要通过投影的方式将三维空间中的点映射到二维空间中。地图投影需要建立地球表面点与投影平面点的一一对应关系，在互联网地图中常使用墨卡托投影。墨卡托投影是荷兰地理学家墨卡托于1569年提出的一种地球投影方法，该方法是圆柱投影的一种。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/map_mercator.png" alt=""><br>各大地图服务商都采用了<a href="https://en.wikipedia.org/wiki/Web_Mercator" target="_blank" rel="noopener">Web Mercator</a>进行投影，瓦片坐标系的不同主要是投影截取的地球范围不同、瓦片坐标起点不同。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Map</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/地图//" class="article-tag-list-link color3">地图</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/21/TailMap/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MyMacAPP" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/21/MyMacAPP/">My Mac App</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/21/MyMacAPP/" class="archive-article-date">
+  	<time datetime="2018-03-21T03:09:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(开发)</p>
+<p>Edit By Lewinxu<br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
+<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><ul>
+<li><strong>Xcode</strong> 开发iOS应用程序</li>
+<li><strong>SourceTree</strong> 可视化的Git版本控制</li>
+<li><strong>iTerm</strong> 终端(+<a href="http://ohmyz.sh/" target="_blank" rel="noopener">Oh my Zsh</a>)</li>
+<li><strong>SQLiteStudio</strong> 数据库查看工具</li>
+<li><strong>Navicat</strong> 数据库查看工具</li>
+<li><strong>TileMill</strong> 编辑Shp地图瓦片工具</li>
+<li><strong>Visual Studio Code</strong> 好用的编辑器</li>
+<li><strong>Android Studio</strong> Android开发工具</li>
+<li><strong>SnippetsLab</strong> 代码片段管理</li>
+<li><strong>IntelliJ IDEA</strong> Java开发工具</li>
+</ul>
+<h3 id="办公软件"><a href="#办公软件" class="headerlink" title="办公软件"></a>办公软件</h3><ul>
+<li><strong>PDF-Expert</strong> 阅读器</li>
+<li><strong>Page</strong> 文字编辑</li>
+<li><strong>MacDown</strong> 记录笔记</li>
+<li><strong>Keynote</strong> 办公软件</li>
+<li><h3 id="小工具"><a href="#小工具" class="headerlink" title="小工具"></a>小工具</h3></li>
+<li><strong>Shadowsocks-NG</strong> 科学上网</li>
+<li><strong>CleanMyMac</strong> 清理系统垃圾</li>
+<li><strong>Chrome</strong> 浏览器</li>
+<li><strong>QQ</strong> 聊天工具</li>
+<li><strong>欧路词典</strong> 查单词</li>
+<li><strong>Simplenote</strong> 全平台同步笔记</li>
+<li><strong>微信</strong> 聊天工具</li>
+<li><strong>网易云音乐</strong> 播放器</li>
+<li><strong>Parallels Desktop</strong> 虚拟机</li>
+<li><strong>Mounty</strong> 挂载NTFS硬盘</li>
+<li><strong>IINA</strong> 好用的媒体播放器</li>
+<li><strong>迅雷</strong> 偶尔用的下载器</li>
+<li><strong>Folx</strong> 多线程下载器</li>
+<li><strong>百度网盘</strong> 云存储</li>
+<li><strong>坚果云</strong> 云存储</li>
+<li><strong>Microsoft Remote Desktop</strong> 远程桌面控制</li>
+<li><strong>Alfred</strong> 强大的搜索工具</li>
+<li><strong>Dash</strong> API查看工具</li>
+<li><strong>TunnelBear</strong> 科学上网</li>
+<li><strong>Macs Fan Control</strong> 控制风扇</li>
+<li><strong>Team Viewer</strong> 远程控制</li>
+<li><strong>RememBear</strong> 密码记录</li>
+<li><strong>MathStudio</strong> 强大的图形化专业计算器</li>
+<li><strong>CAJCloudViewer</strong> CAJ阅读器</li>
+<li><strong>VMware Fusion</strong> 虚拟机</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/实用技能//" class="article-tag-list-link color5">实用技能</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/21/MyMacAPP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-2013-04-09-entropy" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/13/2013-04-09-entropy/">熵的社会学意义</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/13/2013-04-09-entropy/" class="archive-article-date">
+  	<time datetime="2018-03-13T09:19:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="熵的社会学意义"><a href="#熵的社会学意义" class="headerlink" title="熵的社会学意义"></a>熵的社会学意义</h1><p>@(作者：阮一峰)<br><a href="http://www.ruanyifeng.com/road/2013/2013-04-09-entropy.html" target="_blank" rel="noopener">原文链接</a><br>日期： 2013年4月9日</p>
+<p>1、</p>
+<p>上周，我读完了《熵：一种新的世界观》。</p>
+<p>作者是两个经济学家，他们写了一本物理学的书！正如经济学家所擅长的，书中充满了夸大偏颇的描写，以及片面的和逻辑不严密的论证。而且这本书（英文版）出版于1980年，内容不是很新。</p>
+<p>但是，我不得不说，他们的结论说动了我：从熵的角度看，如果不改变发展模式，人类无法继续发展。我还发现，熵是一种解释力极强的理论，许多现象都可以用熵来解释，看上去非常合理。</p>
+<p>下面我就来解释，什么是熵，以及为什么它会影响人类社会的发展。</p>
+<p>2、</p>
+<p>根据热力学第一定律，能量是守恒的，可以互相转化（比如机械能转化为电能），而不会消失。</p>
+<p>热力学第二定律进一步指出，虽然能量可以转化，但是无法100%利用。在转化过程中，总是有一部分能量会被浪费掉。比如，汽油含有的能量可以转化成发动机的能量，但是会伴随产生大量的热能和废气。即使科技再发达，也无法将被浪费的能量减小至零。</p>
+<p>写成公式就是：</p>
+<blockquote>
+<p>能量的总和 = 有效能量 + 无效能量</p>
+</blockquote>
+<p>有效能量指的是，可以被利用的能量；无效能量指的是，无法再利用的能量，又称为熵。所以，熵就是系统中的无效能量。</p>
+<p>考虑到宇宙的能量总和是一个常量，而每一次能量转化，必然有一部分有效能量变成无效能量（即熵），因此不难推论，有效能量越来越少，无效能量越来越多。直到有一天，所有的有效能量都变成无效能量，那时将不再有任何能量转化，这就叫宇宙的“热寂”（Heat Death）。所以，热力学第二定律的一个重要推论就是：熵永远在增加。</p>
+<p>3、</p>
+<p>热力学第二定律只是定义了熵，没有解释熵的产生原因：为什么总是有一部分能量无法再利用？</p>
+<p>1877年，奥地利物理学家玻尔兹曼（Ludwig Boltzmann）对熵做出了令人信服的解释。</p>
+<p>他认为，任何粒子的常态都是随机运动，也就是“无序运动”，如果让粒子呈现“有序化”，必须耗费能量。所以，能量可以被看作有序化的一种度量。热力学第二定律实际上是说，当一种形式的有序化转化为另一种形式的有序化，必然伴随产生某种无序化。一旦能量以无序化的形式存在，就无法再利用了，除非从外界输入新的能量，让无序状态重新变成有序状态。</p>
+<p>熵就是无序化的度量。考虑到无序化代表着混乱（实质是随机运动），可以得到三个重要结论。</p>
+<p>结论1：如果没有外部能量输入，封闭系统趋向越来越混乱（熵越来越大）。比如，如果房间无人打扫，不可能越来越干净（有序化），只可能越来越乱（无序化）。</p>
+<p>结论2：如果要让一个系统变得更有序，必须有外部能量的输入。</p>
+<p>结论3：当一个系统（或部分）变得更加有序，必然有另一个系统（或部分）变得更加无序，而且“无序”的增加程度将超过“有序”的增加程度。</p>
+<p>4、</p>
+<p>上面三个结论在物理学上是很明显的。假设一杯冰水，如果没有外部能量输入，在常温下冰块将会融化（结论1）；要让它变得更冰，必须有外部能量的输入（结论2）；当它变得更冰的同时，周围的温度一定会升高（结论3）。</p>
+<p>如果社会现象也符合热力学定律，那么就可以用这三个结论来推断社会现象。</p>
+<p>如果没有能量输入，人类社会将变得越来越混乱（结论1）；人类社会要变得更进步（有序化），必须要有能量输入（结论2）；这种能量输入最好来自地球以外（比如太阳能）。如果只是使用地球上的能源，必然意味着在人类社会变得更有序的同时，地球的某个部分将变得更无序（结论３）。</p>
+<p>于是，问题的关键就是，人类是否能找到足够的能源？</p>
+<p>5、</p>
+<p>1804年，世界人口达到10亿；1927年，达到20亿；1974年，达到40亿；1999年，达到60亿；2011年10月31日，达到70亿。专家估计，2025年达到80亿，2045年达到90亿。</p>
+<p>由于生活水平的提高和维持现行秩序的需要，如果人口增加1倍，所需要增加的能量将不止1倍。因此，能源的增长速度必须高于人口增长速度 + 经济增长速度，才可能支持人类社会现在这种发展。</p>
+<p>麻烦的是，能源几乎肯定无法这么快地增长。太阳能，以目前的技术，大规模使用还不现实；化石能源，应该都会在本世纪内开采光；核能、水能和风能，将是未来的主要能源，但是都有各自的弊端（核废料、水坝、高昂的设备成本等等）。更要命的是，根据热力学第二定律，使用系统内的能源，必然增加系统内的熵。</p>
+<p>这意味着，如果人类单纯依靠地球自身的能源，地球必将变成一个越来越混乱的地方。</p>
+<p>6、</p>
+<p>目前的种种环境问题—-空气污染、水污染、冰山融化、生物灭绝—-其实都可以归结为熵的增加。</p>
+<p>就连人类心理、思维、价值观上的混乱，也可以归结为熵的增加。比如，计算机系统是高度有序的系统，维持计算机系统的秩序，需要大量人类思维的输入。根据热力学第二定律，计算机系统越有序，对应的人类思维就越无序。这解释了为什么世界上一些最好的科学家和程序员，在世人眼里，都有点不太正常，甚至行为混乱。这还解释了，为什么工业时代和信息时代的到来，伴随着人类的心理和精神疾病患者激增。</p>
+<p>一句话，除非减少能源消耗和降低人口，否则人类没有未来。</p>
+<p>7、</p>
+<p>《熵：一种新的世界观》的摘录</p>
+<ul>
+<li><p>热力学第二定律告诉我们，物质与能量只能沿着一个方向转换，即从可利用到不可利用，从有效到无效，从有秩序到无秩序。热力学第二定律实质上就是说宇宙万物从一定的价值与结构开始，不可挽回地朝着混乱与荒废发展。</p>
+</li>
+<li><p>热力学的两个定律可以用一句简短的句子来表达： 宇宙的能量总和是个常数，总的熵是不断增加的。</p>
+</li>
+<li><p>熵是不能再被转化作功的能量的总和的测定单位。</p>
+</li>
+<li><p>能量只能沿着一个方向—-即耗散的方向—-转化，那么污染就是熵的同义词。</p>
+</li>
+<li><p>世界的熵（即无效能量的总和）总是趋向最大。</p>
+</li>
+<li><p>在一个封闭的系统里，物质的熵最终将达到最大值。</p>
+</li>
+<li><p>当熵处于最小值，即能量集中程度最高、有效能量处于最大值时，那么整个系统也处于最有序的状态。相反，熵为最大值、有效能量完全耗散的状态，也就是混乱度最大的状态。</p>
+</li>
+<li><p>如果没有外界作用，那么物体是不会自动趋于井井有条的状态的，每个打扫过房间或在办公室工作过的人都知道，如果东西不加收拾，那么它们就会越来越乱。而要使物体重新归于秩序那就又要进一步花费能量。</p>
+</li>
+<li><p>我们应该强调某处发生的熵的逆转，都必须以周围环境的总熵的增加为代价。这是因为每发生一件事情总会有一定能量被耗散，并不能再被利用了。</p>
+</li>
+<li><p>每次在一定地点由人力或机器造成的熵的减少，都伴随着周围环境熵的更大增值，从而保持了熵的总值的必要增加。</p>
+</li>
+<li><p>大爆炸学说符合热力学第一和第二定律，它声称宇宙是以有序的状态开始，并从此不断地向无序的状态发展。宇宙的熵最终必然达到最大值，热寂必然会到来，那时所有的有用能量已被消耗一空，宇宙中再也不会有任何变化发生。宇宙的热寂相当于永恒的宁静。</p>
+</li>
+<li><p>时间体现了能量从集中状态到耗散状态，从有序状态到混乱状态的变化。如果熵的过程是可以逆转的，那么过去发生的一切都可以挽回。</p>
+</li>
+<li><p>能量本身永远从有效状态转化为无效状态。</p>
+</li>
+<li><p>我们的朋友一个个衰老死亡。我们坐在火堆旁，看着火苗慢慢燃尽，只留下灰白色的灰烬。我们历经沧桑变迁，而这个经历就是熵定律的展开。这就是不可逆转的能量耗散过程。</p>
+</li>
+<li><p>每当发生任何事情，世界上的能量就有一次耗散，熵的总值就有一次增加。说时光就要流逝完就是说世界的有效能量将要告罄。</p>
+</li>
+<li><p>世界上的能量消耗越快，可能发生的事情剩下的也就越少，世界上所剩下的时间也就相应地越来越少了。</p>
+</li>
+<li><p>当世界达到最大熵状态，再无更多能量作功的时候，由于万物陷于一片沉寂，时间便会终止。</p>
+</li>
+<li><p>有机体的生长所体现的熵的微小的、局部的递减，都伴随着宇宙总熵的更大范围的递增。</p>
+</li>
+<li><p>所有东西将是以某种原材料（有效能量）开始， 而最后又将以废物（无效能量）而告终。</p>
+</li>
+<li><p>技术只不过是自然界所蕴藏的能量的转化器。</p>
+</li>
+<li><p>熵定律告诉我们，每当一定的有效能量被消耗掉，周围环境的混乱就会増加。现代工业社会巨大的能量流通，给我们居住的世界带来了极大的混乱。技术现代化的进程越快，能量转化的速度也就越高，有效能量就耗散得越多，混乱程度也就越大。</p>
+</li>
+<li><p>我们竭力把一切活动技术化、条理化，而结果只是加快了能量转化和熵的过程。</p>
+</li>
+<li><p>我们越是把技术扩散到整个文化中去，整个社会就越是支离破碎，熵的增加也就越快，混乱程度也就越大。我们当代世界的危机触目惊心的道理就在这里。</p>
+</li>
+<li><p>我们使用的合法货币就代表着对我们以前所投入的能量的报酬。归根到底，货币只是对贮存着的能量的债权而已。工资就是对人们所作的功或所耗的能的报酬。</p>
+</li>
+<li><p>城市越大，所需输入能量就越多。流进城市的能量越多，随之而来的混乱就越厉害，混乱越厉害，组织内部结构便更趋庞大以对付各种骚乱，这个过程不能被永久地维持下去。</p>
+</li>
+<li><p>求知过程是一种违反热力学第二定律的活动，它或者树立更严格的秩序或者发展负熵。</p>
+</li>
+<li><p>我们正在很快地接近矿物燃斜能源环境的极限。如果我们坐以待毙，我们就会发现，我们根本没有剩余能源可用来渡过难关。</p>
+</li>
+<li><p>我们即将进入的低熵时代要求我们大幅度减少世界人口。</p>
+</li>
+<li><p>人类要生存，唯一的希望就是放弃对地球的掠夺，转而适应自然秩序。</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">美文</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/13/2013-04-09-entropy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-我进入软件开发世界的第一步" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/10/我进入软件开发世界的第一步/">我进入软件开发世界的第一步</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/10/我进入软件开发世界的第一步/" class="archive-article-date">
+  	<time datetime="2018-01-10T07:56:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>摘录自 <a href="https://medium.freecodecamp.org/my-first-steps-into-the-world-of-software-development-and-what-they-taught-me-6ee748cffb8f" target="_blank" rel="noopener">medium</a><br><img src="http://ozrhqzqeu.bkt.clouddn.com/m1.png" alt="enter image description here"><br>&emsp;&emsp;作为计算机科学的新生，学生在课堂上学到的东西与在现实世界中看到的东西之间是脱节的。<br>&emsp;&emsp;你要学习所有的知识，了解各种各样的循环(for,while,do while)。<br>你可以很轻松的编写一个基于命令行的井字棋游戏。 而且你填写的这么多的x86程序集使你头晕目眩。<br>&emsp;&emsp;但是对于Facebook这样的产品如何运行你没有丝毫的思路，又比如说Reddit，YouTube，你甚至不知道从哪里开始。<br>&emsp;&emsp;当你用Google搜索“使用python的公司”时，由于Python是你唯一熟悉的语言，你会发现有人说“Reddit …使用python作为其后端”。 那有什么意思？<br>&emsp;&emsp;你的知识在写一个基于命令行的井字棋游戏和构建一个“真实”的应用程序之间存在巨大的差距，没有人告诉你如何弥补它。<br>即使你已经学会了如何在逻辑上思考， 你不知道如何运用你学到的东西来构建你想要构建的东西。<br>&emsp;&emsp;事情是这样的：你要主动地去到你想要的地方。 你不会总是有教授给你所有的项目模板和样板，让你填写空白。<br>你不会总是有一个课程计划告诉你“这是你需要学习下一个”。<br>&emsp;&emsp;没有人对你个人的发展产生的影响比你多。 这取决于你自己想要学习的东西，而不需要别人为你提供下一步的每一步。<br>&emsp;&emsp;这种自我导向的学习，被Dan Luu形容为一种元技能，是你成为一名软件开发人员的重要技能之一。<br>&emsp;&emsp;幸运的是，现在我们有Google来帮忙。 当你搜索“如何使用python建立一个网站”， 你偶然发现这个漂亮的小web框架，并决定使用它 - 而你不是真的知道什么是框架。<br>&emsp;&emsp;您尝试从头阅读文档，不了解任何内容（“数据库抽象层？”），并跳到安装步骤。<br>&emsp;&emsp;最后，跟随一些可操作的步骤！ 你把命令复制到你的终端。 有些东西叫做pip，virtualenv，不管这些是什么。你花一分钟时间来查看这些信息，以便你了解自己在机器上所做的事情。<br>&emsp;&emsp;我们通过理解来学习，而不是盲目遵循说明。习惯于学习，而不是在你不明白某些事的时候放弃，你会看到，<br>&emsp;&emsp;看似不可能的任务是真正的更多的成长机会，主要问题在于它会耗费你多长时间。<br>&emsp;&emsp;好的，比如说pip是一个安装软件包的工具，以便你能够导入它们，就像我们导入内置的数学软件包一样。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/m2.png" alt="enter image description here"><br>&emsp;&emsp;Virtualenv像是将软件包安装隔离到特定项目的一种方法。 你还没有完全理解除了mkdir和cd之外的任何命令，但是你也不是一窍不通。<br>&emsp;&emsp;是时候去看一下 <a href="http://flask.pocoo.org/docs/0.12/quickstart/" target="_blank" rel="noopener">快速入门指南</a>了。<br>&emsp;&emsp;你按照最初的说明进行操作，当你运行程序并在浏览器中首次查看“Hello，world”时，会有一阵兴高采烈。<br>你心想，这就是我所说的！ 对我来说没有更多无聊的旧命令行程序了！ 可以肯定的是，这只是一小步，仅仅是你在浏览器中的代码，但这很重要。<br>&emsp;&emsp;你继续往下，但是开始遇到很多你不完全理解的概念。Routes？HTTP？ GET？POST？ 什么是渲染模板？<br>&emsp;&emsp;其中有些术语似乎有点模糊不清，但实际上并不知道它们的含义，所以你就停下来查看它们。<br>&emsp;&emsp;就像你学习pip和virtualenv一样，你开始模模糊糊的想像出这个应用程序是如何工作的。<br>&emsp;&emsp;学习需要练习。 就像任何其他技能一样，它需要被磨练。 就像其他练习的技巧一样，它可以成为一种习惯。 抓住每一个你必须学习的机会。<br>&emsp;&emsp;记住：成功催生成功。 养成一个习惯，不仅会使你的个人成长飙升，而且你的学习欲望也会增长。<br>&emsp;&emsp;你可以使用模板来显示内容，就像使用其他任何HTML / CSS页面一样，但内容是动态的。你可以通过定义路线来控制显示在不同URL上的内容。<br>&emsp;&emsp;你甚至可以从其他网站获取内容以在你自己的应用程序中使用！<br> &emsp;&emsp;随着你越来越熟悉，你开始感受到一定程度的控制能力，并为自己的独立学习感到自豪，这是你从事任何课堂项目时从未感受过的。<br>&emsp;&emsp;你感到有主动权。 谁还需要上学呢？<br>&emsp;&emsp;当你获得信心时，开始感觉这个指南有点…太基本了。毕竟，这只是一个快速入门指南。你认为你可以做些比这更酷的事情。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/m3.png" alt="enter image description here"><br>&emsp;&emsp;所以你自己动手，你使用pip和virtualenv来设置你的项目，因为这是你唯一知道的方法去建立一个项目，你知道如何设置模板，<br>&emsp;&emsp;你知道如何设置路由，HTTP请求，GET和POST。你甚至可以使用第三方的API，并练习阅读更多的文档。 你仍然不明白一切，但是你正在一点一滴地学习。<br>&emsp;&emsp;最后，你建立你的第一个独立的项目。 这不是你之前关注的数百名发人员写的教程的结果，不是在你完成之前被数千名学生做过的班级任务。<br>一个真实的，有形的，纯洁的应用程序，一个没有你建立，它就不存在的程序。 这是一个了不起的感觉。<br>&emsp;&emsp;接下来是什么？ 现在你已经建立了一个应用程序，你怎么把它放在网上，这样每个人都可以使用它？ 真正的“后端”是什么？前端又是啥？<br>&emsp;&emsp;培养学习欲望是一件好事：总是有更多。 这就像一个惊人的电视连续剧，你永远不能得到足够的 - 它永远不会结束。 学无止境。<br>&emsp;&emsp;软件开发的每一门学科都是一个全新的世界，你学的越多，向你开放的世界就越多。<br>&emsp;&emsp;在某个时候，你意识到成为一个“真正”的软件开发者没有单一的规范路径。 没有足够的时间去掌握每一件事情。<br>&emsp;&emsp;每个人的成功之路都是独一无二的。这完全取决于你建立的到达你想到达目的地的路径。<br>&emsp;&emsp;这是我自己进入软件开发世界的第一步的故事。 如果你想看到我建造的第一个项目，你可以<a href="https://github.com/thetimothyp/Where2Eat" target="_blank" rel="noopener">在这里查看</a>。<br>&emsp;&emsp;如果你想分享自己的感觉，随时发表一个链接的评论！ 我总是好奇，看看人们开始写的代码是什么样的。</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/10/我进入软件开发世界的第一步/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-tensorflow安装教程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -724,509 +1321,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-iOS完整学习路线图" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/21/iOS完整学习路线图/">iOS完整学习路线图</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/21/iOS完整学习路线图/" class="archive-article-date">
-  	<time datetime="2017-11-21T09:39:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ios完整学习路线图"><a href="#ios完整学习路线图" class="headerlink" title="ios完整学习路线图"></a>ios完整学习路线图</h1><p>来自传智播客 ，原图链接（<a href="http://www.cnblogs.com/mjios/archive/2013/02/26/2933200.html" target="_blank" rel="noopener">http://www.cnblogs.com/mjios/archive/2013/02/26/2933200.html</a>）<br><img src="http://ozrhqzqeu.bkt.clouddn.com/fullsizeoutput_11f.jpeg" alt="ios完整学习路线图"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/21/iOS完整学习路线图/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git远程库版本回滚" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/21/Git远程库版本回滚/">Git 远程库版本回滚</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/21/Git远程库版本回滚/" class="archive-article-date">
-  	<time datetime="2017-11-21T03:05:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>git代码库回滚: 指的是将代码库某分支退回到以前的某个commit id</p>
-<p>【本地代码库回滚】：</p>
-<p>git reset –hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除</p>
-<p>git reset –hard HEAD~3：将最近3次的提交回滚</p>
-<p>【远程代码库回滚】：</p>
-<p>这个是重点要说的内容，过程比本地回滚要复杂</p>
-<p>应用场景：自动部署系统发布后发现问题，需要回滚到某一个commit，再重新发布</p>
-<p>原理：先将本地分支退回到某个commit，删除远程分支，再重新push本地分支</p>
-<p>操作步骤：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout the_branch</span><br><span class="line">git pull</span><br><span class="line">git branch the_branch_backup //备份一下这个分支当前的情况</span><br><span class="line">git reset --hard the_commit_id //把the_branch本地回滚到the_commit_id</span><br><span class="line">git push origin :the_branch //删除远程 the_branch</span><br><span class="line">git push origin the_branch //用回滚后的本地分支重新建立远程分支</span><br><span class="line">git push origin :the_branch_backup //如果前面都成功了，删除这个备份分支</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Git//" class="article-tag-list-link color4">Git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/21/Git远程库版本回滚/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2017计划" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/04/2017计划/">2017 计划</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/04/2017计划/" class="archive-article-date">
-  	<time datetime="2017-02-04T07:55:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">plan</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Git//" class="article-tag-list-link color4">Git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/04/2017计划/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java,CS的数组定义" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/20/Java,CS的数组定义/">Java、C_Sharp定义数组区别</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/20/Java,CS的数组定义/" class="archive-article-date">
-  	<time datetime="2016-07-20T10:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-Java"><a href="#1-Java" class="headerlink" title="(1)Java"></a><strong>(1)Java</strong></h4><p><strong> 一维数组</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) int[] a; //声明,没有初始化</span><br><span class="line"></span><br><span class="line">2) int[] a=new int[5]; //初始化为默认值,int型为0</span><br><span class="line"></span><br><span class="line">3) int[] a=&#123;1,2,3,4,5&#125;; //初始化为给定值</span><br><span class="line"></span><br><span class="line">4) int[] a=new int[]&#123;1,2,3,4,5&#125;; //同(3) int[] a=new int[5]&#123;1,2,3,4,5&#125;; //错误,如果提供了数组初始化操作，则不能定义维表达式</span><br><span class="line"></span><br><span class="line">5) int[] a; a=new int[5]; //正确,同(2)一样</span><br><span class="line"></span><br><span class="line">int[] a; a=&#123;1,2,3,4,5&#125;; //错误,数组常量只能在初始化操作中使用，如（3）</span><br><span class="line"></span><br><span class="line">6) int a[]; a[0]=1; //错误,因为数组没有初始化,不能赋值 a[1]=2;</span><br></pre></td></tr></table></figure></p>
-<p><strong> 二维数组 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) int[][] a; //声明,没有初始化</span><br><span class="line"></span><br><span class="line">2) int[][] a=new int[2][3]; //初始化为默认值,int型为0</span><br><span class="line"></span><br><span class="line">3) int[][] a=&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4&#125;&#125;; //初始化为给定值 int[][] a=&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //没有错,数组空间不是连续分配的，所以不要求每一维的大小相同</span><br><span class="line"></span><br><span class="line">4) int[][] a=new int[2][]; a[0]=new int[3]; //a[0]其实就是一个数组 a[1]=new int[4]; //每一维的大小可以不一样;</span><br><span class="line"></span><br><span class="line">5) int[][] a=new int[][]&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //同(3) int[] a=new int[5]&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //错误,如果提供了数组初始化操作，则不能定义维表达式</span><br><span class="line"></span><br><span class="line">int[][] a=new int[2][]; a[0]=&#123;1,2,3,4,5&#125;; //错误,数组常量只能在初始化操作中使用</span><br><span class="line"></span><br><span class="line">6) int[][] a=new int[2][]; a[0][1]=1; //错误,第二维没有初始化,不能赋值,java.lang.NullPointerException异常</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>总结:<br>1.二维就是数组的数组,里面的数组大小不要求一样<br>2.不管一维还是二维,在使用前(赋值,访问)必须初始化,可以用new默认初始化,也可以用数组常量初始化</p>
-</blockquote>
-<blockquote>
-<p><strong>1.动态初始化：数组定义与为数组分配空间和赋值的操作分开进行； （一般用指针实现动态数组，返回数组首地址）</strong><br><strong>2.静态初始化：在定义数字的同时就为数组元素分配空间并赋值；</strong><br><strong>3.默认初始化：数组是引用类型，它的元素相当于类的成员变量，因此数组分配空间后，每个元素也被按照成员变量的规则被隐式初始化。</strong></p>
-</blockquote>
-<h4 id="2-C-Sharp"><a href="#2-C-Sharp" class="headerlink" title="(2)C_Sharp"></a><strong>(2)C_Sharp</strong></h4><p><strong> 数组概述 </strong></p>
-<blockquote>
-<p>C# 数组从零开始建立索引，即数组索引从零开始。C# 中数组的工作方式与在大多数其他流行语言中的工作方式类似。但还有一些差异应引起注意。</p>
-</blockquote>
-<p><em>声明数组时，方括号 ([]) 必须跟在类型后面，而不是标识符后面。在 C# 中，将方括号放在标识符后是不合法的语法。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] table; // not int table[];</span><br></pre></td></tr></table></figure></p>
-<p><em>另一细节是，数组的大小不是其类型的一部分，而在 C 语言中它却是数组类型的一部分。这使您可以声明一个数组并向它分配 int 对象的任意数组，而不管数组长度如何。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int[] numbers; // declare numbers as an int array of any size</span><br><span class="line">numbers = new int[10]; // numbers is a 10-element array</span><br><span class="line">numbers = new int[20]; // now it&apos;s a 20-element array</span><br></pre></td></tr></table></figure></p>
-<p><strong> 声明数组 </strong></p>
-<blockquote>
-<p>C# 支持一维数组、多维数组（矩形数组）和数组的数组（交错的数组）。下面的示例展示如何声明不同类型的数组：<br><code>一维数组</code>：int[] numbers;<br><code>多维数组</code>：string[,] names;<br><code>数组的数组（交错的)</code>：byte[][] scores; </p>
-</blockquote>
-<p>声明数组（如上所示）并不实际创建它们。在 C# 中，数组是对象（本教程稍后讨论），必须进行实例化。下面的示例展示如何创建数组：</p>
-<blockquote>
-<ul>
-<li>一维数组：int[] numbers = new int[5]; </li>
-<li>多维数组：string[,] names = new string[5,4]; </li>
-<li>数组的数组（交错的）：<br>byte[][] scores = new byte[5][];<br>for (int x = 0; x &lt; scores.Length; x++)<br>{<br>scores[x] = new byte[4];<br>} </li>
-<li>还可以有更大的数组。例如，可以有三维的矩形数组：<br>int[,,] buttons = new int[4,5,3]; </li>
-<li>甚至可以将矩形数组和交错数组混合使用。例如，下面的代码声明了类型为 int 的二维数组的三维数组的一维数组。<br>int[][,,][,] numbers; </li>
-</ul>
-</blockquote>
-<p><strong> 初始化数组  </strong></p>
-<blockquote>
-<p>C# 通过将初始值括在大括号 ({}) 内为在声明时初始化数组提供了简单而直接了当的方法。下面的示例展示初始化不同类型的数组的各种方法。</p>
-</blockquote>
-<p>注意如果在声明时没有初始化数组，则数组成员将自动初始化为该数组类型的默认初始值。另外，如果将数组声明为某类型的字段，则当实例化该类型时它将被设置为默认值 null。</p>
-<p><strong> 一维数组 </strong></p>
-<blockquote>
-<ul>
-<li>int[] numbers = new int[5] {1, 2, 3, 4, 5};<br>string[] names = new string[3] {“Matt”, “Joanne”, “Robert”};</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>可省略数组的大小，如下所示：<br>int[] numbers = new int[] {1, 2, 3, 4, 5};<br>string[] names = new string[] {“Matt”, “Joanne”, “Robert”}; </li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>如果提供了初始值设定项，则还可以省略 new 运算符，如下所示：<br>int[] numbers = {1, 2, 3, 4, 5};<br>string[] names = {“Matt”, “Joanne”, “Robert”}; </li>
-</ul>
-</blockquote>
-<p><strong> 多维数组 </strong></p>
-<blockquote>
-<ul>
-<li>int[,] numbers = new int[3, 2] { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = new string[2, 2] { {“Mike”,”Amy”}, {“Mary”,”Albert”} }; </li>
-<li>可省略数组的大小，如下所示：<br>int[,] numbers = new int[,] { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = new string[,] { {“Mike”,”Amy”}, {“Mary”,”Albert”} }; </li>
-<li>如果提供了初始值设定项，则还可以省略 new 运算符，如下所示：<br>int[,] numbers = { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = { {“Mike”, “Amy”}, {“Mary”, “Albert”} }; </li>
-<li>交错的数组（数组的数组）<br>可以像下例所示那样初始化交错的数组：<br>int[][] numbers = new int[2][] { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br>可省略第一个数组的大小，如下所示：<br>int[][] numbers = new int[][] { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br>－或－<br>int[][] numbers = { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br><strong>请注意，对于交错数组的元素没有初始化语法。</strong></li>
-</ul>
-</blockquote>
-<p><strong> C#示例程序 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            //------------------声明数组------------------</span><br><span class="line">            int[][] myArray1 = new int[3][];    //交叉数据</span><br><span class="line">            int[][] myArray2 = new int[3][] &#123; new int[3] &#123; 5, 6, 2 &#125;, new int[5] &#123; 6, 9, 7, 8, 3 &#125;, new int[3] &#123; 3, 2, 4 &#125; &#125;;    //交叉数据(赋值)</span><br><span class="line">           int[,] myArray5 = new int[3, 3];    //二维数据</span><br><span class="line">           int[,] myArray6 = new int[3, 3] &#123; &#123; 5, 6, 2 &#125;, &#123; 7, 8, 3 &#125;, &#123; 3, 2, 4 &#125; &#125;;    //二维数据(赋值)</span><br><span class="line">            //交叉数据</span><br><span class="line">            myArray1[0] = new int[] &#123; 5, 3, 7, 1, 9 &#125;;</span><br><span class="line">            Console.WriteLine(myArray1[0].Count());    //OutPut: 5</span><br><span class="line">            //Console.WriteLine(myArray1[1][2]);    //抛出未将对象运用到实例</span><br><span class="line">            Console.WriteLine(myArray2[0][2]);     //OutPut: 2</span><br><span class="line">           //二维数据</span><br><span class="line">            myArray5[0, 2] = 8;</span><br><span class="line">            Console.WriteLine(myArray5[0, 2]);    //OutPut: 8</span><br><span class="line">            Console.WriteLine(myArray5[1, 2]);    //OutPut: 0</span><br><span class="line">            Console.WriteLine(myArray6[2, 2]);    //OutPut: 4</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数组</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/20/Java,CS的数组定义/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CS概述" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/19/CS概述/">C Sharp概述</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/19/CS概述/" class="archive-article-date">
-  	<time datetime="2016-07-19T08:25:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>C#语言是微软于2000年发布，基于.NET Framewrok框架的、面向对象的高级语言。经过近十三年的发展，经历了5次大的升级，最新版本为C#5.0(对应于.NET Framework 4.5)，下面是C#语言发展过程的简单性总结：</em><br> <img src="http://i1.piimg.com/4851/b3542cbbd7fcffb6.png" alt="enter image description here"></p>
-<blockquote>
-<p>托管代码(managed code)：指由”运行时”控制程序的主要行为，管理诸如内存分配、安全性和JIT编译等方面。</p>
-</blockquote>
-<p>C#作为一门托管语言，和C/C++这些本地语言不同；C/C++经过编译后直接变成处理器可执行的机器码，而C#编译器则会将C#转换为CIL(简称IL)代码，而不是机器码，我们知道C#是基于.NET Framework 框架的语言，CIL代码转换为可执行的代码还需要经过CLR的转换，CLR根据需要编译CIL代码，这个过程称为JIT编译(Just-in-time)或即时编译。下面是C#代码编译到执行的过程：<br><img src="https://i-msdn.sec.s-msft.com/dynimg/IC210180.png" alt="enter image description here"></p>
-<p>###C# 代码执行过程<br> 　　学习一种语言最开的方式就是开始动手写程序，我们先从一个最简单的Hello world开始：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">class test</span><br><span class="line">&#123;</span><br><span class="line">	public static void Main(string[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		Console.WriteLine(&quot;Hello!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>程序编写完成后将代码所在文件保存为以.cs为后缀(C#编译器允许为C#源代码文件使用任何扩展名，但通常都是使用*.cs)；接下来可以直接使用控制台(如果你想使用<code>Visual Studio</code>也可以)调用编译器进行编译(具体步骤参考：通过控制台调用编译器和IL反汇编工具)，根据前面的示例图，我们知道C#源码经过C#编译器编译后会生成一个托管模块，如下：<br><img src="http://i2.piimg.com/567571/2d87df0f93529617.png" alt="enter image description here"><br>我们打开源文件所在目录，源码经过编译器编译后生成了一个exe文件，点击即可运行。在这里我们需要注意：在进行一次成功的C#编译之后，生成的肯定是一个程序集，无论它是一个程序，还是一个库。在前面我们知道：为了执行一个方法，首先必须把它的IL转换成本地的CPU指令(由CLR的JIT编译器负责)，下面展示了Hello World程序首次调用时发生的情况：<br><img src="http://i2.piimg.com/567571/3645d57de72c53bd.png" alt="enter image description here"><br>一个方法只有在首次调用的时候会调用JIT编译器编译成本地代码，以后对该方法所有的调用都以本地代码的形式全速运行，无需重新验证IL并把它编译成本地代码。因为JIT编译器会将本地CPU指令存储到动态内存中。下面是方法第二次被调用时的示意图：<br><img src="http://i2.piimg.com/567571/d22ff3861b8fd951.png" alt="enter image description here"></p>
-<blockquote>
-<p>这里我们需要注意，一旦程序终止，编译好的代码也会被丢弃。如果再次运行应用程序，JIT编译器将会再次将IL编译成本地代码。</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C Sharp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/19/CS概述/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -1321,19 +1418,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1341,15 +1434,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1357,7 +1450,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1385,11 +1486,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1397,11 +1498,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
             
             <div class="clearfix"></div>

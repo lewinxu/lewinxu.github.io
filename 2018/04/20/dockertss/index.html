@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="lewinxu">
 <meta property="og:description" content="Docker — 从入门到实践 在 Vultr 上搭建 Shadowsocks 服务端  使用脚本自动安装在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装： 12$ curl -fsSL get.docker.com -o get-docker.sh$ sudo sh get-docker.sh --mirror Aliy">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-20T06:37:43.000Z">
+<meta property="og:updated_time" content="2019-03-03T04:29:59.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux+Docker+SS">
 <meta name="twitter:description" content="Docker — 从入门到实践 在 Vultr 上搭建 Shadowsocks 服务端  使用脚本自动安装在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装： 12$ curl -fsSL get.docker.com -o get-docker.sh$ sudo sh get-docker.sh --mirror Aliy">
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
 <ul>
 <li>方式二(推荐使用)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -e &quot;SS_PORT=443&quot; -e &quot;SS_PASSWORD=paswword&quot; -e </span><br><span class="line">&quot;SS_METHOD=yourmothed&quot; -e &quot;SS_TIMEOUT=600&quot; -e &quot;KCP_PORT=9443&quot; -e &quot;KCP_MODE=fast&quot; -e &quot;MTU=1400&quot; -e</span><br><span class="line"> &quot;SNDWND=1024&quot; -e &quot;RCVWND=1024&quot; -p 443:443 -p 443:443/udp -p 9443:9443/udp --name </span><br><span class="line"> ssserver imhang/kcp-shadowsocks-docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -e &quot;SS_PORT=443&quot; -e &quot;SS_PASSWORD=paswword&quot; -e \</span><br><span class="line">&quot;SS_METHOD=yourmothed&quot; -e &quot;SS_TIMEOUT=600&quot; -e &quot;KCP_PORT=9443&quot; -e &quot;KCP_MODE=fast&quot; -e &quot;MTU=1400&quot; -e \</span><br><span class="line"> &quot;SNDWND=1024&quot; -e &quot;RCVWND=1024&quot; -p 443:443 -p 443:443/udp -p 9443:9443/udp --name \</span><br><span class="line"> ssserver imhang/kcp-shadowsocks-docker</span><br></pre></td></tr></table></figure>
 
       
 
@@ -347,11 +347,11 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2018/12/06/geo安装记录/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/01/10/文件共享网站集锦/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Centos7.5+Geoserver 安装记录
+          共享网站集锦
         
       </div>
     </a>
@@ -484,19 +484,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,15 +500,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,7 +516,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -548,11 +552,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,11 +564,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
             
             <div class="clearfix"></div>
