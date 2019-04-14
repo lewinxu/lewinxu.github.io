@@ -189,7 +189,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-未来数学家的挑战4" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-未来数学家的挑战4" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -217,7 +217,7 @@ var _hmt = _hmt || [];
 <li>若有一个 NP-complete 问题可以用 O(n^k) 计算量来解决， 则全体的 NP 问题都可以用 O(n^k) 之计算量来解决，即</li>
 </ol>
 <blockquote>
-<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt=""> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt="">P，则 P=NP。</p>
+<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt>P，则 P=NP。</p>
 </blockquote>
 <p>又换句话说，NP-complete 是 NP 中的难题，NP-complete 解决了， NP 就解决了。但若有一个属于 NP 而不属于 NP-complete 的问题解决了，则其他的 NP 问题不一定可以解决。</p>
 <p>什么叫做 NP？NP 是英文 non-deterministic polynomial 的缩写，意思就是<strong>非确定性的多项式时间</strong>。要了解这个字。我们先看一看普通计算机的作用。</p>
@@ -230,10 +230,10 @@ var _hmt = _hmt || [];
 <li>2.某线已找到答案，立刻叫停，大家停止作业，解题完毕。</li>
 <li>3.此路不通，本线不再作业，但不叫停，别线仍然作业。</li>
 </ul>
-<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt=""></p>
+<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt></p>
 <p>我们无法知道此路是否最短，但在(B)问题中，一个「Yes」或「No」的结果只要7个加法就可以回答了。 因此根据新的定义，问题2是一个 NP 问题。<br>由这两个定义，读者不难看出问题2,4,6,7,8,9（乙）与10皆为 NP 问题，特别是问题9之（甲），（乙）， 其实是一样的问题，但如果你猜二个 m,n，立刻就可知道 a 是否是 mn。</p>
-<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt=""></p>
-<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt=""></p>
+<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt></p>
+<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt></p>
 <p>永为 0，故此 f 为不可满足。<br>直觉上，这类问题除了将 u1, u2,…,un 一个一个以 0,1 代入检查 2n 次之外，显无捷径可循，古克1971年之论文即证明这是一切 NP 问题之母。</p>
 <p><strong>古克定理：</strong><br>满足问题为 NP-complete。现在已可证明在前节中之问题，除了问题1,3,5,9 之外，全是 NP-complete 问题</p>
 
@@ -506,11 +506,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,11 +522,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,11 +538,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,11 +570,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,11 +582,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>

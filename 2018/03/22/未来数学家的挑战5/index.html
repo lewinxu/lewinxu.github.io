@@ -192,7 +192,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-未来数学家的挑战5" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-未来数学家的挑战5" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -213,17 +213,17 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p>NP-complete 问题既找不到可行的解法，而很大部分的 NP-complete 问题都在计算机语言，程式，电路设计，统计学，程式作业上有大用，因此只好退而求其次找一个可行的近似解。很可惜的是，所有的 NP-complete 问题虽在 NP 的层次上相联，在近似解上往往各需不同的解法，这些解法多从直观而来，我们在此举二个例子。</p>
-<p><strong>例1</strong><br>在第三节问题5，包装问题中，若采取「能装就装」法，即现有的盒子若可以装得下，就不用新盒子，则此法所需用之盒子数 k1 与最可能少的盒子数 k0 满足<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk1.gif" alt="">。</p>
+<p><strong>例1</strong><br>在第三节问题5，包装问题中，若采取「能装就装」法，即现有的盒子若可以装得下，就不用新盒子，则此法所需用之盒子数 k1 与最可能少的盒子数 k0 满足<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk1.gif" alt>。</p>
 <p><strong>证明</strong></p>
-<p>今令 n 个物品之重为 w1,w2,…,wn 公斤，因每个盒子只可以装1公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/k0.gif" alt=""></p>
-<p>另一方面，「能装就装」法不可能有两个以上的盒子同时少于 0.5公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk11.gif" alt=""></p>
-<p>本例得证。<br>这个问题的结果是说，我们大约可以用「能装就装」法做得最好情形的一半好。 经过较複杂的证明，Johnson 在1974年证得，当 n 很大时，<br><img src="http://ozrhqzqeu.bkt.clouddn.com/png1.png" alt=""><br>也就是用「能装就装」法不会坏到 70% 以上，但可以坏到多用了 70% 的盒子。</p>
-<p>售货员旅行问题的一个直观走法是先访问最近那个尚未访问过的城，称为「先访近城」法，以图1为例，其走法为<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt=""></p>
+<p>今令 n 个物品之重为 w1,w2,…,wn 公斤，因每个盒子只可以装1公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/k0.gif" alt></p>
+<p>另一方面，「能装就装」法不可能有两个以上的盒子同时少于 0.5公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk11.gif" alt></p>
+<p>本例得证。<br>这个问题的结果是说，我们大约可以用「能装就装」法做得最好情形的一半好。 经过较複杂的证明，Johnson 在1974年证得，当 n 很大时，<br><img src="http://ozrhqzqeu.bkt.clouddn.com/png1.png" alt><br>也就是用「能装就装」法不会坏到 70% 以上，但可以坏到多用了 70% 的盒子。</p>
+<p>售货员旅行问题的一个直观走法是先访问最近那个尚未访问过的城，称为「先访近城」法，以图1为例，其走法为<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt></p>
 <p>Rosenkrantz 等在1977年证明这并不是一个很理想的走法，他们证出若各城间的距离满足三角不等式 ，则「先访近城」法所走之总程 D1 与最短路径 D0 之关系为</p>
-<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img30.gif" alt=""></p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img30.gif" alt></p>
 <p>且当 n 很大时，可以有一种情形使得 </p>
-<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img31.gif" alt=""></p>
-<p>上式中之 [x] 表示大于 x 之最小整数，例如 [5]=5, [2.5]=3。 因log2(n)当 n 大时可以很大，故 D1 可与 D0 相差非常之大，但在同一篇论文之中，Rosenkrantz 等证明另一种复杂的「直观」走法可以达到D1&lt;=2D0之地步。<br>在上面的定理中，三角不等式的条件很重要，若城之距离无此关系存在时，Sahni 与Gonzalez 在1976年证得：若P!= NP，则不可能存在一个有限的 m，及一个 O(n^k) 计算量的走法，能使其全程长 D1 在任何 n 时满足<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img35.gif" alt=""></p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img31.gif" alt></p>
+<p>上式中之 [x] 表示大于 x 之最小整数，例如 [5]=5, [2.5]=3。 因log2(n)当 n 大时可以很大，故 D1 可与 D0 相差非常之大，但在同一篇论文之中，Rosenkrantz 等证明另一种复杂的「直观」走法可以达到D1&lt;=2D0之地步。<br>在上面的定理中，三角不等式的条件很重要，若城之距离无此关系存在时，Sahni 与Gonzalez 在1976年证得：若P!= NP，则不可能存在一个有限的 m，及一个 O(n^k) 计算量的走法，能使其全程长 D1 在任何 n 时满足<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img35.gif" alt></p>
 <p>即上式中 m 非等于无限大不可，亦即所有 O(n^k) 的做法都不很好。</p>
 
       
@@ -495,11 +495,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,11 +511,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,11 +527,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,11 +559,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,11 +571,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>

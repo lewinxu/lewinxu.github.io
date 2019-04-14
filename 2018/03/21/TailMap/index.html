@@ -186,7 +186,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TailMap" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-TailMap" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -210,7 +210,7 @@ var _hmt = _hmt || [];
 <h2 id="瓦片地图"><a href="#瓦片地图" class="headerlink" title="瓦片地图"></a>瓦片地图</h2><p>互联网地图服务商的在线地图都通过瓦片的方式提供，称为<a href="https://en.wikipedia.org/wiki/Tile_Map_Service" target="_blank" rel="noopener">瓦片地图服务</a>。最常见的地图瓦片是图片格式的，现在有的地图服务商也提供了矢量的瓦片数据，然后在用户端使用Canvas渲染成图片。</p>
 <p>在进行地图开发时，为获取特定经纬度所在区域的瓦片和获取瓦片上像素点对应的经纬度，经常需要进行经纬度坐标与瓦片坐标、像素坐标的相互转换。</p>
 <p>国际标准的经纬度坐标是WGS84，Open Street Map、外国版的Google Map都是采用WGS84；高德地图使用的坐标系是GCJ-02；百度地图使用的坐标系是BD-09。</p>
-<h2 id="墨卡托投影"><a href="#墨卡托投影" class="headerlink" title="墨卡托投影"></a>墨卡托投影</h2><p>使用经纬度表示位置的大地坐标系虽然可以描述地球上点的位置，但是对于地图地理数据在二维平面内展示的场景，需要通过投影的方式将三维空间中的点映射到二维空间中。地图投影需要建立地球表面点与投影平面点的一一对应关系，在互联网地图中常使用墨卡托投影。墨卡托投影是荷兰地理学家墨卡托于1569年提出的一种地球投影方法，该方法是圆柱投影的一种。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/map_mercator.png" alt=""><br>各大地图服务商都采用了<a href="https://en.wikipedia.org/wiki/Web_Mercator" target="_blank" rel="noopener">Web Mercator</a>进行投影，瓦片坐标系的不同主要是投影截取的地球范围不同、瓦片坐标起点不同。</p>
+<h2 id="墨卡托投影"><a href="#墨卡托投影" class="headerlink" title="墨卡托投影"></a>墨卡托投影</h2><p>使用经纬度表示位置的大地坐标系虽然可以描述地球上点的位置，但是对于地图地理数据在二维平面内展示的场景，需要通过投影的方式将三维空间中的点映射到二维空间中。地图投影需要建立地球表面点与投影平面点的一一对应关系，在互联网地图中常使用墨卡托投影。墨卡托投影是荷兰地理学家墨卡托于1569年提出的一种地球投影方法，该方法是圆柱投影的一种。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/map_mercator.png" alt><br>各大地图服务商都采用了<a href="https://en.wikipedia.org/wiki/Web_Mercator" target="_blank" rel="noopener">Web Mercator</a>进行投影，瓦片坐标系的不同主要是投影截取的地球范围不同、瓦片坐标起点不同。</p>
 
       
 
@@ -481,11 +481,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,11 +497,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +513,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,11 +545,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,11 +557,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>

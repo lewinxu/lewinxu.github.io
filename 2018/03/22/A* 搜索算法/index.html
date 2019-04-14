@@ -187,7 +187,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-A* 搜索算法" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-A* 搜索算法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -222,12 +222,12 @@ var _hmt = _hmt || [];
 <h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">function A*(start, goal)</span><br><span class="line">    // The set of nodes already evaluated</span><br><span class="line">    closedSet := &#123;&#125;</span><br><span class="line"></span><br><span class="line">    // The set of currently discovered nodes that are <span class="keyword">not</span> evaluated yet.</span><br><span class="line">    // Initially, only the start node <span class="keyword">is</span> known.</span><br><span class="line">    openSet := &#123;start&#125;</span><br><span class="line"></span><br><span class="line">    // For each node, which node it can most efficiently be reached <span class="keyword">from</span>.</span><br><span class="line">    // If a node can be reached <span class="keyword">from</span> many nodes, cameFrom will eventually contain the</span><br><span class="line">    // most efficient previous step.</span><br><span class="line">    cameFrom := an empty map</span><br><span class="line"></span><br><span class="line">    // For each node, the cost of getting <span class="keyword">from</span> the start node to that node.</span><br><span class="line">    gScore := map <span class="keyword">with</span> default value of Infinity</span><br><span class="line"></span><br><span class="line">    // The cost of going <span class="keyword">from</span> start to start <span class="keyword">is</span> zero.</span><br><span class="line">    gScore[start] := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    // For each node, the total cost of getting <span class="keyword">from</span> the start node to the goal</span><br><span class="line">    // by passing by that node. That value <span class="keyword">is</span> partly known, partly heuristic.</span><br><span class="line">    fScore := map <span class="keyword">with</span> default value of Infinity</span><br><span class="line"></span><br><span class="line">    // For the first node, that value <span class="keyword">is</span> completely heuristic.</span><br><span class="line">    fScore[start] := heuristic_cost_estimate(start, goal)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> openSet <span class="keyword">is</span> <span class="keyword">not</span> empty</span><br><span class="line">        current := the node <span class="keyword">in</span> openSet having the lowest fScore[] value</span><br><span class="line">        <span class="keyword">if</span> current = goal</span><br><span class="line">            <span class="keyword">return</span> reconstruct_path(cameFrom, current)</span><br><span class="line"></span><br><span class="line">        openSet.Remove(current)</span><br><span class="line">        closedSet.Add(current)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> each neighbor of current</span><br><span class="line">            <span class="keyword">if</span> neighbor <span class="keyword">in</span> closedSet</span><br><span class="line">                <span class="keyword">continue</span>		// Ignore the neighbor which <span class="keyword">is</span> already evaluated.</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> neighbor <span class="keyword">not</span> <span class="keyword">in</span> openSet	// Discover a new node</span><br><span class="line">                openSet.Add(neighbor)</span><br><span class="line">            </span><br><span class="line">            // The distance <span class="keyword">from</span> start to a neighbor</span><br><span class="line">            //the <span class="string">"dist_between"</span> function may vary <span class="keyword">as</span> per the solution requirements.</span><br><span class="line">            tentative_gScore := gScore[current] + dist_between(current, neighbor)</span><br><span class="line">            <span class="keyword">if</span> tentative_gScore &gt;= gScore[neighbor]</span><br><span class="line">                <span class="keyword">continue</span>		// This <span class="keyword">is</span> <span class="keyword">not</span> a better path.</span><br><span class="line"></span><br><span class="line">            // This path <span class="keyword">is</span> the best until now. Record it!</span><br><span class="line">            cameFrom[neighbor] := current</span><br><span class="line">            gScore[neighbor] := tentative_gScore</span><br><span class="line">            fScore[neighbor] := gScore[neighbor] + heuristic_cost_estimate(neighbor, goal) </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> failure</span><br><span class="line"></span><br><span class="line">function reconstruct_path(cameFrom, current)</span><br><span class="line">    total_path := [current]</span><br><span class="line">    <span class="keyword">while</span> current <span class="keyword">in</span> cameFrom.Keys:</span><br><span class="line">        current := cameFrom[current]</span><br><span class="line">        total_path.append(current)</span><br><span class="line">    <span class="keyword">return</span> total_path</span><br></pre></td></tr></table></figure>
 <p>注意：上述伪代码假设启发式函数是单调的（或一致的，见下文），这在许多实际问题中是常见的情况，例如道路网络中的最短距离路径。 但是，如果假设不成立，封闭集合中的节点可能会被重新发现并且其成本得到改善。 换句话说，如果一个解决方案是存在的，或者如果算法是适应的，那么只有当它们的f值比f值低的时候，新的节点才会被添加到开放集合中，闭合集合可以省略（产生树搜索算法） 在任何以前的迭代。</p>
 <h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>一个A*算法的实例，其中节点是与道路连接的城市，h（x）是到目标点的直线距离：</p>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/AstarExampleEn.gif" alt=""></p>
-<p>注：绿色：开始; 蓝色：目标; 橙色：访问过<br><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Astar_progress_animation.gif" alt=""></p>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/AstarExampleEn.gif" alt></p>
+<p>注：绿色：开始; 蓝色：目标; 橙色：访问过<br><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Astar_progress_animation.gif" alt></p>
 <blockquote>
 <p>A*查找在机器人运动规划问题中查找从起始节点到目标节点的路径的插图。 空的圆圈代表开放集合中的节点，即那些仍然有待探索的节点，并且填充的节点在闭合集合中。 每个封闭节点上的颜色表示距离开始的距离：越绿，越远。 人们可以首先看到A *在目标方向上以直线移动，然后在碰到障碍物时探索通过开放集合中节点的替代路线。</p>
 </blockquote>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/Weighted_A_star_with_eps_5.gif" alt=""></p>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/Weighted_A_star_with_eps_5.gif" alt></p>
 <blockquote>
 <p>使用5.0（=ε）乘以一致启发式的启发式搜索，并获得次优路径。</p>
 </blockquote>
@@ -501,11 +501,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +517,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,11 +533,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,11 +565,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,11 +577,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>

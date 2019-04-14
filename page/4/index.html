@@ -180,7 +180,259 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-fen-lei" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-chu-shi-hua" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/chu-shi-hua/">iOS初始化</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/chu-shi-hua/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:17:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/1d391faa4eb4" target="_blank" rel="noopener">http://www.jianshu.com/p/1d391faa4eb4</a> （Initializer 和 dealloc 初始化）</li>
+<li><a href="http://www.cnblogs.com/smileEvday/p/designated\_initializer.html" target="_blank" rel="noopener">http://www.cnblogs.com/smileEvday/p/designated\_initializer.html</a>   （iOS: 聊聊 Designated Initializer(指定初始化函数）</li>
+</ul>
+<h4 id="init-方法的结构"><a href="#init-方法的结构" class="headerlink" title="init 方法的结构"></a>init 方法的结构</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init]; <span class="comment">// call the designated initializer</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">// Custom initialization</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>alloc 负责创建对象，这个过程包括分配足够的内存来保存对象，<strong>写入 isa 指针</strong>，初始化引用计数，以及重置所有实例变量。</p>
+</li>
+<li><p>init 负责初始化对象，这意味着使对象处于可用状态。这通常意味着为对象的实例变量赋予合理有用的值。</p>
+</li>
+</ul>
+<h4 id="指定和间接初始化的区别"><a href="#指定和间接初始化的区别" class="headerlink" title="指定和间接初始化的区别"></a><strong>指定和间接初始化的区别</strong></h4><blockquote>
+<p>designated 初始化方法是提供所有的参数，</p>
+<p>secondary 初始化方法是一个或多个，并且提供一个或者更多的默认参数来调用 designated 初始化的初始化方法。</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ZOCEvent</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法一</span></span><br><span class="line">                         date:(<span class="built_in">NSDate</span> *)date</span><br><span class="line">                     location:(<span class="built_in">CLLocation</span> *)location</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _title    = title;</span><br><span class="line">        _date     = date;</span><br><span class="line">        _location = location;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法二</span></span><br><span class="line">                         date:(<span class="built_in">NSDate</span> *)date</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithTitle:title date:date location:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTitle:(<span class="built_in">NSString</span> *)title                    <span class="comment">//方法三</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithTitle:title date:[<span class="built_in">NSDate</span> date] location:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>initWithTitle:date:location: 就是 designated 初始化方法</p>
+<p>方法二和方法三为secondary 初始化方法</p>
+<ul>
+<li>一个类应该有且只有一个 designated 初始化方法，其他的初始化方法应该调用这个 designated 的初始化方法</li>
+</ul>
+<h4 id="规范"><a href="#规范" class="headerlink" title="规范"></a><strong>规范</strong></h4><blockquote>
+<p>1.子类如果有指定初始化函数，那么指定初始化函数实现时必须调用它的直接父类的指定初始化函数。</p>
+<ol start="2">
+<li><p>如果子类有指定初始化函数，那么便利初始化函数必须调用<strong>自己</strong>的其它初始化函数(包括指定初始化函数以及其他的便利初始化函数)，不能调用super的初始化函数。</p>
+</li>
+<li><p>如果子类提供了指定初始化函数，那么一定要实现所有父类的指定初始化函数。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/init_1.png" alt></p>
+<p>当我们为自己创建的类添加指定初始化函数时，必须准确的识别并覆盖直接父类所有的指定初始化函数，这样才能保证整个子类的初始化过程可以覆盖到所有继承链上的成员变量得到合适的初始化。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/chu-shi-hua/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-shu-ju-chi-jiu-hua" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/shu-ju-chi-jiu-hua/">iOS 数据持久化总结</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/shu-ju-chi-jiu-hua/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:17:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/74ebd492102b" target="_blank" rel="noopener">http://www.jianshu.com/p/74ebd492102b</a> （5种数据持久化方法对比总结）</li>
+<li><a href="http://www.jianshu.com/p/873fc83ec244" target="_blank" rel="noopener">http://www.jianshu.com/p/873fc83ec244</a>     (iOS数据持久化小结)</li>
+<li><a href="https://juejin.im/entry/57a40613128fe1005470b342" target="_blank" rel="noopener">https://juejin.im/entry/57a40613128fe1005470b342</a>   (iOS 数据持久化存储)</li>
+</ul>
+<p>持久化：把内存数据转移到闪存中进行持久化的操作</p>
+<blockquote>
+<p>Bundle:应用程序在手机中的安装路径</p>
+<p>沙盒：存储app所有的数据的路径</p>
+</blockquote>
+<p>沙盒的结构为:`</p>
+<blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="number">1.</span> Documents : 保存持久化数据，会备份</span><br><span class="line">&gt;</span><br><span class="line">&gt; <span class="number">2.</span> Library : <span class="number">1.</span> Caches : 保存持久化数据，不会备份</span><br><span class="line">&gt;              <span class="number">2.</span> Preferences : 保存持久化数据，会备份</span><br><span class="line">&gt; <span class="number">3.</span> tmp : 保存临时文件</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="1-NSUserDefaults"><a href="#1-NSUserDefaults" class="headerlink" title="1.NSUserDefaults"></a>1.NSUserDefaults</h4><ul>
+<li>NSUserDefaults一般用于保存首选项信息、缓存数据等少量数据。</li>
+<li>使用NSUserDefaults时，数据默认保存在沙盒的Library目录下的文件:工程名称.plist中。<code>/Library/Preferences/[App_Bundle_Identifier].plist</code></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUpSaveUserDefaults &#123;</span><br><span class="line">    <span class="comment">//获取NSUserDefaults对象,是个单例</span></span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="comment">//存储数据</span></span><br><span class="line">    [defaults setObject:<span class="string">@"xiaoming"</span> forKey:<span class="string">@"name"</span>];</span><br><span class="line">    [defaults setBool:<span class="literal">YES</span> forKey:<span class="string">@"isCool"</span>];</span><br><span class="line">    [defaults setInteger:<span class="number">25</span> forKey:<span class="string">@"age"</span>];</span><br><span class="line">    [defaults setDouble:<span class="number">1.75</span>f forKey:<span class="string">@"height"</span>];</span><br><span class="line">    <span class="comment">//强制立刻存储</span></span><br><span class="line">    [defaults synchronize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setUpReadUserDefaults &#123;</span><br><span class="line">    <span class="comment">//获取NSUserDefaults对象</span></span><br><span class="line">    <span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">    <span class="comment">//读取数据</span></span><br><span class="line">    <span class="built_in">NSString</span> *name = [defaults objectForKey:<span class="string">@"name"</span>];</span><br><span class="line">    <span class="built_in">BOOL</span> isCool = [defaults boolForKey:<span class="string">@"isCool"</span>];</span><br><span class="line">    <span class="built_in">NSInteger</span> age = [defaults integerForKey:<span class="string">@"age"</span>];</span><br><span class="line">    <span class="keyword">double</span> height = [defaults doubleForKey:<span class="string">@"height"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name=%@,isCool=%d,age=%ld,height=%.2f"</span>,name,isCool,(<span class="keyword">long</span>)age,height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-属性文件"><a href="#2-属性文件" class="headerlink" title="2.属性文件"></a>2.属性文件</h4><ul>
+<li>数据存储在.plist文件中</li>
+<li>plist文件可以存储的7中数据类型：array、dictionary、string、bool、data、date、number。</li>
+</ul>
+<p>demo</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setUpPlist&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *path = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingString:<span class="string">@"/dyf.plist"</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath======%@"</span>,filePath);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = @&#123;</span><br><span class="line">                          <span class="string">@"name"</span>:<span class="string">@"xiaoming"</span>,</span><br><span class="line">                          <span class="string">@"age"</span>:@<span class="number">25</span>,</span><br><span class="line">                          <span class="string">@"height"</span>:@<span class="number">1.75</span>f,</span><br><span class="line">                          <span class="string">@"weight"</span>:@<span class="number">55</span></span><br><span class="line">                          &#125;;</span><br><span class="line">    [dic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic1 = [<span class="built_in">NSDictionary</span> dictionaryWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"dic1=====%@"</span>,dic1);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-归档-NSKeyedValueArchiver"><a href="#3-归档-NSKeyedValueArchiver" class="headerlink" title="3.归档 (NSKeyedValueArchiver)"></a>3.归档 (NSKeyedValueArchiver)</h4><blockquote>
+<p>数据化归档时经过加密处理的,所以安全性远高于plist,数据归档可以存储一些复杂的对象,数据保存前会经过二进制处理.注意:使用这种方案是需要前提的, 使用前必须要遵守NSCoding协议并且实现协议中的两个方法</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">实现<span class="built_in">NSCoding</span>协议</span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder;</span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数据存储archive文件中</li>
+<li>优点是可以将复杂的对象写入文件可以归档集合类，所以无论添加多少对象，将对象写入磁盘的方式都是一样，不会增加工作量;</li>
+</ul>
+<h4 id="4-数据库-sqlite"><a href="#4-数据库-sqlite" class="headerlink" title="4.数据库(sqlite)"></a>4.数据库(sqlite)</h4><ul>
+<li>splite是一个轻量级,跨平台的小型数据库,可移植性比较高,有着和MySpl几乎相同的数据库语句,以及无需服务器即可使用的优点.</li>
+</ul>
+<blockquote>
+<p>数据库的优点:</p>
+<p>1, 该方案可以存储大量的数据,存储和检索的速度非常快.</p>
+<p>2, 能对数据进行大量的聚合,这样比起使用对象来讲操作要快. </p>
+<p>数据库的缺点:</p>
+<p>1, 它没有提供数据库的创建方式</p>
+<p>2, 它的底层是基于C语言框架设计的, 没有面向对象的API, 用起来非常麻烦</p>
+<p>3, 发杂的数据模型的数据建表,非常麻烦</p>
+</blockquote>
+<h5 id="FMDB"><a href="#FMDB" class="headerlink" title="FMDB"></a><strong>FMDB</strong></h5><p>第三方开源的数据库,该数据库是基于splite封装的面向对象的框架.</p>
+<h6 id="1-FMDB的使用"><a href="#1-FMDB的使用" class="headerlink" title="1.FMDB的使用"></a>1.FMDB的使用</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用FMDB前，需要先了解下<span class="number">3</span>个主要类：</span><br><span class="line">- FMDatabase：表示一个SQLite数据库，用于执行SQL语句。</span><br><span class="line">- FMResultSet：表示在FMDatabase执行一个查询的结果集。</span><br><span class="line">- FMDatabaseQueue：如果要在多个线程上执行查询和更新，则使用此类。它描述了下面的“线程安全”部分。</span><br></pre></td></tr></table></figure>
+<h4 id="5-CoraData"><a href="#5-CoraData" class="headerlink" title="5.CoraData"></a>5.CoraData</h4><blockquote>
+<p>coreData是苹果官方在iOS5之后推出的综合性数据库,其使用了对象关系映射技术,将对象转换成数据,将数据存储在本地的数据库中.coreData为了提高效率,需要将数据存储在不同的数据库中,比如:在使用的时候,最好是将本地的数据保存到内存中,这样的目的是访问速度比较快.</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/shu-ju-chi-jiu-hua/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-fen-lei" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -302,7 +554,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-copy" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-copy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -443,7 +695,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-dan-li-mo-shi" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-dan-li-mo-shi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -554,7 +806,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-mei-ju" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-mei-ju" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -655,7 +907,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战4" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-未来数学家的挑战4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -683,7 +935,7 @@ var _hmt = _hmt || [];
 <li>若有一个 NP-complete 问题可以用 O(n^k) 计算量来解决， 则全体的 NP 问题都可以用 O(n^k) 之计算量来解决，即</li>
 </ol>
 <blockquote>
-<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt=""> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt="">P，则 P=NP。</p>
+<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt>P，则 P=NP。</p>
 </blockquote>
 <p>又换句话说，NP-complete 是 NP 中的难题，NP-complete 解决了， NP 就解决了。但若有一个属于 NP 而不属于 NP-complete 的问题解决了，则其他的 NP 问题不一定可以解决。</p>
 <p>什么叫做 NP？NP 是英文 non-deterministic polynomial 的缩写，意思就是<strong>非确定性的多项式时间</strong>。要了解这个字。我们先看一看普通计算机的作用。</p>
@@ -696,10 +948,10 @@ var _hmt = _hmt || [];
 <li>2.某线已找到答案，立刻叫停，大家停止作业，解题完毕。</li>
 <li>3.此路不通，本线不再作业，但不叫停，别线仍然作业。</li>
 </ul>
-<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt=""></p>
+<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt></p>
 <p>我们无法知道此路是否最短，但在(B)问题中，一个「Yes」或「No」的结果只要7个加法就可以回答了。 因此根据新的定义，问题2是一个 NP 问题。<br>由这两个定义，读者不难看出问题2,4,6,7,8,9（乙）与10皆为 NP 问题，特别是问题9之（甲），（乙）， 其实是一样的问题，但如果你猜二个 m,n，立刻就可知道 a 是否是 mn。</p>
-<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt=""></p>
-<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt=""></p>
+<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt></p>
+<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt></p>
 <p>永为 0，故此 f 为不可满足。<br>直觉上，这类问题除了将 u1, u2,…,un 一个一个以 0,1 代入检查 2n 次之外，显无捷径可循，古克1971年之论文即证明这是一切 NP 问题之母。</p>
 <p><strong>古克定理：</strong><br>满足问题为 NP-complete。现在已可证明在前节中之问题，除了问题1,3,5,9 之外，全是 NP-complete 问题</p>
 
@@ -766,7 +1018,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战5" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-未来数学家的挑战5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -787,17 +1039,17 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p>NP-complete 问题既找不到可行的解法，而很大部分的 NP-complete 问题都在计算机语言，程式，电路设计，统计学，程式作业上有大用，因此只好退而求其次找一个可行的近似解。很可惜的是，所有的 NP-complete 问题虽在 NP 的层次上相联，在近似解上往往各需不同的解法，这些解法多从直观而来，我们在此举二个例子。</p>
-<p><strong>例1</strong><br>在第三节问题5，包装问题中，若采取「能装就装」法，即现有的盒子若可以装得下，就不用新盒子，则此法所需用之盒子数 k1 与最可能少的盒子数 k0 满足<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk1.gif" alt="">。</p>
+<p><strong>例1</strong><br>在第三节问题5，包装问题中，若采取「能装就装」法，即现有的盒子若可以装得下，就不用新盒子，则此法所需用之盒子数 k1 与最可能少的盒子数 k0 满足<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk1.gif" alt>。</p>
 <p><strong>证明</strong></p>
-<p>今令 n 个物品之重为 w1,w2,…,wn 公斤，因每个盒子只可以装1公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/k0.gif" alt=""></p>
-<p>另一方面，「能装就装」法不可能有两个以上的盒子同时少于 0.5公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk11.gif" alt=""></p>
-<p>本例得证。<br>这个问题的结果是说，我们大约可以用「能装就装」法做得最好情形的一半好。 经过较複杂的证明，Johnson 在1974年证得，当 n 很大时，<br><img src="http://ozrhqzqeu.bkt.clouddn.com/png1.png" alt=""><br>也就是用「能装就装」法不会坏到 70% 以上，但可以坏到多用了 70% 的盒子。</p>
-<p>售货员旅行问题的一个直观走法是先访问最近那个尚未访问过的城，称为「先访近城」法，以图1为例，其走法为<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt=""></p>
+<p>今令 n 个物品之重为 w1,w2,…,wn 公斤，因每个盒子只可以装1公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/k0.gif" alt></p>
+<p>另一方面，「能装就装」法不可能有两个以上的盒子同时少于 0.5公斤，故<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmk11.gif" alt></p>
+<p>本例得证。<br>这个问题的结果是说，我们大约可以用「能装就装」法做得最好情形的一半好。 经过较複杂的证明，Johnson 在1974年证得，当 n 很大时，<br><img src="http://ozrhqzqeu.bkt.clouddn.com/png1.png" alt><br>也就是用「能装就装」法不会坏到 70% 以上，但可以坏到多用了 70% 的盒子。</p>
+<p>售货员旅行问题的一个直观走法是先访问最近那个尚未访问过的城，称为「先访近城」法，以图1为例，其走法为<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt></p>
 <p>Rosenkrantz 等在1977年证明这并不是一个很理想的走法，他们证出若各城间的距离满足三角不等式 ，则「先访近城」法所走之总程 D1 与最短路径 D0 之关系为</p>
-<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img30.gif" alt=""></p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img30.gif" alt></p>
 <p>且当 n 很大时，可以有一种情形使得 </p>
-<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img31.gif" alt=""></p>
-<p>上式中之 [x] 表示大于 x 之最小整数，例如 [5]=5, [2.5]=3。 因log2(n)当 n 大时可以很大，故 D1 可与 D0 相差非常之大，但在同一篇论文之中，Rosenkrantz 等证明另一种复杂的「直观」走法可以达到D1&lt;=2D0之地步。<br>在上面的定理中，三角不等式的条件很重要，若城之距离无此关系存在时，Sahni 与Gonzalez 在1976年证得：若P!= NP，则不可能存在一个有限的 m，及一个 O(n^k) 计算量的走法，能使其全程长 D1 在任何 n 时满足<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img35.gif" alt=""></p>
+<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img31.gif" alt></p>
+<p>上式中之 [x] 表示大于 x 之最小整数，例如 [5]=5, [2.5]=3。 因log2(n)当 n 大时可以很大，故 D1 可与 D0 相差非常之大，但在同一篇论文之中，Rosenkrantz 等证明另一种复杂的「直观」走法可以达到D1&lt;=2D0之地步。<br>在上面的定理中，三角不等式的条件很重要，若城之距离无此关系存在时，Sahni 与Gonzalez 在1976年证得：若P!= NP，则不可能存在一个有限的 m，及一个 O(n^k) 计算量的走法，能使其全程长 D1 在任何 n 时满足<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img35.gif" alt></p>
 <p>即上式中 m 非等于无限大不可，亦即所有 O(n^k) 的做法都不很好。</p>
 
       
@@ -863,7 +1115,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战6" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-未来数学家的挑战6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -897,7 +1149,7 @@ var _hmt = _hmt || [];
 <p>若 x属于PSPACE-hard,<br>且 x属于P,<br>则 P= PSPACE。</p>
 </blockquote>
 <p>注意在上式中 PSPACE-complete 属于 PSPACE，即 PSPACE-complete 是 PSPACE 中的难题，但 PSPACE-hard 不一定属于 PSPACE。 Stockmeyer and Meyer 在1937年证明了一个与古克相似的定理。</p>
-<p>若 表示存在一个 x，对所有的 x，x 为布尔值0与1，则我们称 f(Q1 x1,Q2 x2,…,Qn xn) 为一量化布氏公式。若 f 有可能为1，则 f 称之为可满足，例如把第四节中之(1)式改写成<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img44.gif" alt=""></p>
+<p>若 表示存在一个 x，对所有的 x，x 为布尔值0与1，则我们称 f(Q1 x1,Q2 x2,…,Qn xn) 为一量化布氏公式。若 f 有可能为1，则 f 称之为可满足，例如把第四节中之(1)式改写成<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img44.gif" alt></p>
 <p><strong>定理：</strong><br>检定一个量化布氏公式为可满足是一个 PSPACE-complete 问题。<br>当我们下棋面对着一盘残局沉思的时候，我们的要求是</p>
 <blockquote>
 </blockquote>
@@ -976,7 +1228,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-未来数学家的挑战3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1004,11 +1256,11 @@ var _hmt = _hmt || [];
 <h3 id="问题1：售货员旅行问题（甲）"><a href="#问题1：售货员旅行问题（甲）" class="headerlink" title="问题1：售货员旅行问题（甲）"></a>问题1：售货员旅行问题（甲）</h3><p>即第一节所述之问题，不再重复，不过假定所有距离均为正整数 3 。</p>
 <h3 id="问题2：售货员旅行问题（乙）"><a href="#问题2：售货员旅行问题（乙）" class="headerlink" title="问题2：售货员旅行问题（乙）"></a>问题2：售货员旅行问题（乙）</h3><p>与第一题之条件相同，但现在有一个给定之正整数 B， 问题是是否存在一条路径其总距离不大于 B。 （问题1与问题2在表面上相似，但在以后的理论上有很大的不同）</p>
 <h3 id="问题3：背袋问题（甲）"><a href="#问题3：背袋问题（甲）" class="headerlink" title="问题3：背袋问题（甲）"></a>问题3：背袋问题（甲）</h3><p>有物体 n 个，各重 w1,w2,…,wn，今欲将它们分为二袋， 试问如何分法可使两袋之重量最为接近。 （不妨假定 wi 皆为正整数，这并未失去一般性。)</p>
-<h3 id="问题4：背袋问题（乙）"><a href="#问题4：背袋问题（乙）" class="headerlink" title="问题4：背袋问题（乙）"></a>问题4：背袋问题（乙）</h3><p>如上题，并给定一正整数 B，试问可否选出若干 wi，使其和<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmalgorithm.gif" alt=""></p>
+<h3 id="问题4：背袋问题（乙）"><a href="#问题4：背袋问题（乙）" class="headerlink" title="问题4：背袋问题（乙）"></a>问题4：背袋问题（乙）</h3><p>如上题，并给定一正整数 B，试问可否选出若干 wi，使其和<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmalgorithm.gif" alt></p>
 <h3 id="问题5：包装问题"><a href="#问题5：包装问题" class="headerlink" title="问题5：包装问题"></a>问题5：包装问题</h3><p>有 n 个各别重量小于 1 公斤的物品及足够可以装 1 公斤东西的盒子，今将物品装于盒子之中，多个物品可装于一盒，但任何一盒不得重于 1 公斤，试求最小的盒子数。</p>
 <h3 id="问题6：舞伴问题"><a href="#问题6：舞伴问题" class="headerlink" title="问题6：舞伴问题"></a>问题6：舞伴问题</h3><p>今有 n 个男孩子与 n 个女孩子参加舞会，每个男孩与女孩均交给主持一个名单， 写上他（她）中意的舞伴（至少一人，但可以多于一人）。试问主持人在收到名单后，是否可以分成 n 对，使每人均得到他（她）所喜欢的舞伴。</p>
 <h3 id="问题7：库存问题"><a href="#问题7：库存问题" class="headerlink" title="问题7：库存问题"></a>问题7：库存问题</h3><p>某仓库有 D 个存仓，排成一列，今有 n 批货物，各可佔有一个或多个存仓，并已知各批物品存入与提出之日期。试问可否将各货物存入库里不发生存仓不够的困难且同一批货物若需一个以上存仓时，其存仓必须相邻。</p>
-<h3 id="问题8："><a href="#问题8：" class="headerlink" title="问题8："></a>问题8：</h3><p>已知 a,b,n 三正整数，问是否存在一小于 n 位之正整数使得<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmalog1.gif" alt=""></p>
+<h3 id="问题8："><a href="#问题8：" class="headerlink" title="问题8："></a>问题8：</h3><p>已知 a,b,n 三正整数，问是否存在一小于 n 位之正整数使得<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmalog1.gif" alt></p>
 <h3 id="问题9："><a href="#问题9：" class="headerlink" title="问题9："></a>问题9：</h3><p>（甲） 给定一 n 位正整数 a，试问其是否为质数？<br>（乙） 给定一 n 位正整数 a，试问是否存在 m,n &gt;1 且 a=mn？</p>
 <h3 id="问题10：分丛问题"><a href="#问题10：分丛问题" class="headerlink" title="问题10：分丛问题"></a>问题10：分丛问题</h3><p>已知空间 n 个点，并假定各点之间之距离为正整数，又给定两正整数 K 与 B， 问是否可将此 n 点分成小于 K 个不重合的子集，使得在同一子集内之任意二点距离均不大于 B？</p>
 <p><strong>现在可以看出这类问题的一般结构了。</strong>很显然的，有些是极有用的问题，而有些可以转换成有用的问题。 例如舞伴问题，若把男孩与女孩换成工人与工头，或医生与病人就有大用了。这些问题到目前没有一个可以证明是属于 P 的， 大家都猜测它们可能在 P 之外，即其计算量是呈指数增加的。</p>
@@ -1048,196 +1300,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/03/22/未来数学家的挑战3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-未来数学家的挑战2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/未来数学家的挑战2/">未来数学家的挑战2</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/未来数学家的挑战2/" class="archive-article-date">
-  	<time datetime="2018-03-22T08:51:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/index.html" target="_blank" rel="noopener">原文链接</a></li>
-</ul>
-<h2 id="二、计算量"><a href="#二、计算量" class="headerlink" title="二、计算量"></a>二、计算量</h2><p>计算量，顾名思意，是指解决某问题所需要计算的时间，但因每个複杂问题的计算往往都要经过许多不同的运算，除加减乘除四则外，还要包含比较，取数据，存数据等等，若仔细计算起来，十分困难，一般都只绘出一两个主要的量，加以统计，以上节中售货员旅行问题为例，其主要的工作是对每一个排法加起总路径之长，因对 n 城而言，有 (n-1)! 的排法，我们就定其计算量为 O(n!)，即在 n! 之层次（order 即 O 缩写之来源）之内。</p>
-<p>举二个例子，我们若要求 n 个数的和或平均值，则其计算量为 O(n)。 但若我们要把 n 个数字依次排列，则其计算量会因做法的不同而有相当的差别，一个直接了当的方法是，先求出最大的（比 (n-1) 次），再从不是最大的中间求次大的（比 (n-2) 次），再求第三大的（比 (n-3) 次），……如此一共比了<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img5.gif" alt=""></p>
-<p>次就可以完成此工作。因此我们以 O(n2)，即在 n2 之层次来表此方法的计算量。 另外一种快排法，先把 n 个数分成若干小块，每块排好之后再合起来， 则可以证明此种方法之计算量为 O(nlog2(n))，因排数字与排名字，电话号码相同，这种排法很有实用价值， 例如某大城有一百万户，则 n2=1012，而 nlog_2n 只有 2 x 10^7，其差别三个月与一分钟之比。<br>一般计算量的层次多以下表来区分，<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img9.gif" alt=""></p>
-<p>在上表中，k 为某一大于 2 的正整数，它们中间都有一道鸿沟，有基本层之不同，在计算机理论上，若某人能发现一个新的方法，降低一个层次的计算量，那麽他的新方法有资格称之为一个突破，可以不朽矣。表1 有一个对上项各量之比较，是以计算机每秒作一百万次 (10^6) 计算为原则。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmpng3.png" alt=""></p>
-<p>表一：以计算机每秒做一百万次时完成各层次计算量所约需的时间（若无单位，均以秒为单位）</p>
-<p>在这个表中，特别注意 n^3 与 2^n 中之差异，一般称 2^n 为计算量呈指数上升，而 n^3 或 n^k 之计算量呈 n 的方次上升， 对目前及未来的计算机而言，一个呈方次上升的计算量应可以应付，但对一个呈指数上升的计算量在 n 相当大时则毫无希望。 因此计算机学家所集中精力的方向在如何将一个呈指数上升的计算量问题，简化成一个方次上升的计算量问题。 我们定义凡对一个问题中最重要的参数 n 而言，若能找到一个方法可以以方次上升的计算量完成， 我们称此问题为一 P-问题（P 为英文多项式 Polynomial 之第一字母），包含所有此类问题之集合以 P 表示之。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-未来数学家的挑战1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/未来数学家的挑战1/">未来数学家的挑战1</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/未来数学家的挑战1/" class="archive-article-date">
-  	<time datetime="2018-03-22T08:51:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/index.html" target="_blank" rel="noopener">原文链接</a></li>
-</ul>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>有数学家说过「一个好的问题胜过十个好解答」。 因为解答一出，此问题已是到了终点，对不断求创新的人们而言，已不构成挑战。 而新的问题是源头活水，能开拓新的境界。多数人都不愿沉醉在好的解答中不断的玩味，而希望找到新的问题，不断的思考，摸索。</p>
-<p>大家在《数播》上已看见了不少好的问题，尤其最近康明昌教授谈到的费马定理，几何三大难题，都是极有趣的问题。 有的已有了解答，有的尚待解决。 除了上面的题目外，像四色问题（即任何一个地图只要用四种颜色就可以把国界分开），五次以上方程式的公式解，及数论上质数分佈问题，都曾在职业及业馀数学家的心目中佔有相当的地位。 本文所要介绍的是一个最近（1970年代开始）一种许多数学家及电子计算机学家所关心的大问题──NP 问题。 NP 所代表的意思，你看完本文之后自然会明白，现在你不妨记住「NP-hard」这个伟大的字。 将来如果你对某人说你的问题是「NP-hard」，他也许就要对你刮目相看了，NP-hard 不但代表 hard（难），而且是 NP 的难！</p>
-<p>NP 问题的代表问题之一是售货员旅行问题 (traveling salesman problem)。有一个售货员要开汽车到 n 个指定的城市去推销货物，他必须经过全部的 n 个城。现在他有一个有此 n 城的地图及各城之间的公路距离，试问他应如何取最短的行程从家中出发再到家中？<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/mm_10_2_04_01.gif" alt=""></p>
-<p>如图1中，A,B,C,…,G 表示 7 个城市，而售货员要从 A 城出发再回到 A 城并访问 B,C,…,G，所有的城，一个可行的方法是 </p>
-<p><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img1.gif" alt=""></p>
-<p>问题是：这是否是最短的途径？也许<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img1.gif" alt=""></p>
-<p>更近呢？加起来的结果第一路径总长235里，而第二路径总长为230里，故第二路径较短， 但是否存在一个更短的路径呢？目前的方法接近一个一个的排着试，还没有找到更好可以寻得最短路径的方法。对七个城而言，共有 6!=720 个排法，尚不算难，但若有 20 个城，则排法就有 19! 种。因<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img3.gif" alt=""></p>
-<p>故<br><img src="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/img4.gif" alt=""></p>
-<p>在排列组合裡 n! 写起来轻鬆，但 1.21 x 10^17 是一个大得不得了的数字，若每秒钟排一次，要排 3.84 x 10^9 年（一年约为 3.15 x 10^7 秒）， 即使使用计算机，每秒排一百万次（不容易做到）也得重做三千年才能找到答桉。「生也有涯，知也无涯」，想不到区区二十个城，要三十个世纪才能找到答桉。<br>由于电子计算机的发展，有许多以前认为枉费时的计算，像行列式之值，反矩阵，高次方程式的解，都可以在极短的时间内解决。但也突然出现了一些新问题，连大型计算机也望之兴叹。像售货员问题，因为找不到比硬排好得很多的做法，使得数学家们开始想要证明，根本找不到比硬排好得很多的做法。这个证明至今尚未找到。就像以前一角三等分问题一样，既然找了几千年找不到用圆规直尺三等分任一角的方法，也许我们可以证明绝对不可能用圆规直尺三等分一角。 现在我们要证明绝不可能写一个计算机程式大大的简化售货员旅行问题。与三等分一角问题不同的是，前者是一种数学上的好奇，而当今的问题与实际用途却有密切的关连。</p>
-<p>在此我们一直强调一个好得很多的方法。原因是对这类的问题，你若能计算快一倍或十倍、千倍，往往起不了什麽大作用，好像刚才的二十城旅行问题，即使快了千倍，仍需三年的计算时间，而再加三城立刻就把这个计算法的效果抵消了，因此我们所要的是计算量基本层次的减少，这就是我们在下一节所要讨论的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战1/">展开全文 >></a>
         </p>
       
 
@@ -1372,11 +1434,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1384,11 +1450,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1400,11 +1466,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1432,11 +1498,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1444,11 +1510,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>

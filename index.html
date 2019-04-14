@@ -180,27 +180,259 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-20190312" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-20190403" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/12/20190312/">CentOS + MySQL</a>
+      <a class="article-title" href="/2019/04/03/20190403/">MySQL学习笔记（一）</a>
     </h1>
   
 
         
-        <a href="/2019/03/12/20190312/" class="archive-article-date">
-  	<time datetime="2019-03-12T07:28:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-12</time>
+        <a href="/2019/04/03/20190403/" class="archive-article-date">
+  	<time datetime="2019-04-03T09:01:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>@(来源：<a href="http://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank" rel="noopener">MySQL</a><br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
+        <p>@参考书：<a href="https://item.jd.com/11862586.html" target="_blank" rel="noopener">数据库系统原理及MySQL应用教程</a><br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
+<h3 id="MySQL-存储引擎"><a href="#MySQL-存储引擎" class="headerlink" title="MySQL 存储引擎"></a>MySQL 存储引擎</h3><blockquote>
+<p><code>show engines;</code></p>
+<ol>
+<li>InnoDB 适用场景为需要事务支持、行级锁定对高并发有很好的适应能力。</li>
+<li>MyISAM 适用场景为不需要事务支持、并发相对较低、数据修改相对较少、以读为主、数据一致性要求不是非常高。</li>
+<li>MEMORY 适用场景是需要很快的读写速度、对数据的安全性要求较低。适合用于存储临时数据的临时表。</li>
+</ol>
+</blockquote>
+<h3 id="MySQL-字符集"><a href="#MySQL-字符集" class="headerlink" title="MySQL 字符集"></a>MySQL 字符集</h3><blockquote>
+<p><code>show character set;</code><br>字符集和校对规则是一对多的关系<br>_ci (表示大小写不敏感)<br>_cs (大小写敏感)<br>_bin (二元)</p>
+</blockquote>
+<h3 id="MySQL-数据库操作管理"><a href="#MySQL-数据库操作管理" class="headerlink" title="MySQL 数据库操作管理"></a>MySQL 数据库操作管理</h3><ol>
+<li>创建数据库<br><code>create database if not exists test;</code></li>
+<li>修改数据库名称<br><code>alter database test xxx;</code></li>
+<li>删除数据库<br><code>drop database test;</code></li>
+</ol>
+<h3 id="MySQL-数据类型"><a href="#MySQL-数据类型" class="headerlink" title="MySQL 数据类型"></a>MySQL 数据类型</h3><ol>
+<li><strong>数值类型</strong>（常用的有 INT BIGINT FLOAT DEC）DEC–精确小数类型</li>
+<li><strong>时间日期类型</strong> (DATE TIME YEAR DATETIME TIMESTAMP)</li>
+<li><strong>字符串类型</strong> (CHAR VARCHAR BLOB TEXT )</li>
+<li><strong>复合类型</strong> (ENUM SET)</li>
+<li><strong>二进制类型</strong> (BINARY BIT BLOB)</li>
+<li><strong>整数类型</strong></li>
+<li><strong>浮点数类型</strong></li>
+<li><strong>定点数类型</strong><blockquote>
+<p>1) 从速度方面考虑，要选择固定的列，可以使用CHAR<br>2) 要节省空间，使用动态的列，可以使用VARCHAR<br>3) 要将列中的内容限制在一种选择，可以使用ENUM<br>4) 允许在一个列中有多余一个的条目，可以用SET<br>5) 要搜索的内容不区分大小写，用TEXT<br>6) 要搜索的内容区分大小写，用BLOB</p>
+</blockquote>
+<h3 id="MySQL-运算符"><a href="#MySQL-运算符" class="headerlink" title="MySQL 运算符"></a>MySQL 运算符</h3></li>
+<li>算术运算符</li>
+<li>比较运算符</li>
+<li>逻辑运算符</li>
+<li>位运算符<h3 id="MySQL-表的操作"><a href="#MySQL-表的操作" class="headerlink" title="MySQL 表的操作"></a>MySQL 表的操作</h3></li>
+<li><p>创建表<br><code>create table mytable;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &apos;student&apos;(</span><br><span class="line">    &apos;num&apos; varchar(10) NOT NULL COMMENT &apos;学号&apos;,</span><br><span class="line">    ’name&apos; varchar(20) NOT NULL COMMENT &apos;姓名&apos;,</span><br><span class="line">    &apos;sex&apos; enum(&apos;男,&apos;女&apos;) NOT NULL DEFAULT &apos;男&apos; COMMENT &apos;性别&apos;,</span><br><span class="line">    &apos;birth&apos; data NOT NULL COMMENT &apos;出生日期&apos;</span><br><span class="line">    PRIMARY KEY (&apos;num&apos;)</span><br><span class="line">)ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_bin;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看表<br><code>show tables;</code><br><code>describe student;</code><br><code>desc student;</code></p>
+</li>
+<li>复制表<br><code>create table stu like student;</code></li>
+<li>删除表<br><code>drop table student;</code><h3 id="MySQL-约束控制"><a href="#MySQL-约束控制" class="headerlink" title="MySQL 约束控制"></a>MySQL 约束控制</h3></li>
+<li>数据完整性约束</li>
+<li>主键约束</li>
+<li>外键约束</li>
+<li>非空约束</li>
+<li>唯一约束</li>
+<li>默认约束</li>
+<li>自增约束</li>
+<li>删除约束</li>
+</ol>
+<h3 id="MySQL-数据操作管理"><a href="#MySQL-数据操作管理" class="headerlink" title="MySQL 数据操作管理"></a>MySQL 数据操作管理</h3><ol>
+<li>插入数据<br><code>INSEART INTO student() VALUES ();</code></li>
+<li>修改数据<br><code>UPDATE student SET name = &#39;小明&#39; WHERE num = &#39;123456&#39;;</code></li>
+<li>删除数据<br><code>DELETE FROM student WHERE num = &#39;123456&#39;;</code><br><code>truncate student;</code> 清空表数据<h3 id="MySQL-表查询"><a href="#MySQL-表查询" class="headerlink" title="MySQL 表查询"></a>MySQL 表查询</h3></li>
+</ol>
+<h3 id="MySQL-索引"><a href="#MySQL-索引" class="headerlink" title="MySQL 索引"></a>MySQL 索引</h3><p>使用索引是提高 SELECT 操作性能的最佳途径。<br>索引有两种存储类型：BTREE 和 HARSH</p>
+<h4 id="1-索引的优缺点"><a href="#1-索引的优缺点" class="headerlink" title="1. 索引的优缺点"></a>1. 索引的优缺点</h4><h4 id="2-索引的分类"><a href="#2-索引的分类" class="headerlink" title="2. 索引的分类"></a>2. 索引的分类</h4><ol>
+<li>普通索引 <strong>NORMAL</strong></li>
+<li>唯一性索引 <strong>UNIQUE</strong></li>
+<li>全文索引 <strong>FULLTEXT</strong> (用于查询数据量较大字符串 CHAR VARCHAR TEXT)</li>
+<li>空间索引 <strong>SPATIAL</strong> (用于空间数据类型 POINT GEOMETRY LINESTRING POLYGON)</li>
+<li>单列索引</li>
+<li>多列索引</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/03/20190403/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-20190315" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/15/20190315/">Nodejs + MySQL</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/15/20190315/" class="archive-article-date">
+  	<time datetime="2019-03-15T11:46:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@来源：<a href="http://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank" rel="noopener">MySQL</a><br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL node</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/15/20190315/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-20190312" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/15/20190312/">CentOS + MySQL</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/15/20190312/" class="archive-article-date">
+  	<time datetime="2019-03-15T11:45:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@来源：<a href="http://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank" rel="noopener">MySQL</a><br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
 <blockquote>
 <p>尝试过最新版本(80)的安装，遇到一些小问题，所以重新安装57版本</p>
 </blockquote>
@@ -211,7 +443,7 @@ var _hmt = _hmt || [];
 <p>检查mysql 的运行状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld status</span><br><span class="line">systemctl status mysqld.service</span><br></pre></td></tr></table></figure></p>
 <h3 id="5-修改密码"><a href="#5-修改密码" class="headerlink" title="5. 修改密码"></a>5. 修改密码</h3><p>获取临时密码<br><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code><br>使用临时密码登陆<br><code>mysql -uroot -p</code><br>修改密码策略<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password_length=<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
 <p>修改密码<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">'root'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span>;</span><br></pre></td></tr></table></figure></p>
-<h3 id="6-远程连接授权"><a href="#6-远程连接授权" class="headerlink" title="6. 远程连接授权"></a>6. 远程连接授权</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;`</span><br><span class="line">`<span class="keyword">FLUSH</span>  <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="6-远程连接授权"><a href="#6-远程连接授权" class="headerlink" title="6. 远程连接授权"></a>6. 远程连接授权</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;`</span><br><span class="line">`<span class="keyword">FLUSH</span>  <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -245,7 +477,7 @@ var _hmt = _hmt || [];
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/12/20190312/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/15/20190312/">展开全文 >></a>
         </p>
       
 
@@ -275,7 +507,113 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-linux-luks" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-geo安装记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/13/geo安装记录/">Centos7.5+Geoserver 安装记录</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/13/geo安装记录/" class="archive-article-date">
+  	<time datetime="2019-03-13T11:59:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>已有环境：</p>
+<ul>
+<li>Centos7.5 </li>
+<li>Java 1.8.0_191(系统自带)</li>
+</ul>
+<h4 id="1-配置JDK-8u191"><a href="#1-配置JDK-8u191" class="headerlink" title="1.配置JDK 8u191"></a>1.配置JDK 8u191</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.获取</span><br><span class="line">sudo wget http://219.238.82.130/cache/4/02/download.oracle.com/8f33c32cec3297a5d83111295de16374/jdk-8u191-linux-x64.tar.gz?AuthParam=1543979495_6bed33922b1900d42b9a67a4f2b0729f</span><br><span class="line">//2.解压</span><br><span class="line">sudo  tar xvf jdk-8u191-linux-x64.tar.gz\?AuthParam\=1543979495_6bed33922b1900d42b9a67a4f2b0729f -C /usr/local/</span><br><span class="line">//3.移动</span><br><span class="line">sudo mv /usr/local/jdk1.8.0_191/ /usr/local/java/</span><br></pre></td></tr></table></figure>
+<h4 id="2-配置Tomcat"><a href="#2-配置Tomcat" class="headerlink" title="2.配置Tomcat"></a>2.配置Tomcat</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.获取tomcat8.5版本</span><br><span class="line">sudo wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz </span><br><span class="line">//2.解压</span><br><span class="line">sudo tar xvf apache-tomcat-8.5.35.tar.gz -C /usr/local/ </span><br><span class="line">//3.移动位置</span><br><span class="line">sudo mv /usr/local/apache-tomcat-8.5.35/ /usr/local/tomcat/</span><br></pre></td></tr></table></figure>
+<h4 id="3-Tomcat-目录结构说明"><a href="#3-Tomcat-目录结构说明" class="headerlink" title="3.Tomcat 目录结构说明"></a>3.Tomcat 目录结构说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@Tomcat ~]# cd /usr/local/tomcat/</span><br><span class="line">[root@Tomcat tomcat]# ls</span><br><span class="line">    bin             --启动命令目录</span><br><span class="line">    conf           --配置文件目录      ＊重点</span><br><span class="line">    lib              --库文件目录</span><br><span class="line">    logs           --日志文件目录      ＊重点</span><br><span class="line">    temp         --临时缓存文件</span><br><span class="line">    webapps  --web应用家目录    ＊重点</span><br><span class="line">    work         --工作缓存目录</span><br></pre></td></tr></table></figure>
+<h4 id="4-修改Tomcat环境变量"><a href="#4-修改Tomcat环境变量" class="headerlink" title="4.修改Tomcat环境变量"></a>4.修改Tomcat环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//修改tomcat的启动程序</span><br><span class="line">sudo vim /usr/local/tomcat/bin/startup.sh  </span><br><span class="line">//修改tomcat的关闭程序</span><br><span class="line">sudo vim /usr/local/tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure>
+<p>在startup.sh和shutdown.sh这两个脚本里的最前面加上如下代码</p>
+<blockquote>
+<p>export JAVA_HOME=/usr/local/java<br>export TOMCAT_HOME=/usr/local/tomcat<br>export CATALINA_HOME=/usr/local/tomcat<br>export CLASS_PATH=\$JAVA_HOME/bin/lib:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib/tool.jar<br>export PATH=$PATH:/usr/local/java/bin:/usr/local/tomcat/bin</p>
+</blockquote>
+<h4 id="5-启动Tomcat"><a href="#5-启动Tomcat" class="headerlink" title="5.启动Tomcat"></a>5.启动Tomcat</h4><p>启动方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure></p>
+<p>关闭方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure></p>
+<p>查看端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i:8080</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-修改Tomcat监听端口"><a href="#6-修改Tomcat监听端口" class="headerlink" title="6. 修改Tomcat监听端口"></a>6. 修改Tomcat监听端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/local/tomcat/conf/server.xml</span><br><span class="line">//把8080改成18080的话，重启后就监听18080端口</span><br><span class="line">     &lt;Connector port=&quot;18080&quot; protocol=&quot;HTTP/1.1&quot;</span><br><span class="line">                connectionTimeout=&quot;20000&quot;</span><br><span class="line">                redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="7-开放8080端口"><a href="#7-开放8080端口" class="headerlink" title="7.开放8080端口"></a>7.开放8080端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">方法一（推荐）</span><br><span class="line">1. 查看状态： </span><br><span class="line">systemctl status firewalld</span><br><span class="line">2. 查看当前开了哪些端口 </span><br><span class="line">firewall-cmd --list-services</span><br><span class="line">3. 添加开放端口 </span><br><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent</span><br><span class="line">4. 更新防火墙规则</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line">方法二</span><br><span class="line">//添加到REJECT 前一条，4表示REJECT 所在行数</span><br><span class="line">iptables -I INPUT 4 -m  state  --state  NEW  -m  tcp  -p  tcp  --dport  8080  -j  ACCEPT</span><br></pre></td></tr></table></figure>
+<p>ubuntu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//安装iptable</span><br><span class="line">sudo apt-get install iptables</span><br><span class="line">//添加规则</span><br><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEP</span><br><span class="line">sudo iptables-save</span><br><span class="line">//持续化</span><br><span class="line">sudo apt-get install iptables-persistent</span><br><span class="line">sudo netfilter-persistent save</span><br><span class="line">sudo netfilter-persistent reload</span><br></pre></td></tr></table></figure></p>
+<p>开机自启 – <code>创建rc.local文件</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh -e</span><br><span class="line">#</span><br><span class="line"># rc.local</span><br><span class="line">#</span><br><span class="line"># This script is executed at the end of each multiuser runlevel.</span><br><span class="line"># Make sure that the script will &quot;exit 0&quot; on success or any other</span><br><span class="line"># value on error.</span><br><span class="line">#</span><br><span class="line"># In order to enable or disable this script just change the execution</span><br><span class="line"># bits.</span><br><span class="line">#</span><br><span class="line"># By default this script does nothing.</span><br><span class="line">#set java</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/java</span><br><span class="line">export TOMCAT_HOME=/usr/local/tomcat</span><br><span class="line">export CATALINA_HOME=/usr/local/tomcat</span><br><span class="line">export CLASS_PATH=$JAVA_HOME/bin/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tool.jar</span><br><span class="line">export PATH=$PATH:/usr/local/java/bin:/usr/local/tomcat/bin</span><br><span class="line"></span><br><span class="line">/usr/local/tomcat/bin/startup.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure></p>
+<p>执行权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /etc/rc.local</span><br></pre></td></tr></table></figure></p>
+<h4 id="8-配置geoserver"><a href="#8-配置geoserver" class="headerlink" title="8.配置geoserver"></a>8.配置geoserver</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget https://jaist.dl.sourceforge.net/project/geoserver/GeoServer/2.14.1/geoserver-2.14.1-war.zip</span><br><span class="line">unzip geoserver-2.14.1-war.zip</span><br><span class="line">sudo mv  geoserver.war /usr/local/tomcat/webapps</span><br></pre></td></tr></table></figure>
+<h4 id="9-安装字体"><a href="#9-安装字体" class="headerlink" title="9.安装字体"></a>9.安装字体</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fangwentong/dotfiles/raw/master/ubuntu-gui/fonts/Monaco.ttf</span><br><span class="line">sudo mkdir -p /usr/share/fonts/custom</span><br><span class="line">sudo mv Monaco.ttf /usr/share/fonts/custom</span><br><span class="line">sudo chmod 744 /usr/share/fonts/custom/Monaco.ttf</span><br><span class="line"></span><br><span class="line">sudo mkfontscale  #生成核心字体信息</span><br><span class="line">sudo mkfontdir</span><br><span class="line">sudo fc-cache -fv</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebGIS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/安装教程//" class="article-tag-list-link color5">安装教程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/13/geo安装记录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux-luks" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -368,113 +706,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-geo安装记录" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/geo安装记录/">Centos7.5+Geoserver 安装记录</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/05/geo安装记录/" class="archive-article-date">
-  	<time datetime="2019-03-05T01:59:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>已有环境：</p>
-<ul>
-<li>Centos7.5 </li>
-<li>Java 1.8.0_191(系统自带)</li>
-</ul>
-<h4 id="1-配置JDK-8u191"><a href="#1-配置JDK-8u191" class="headerlink" title="1.配置JDK 8u191"></a>1.配置JDK 8u191</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.获取</span><br><span class="line">sudo wget http://219.238.82.130/cache/4/02/download.oracle.com/8f33c32cec3297a5d83111295de16374/jdk-8u191-linux-x64.tar.gz?AuthParam=1543979495_6bed33922b1900d42b9a67a4f2b0729f</span><br><span class="line">//2.解压</span><br><span class="line">sudo  tar xvf jdk-8u191-linux-x64.tar.gz\?AuthParam\=1543979495_6bed33922b1900d42b9a67a4f2b0729f -C /usr/local/</span><br><span class="line">//3.移动</span><br><span class="line">sudo mv /usr/local/jdk1.8.0_191/ /usr/local/java/</span><br></pre></td></tr></table></figure>
-<h4 id="2-配置Tomcat"><a href="#2-配置Tomcat" class="headerlink" title="2.配置Tomcat"></a>2.配置Tomcat</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.获取tomcat8.5版本</span><br><span class="line">sudo wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz </span><br><span class="line">//2.解压</span><br><span class="line">sudo tar xvf apache-tomcat-8.5.35.tar.gz -C /usr/local/ </span><br><span class="line">//3.移动位置</span><br><span class="line">sudo mv /usr/local/apache-tomcat-8.5.35/ /usr/local/tomcat/</span><br></pre></td></tr></table></figure>
-<h4 id="3-Tomcat-目录结构说明"><a href="#3-Tomcat-目录结构说明" class="headerlink" title="3.Tomcat 目录结构说明"></a>3.Tomcat 目录结构说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@Tomcat ~]# cd /usr/local/tomcat/</span><br><span class="line">[root@Tomcat tomcat]# ls</span><br><span class="line">    bin             --启动命令目录</span><br><span class="line">    conf           --配置文件目录      ＊重点</span><br><span class="line">    lib              --库文件目录</span><br><span class="line">    logs           --日志文件目录      ＊重点</span><br><span class="line">    temp         --临时缓存文件</span><br><span class="line">    webapps  --web应用家目录    ＊重点</span><br><span class="line">    work         --工作缓存目录</span><br></pre></td></tr></table></figure>
-<h4 id="4-修改Tomcat环境变量"><a href="#4-修改Tomcat环境变量" class="headerlink" title="4.修改Tomcat环境变量"></a>4.修改Tomcat环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//修改tomcat的启动程序</span><br><span class="line">sudo vim /usr/local/tomcat/bin/startup.sh  </span><br><span class="line">//修改tomcat的关闭程序</span><br><span class="line">sudo vim /usr/local/tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure>
-<p>在startup.sh和shutdown.sh这两个脚本里的最前面加上如下代码</p>
-<blockquote>
-<p>export JAVA_HOME=/usr/local/java<br>export TOMCAT_HOME=/usr/local/tomcat<br>export CATALINA_HOME=/usr/local/tomcat<br>export CLASS_PATH=\$JAVA_HOME/bin/lib:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib/tool.jar<br>export PATH=$PATH:/usr/local/java/bin:/usr/local/tomcat/bin</p>
-</blockquote>
-<h4 id="5-启动Tomcat"><a href="#5-启动Tomcat" class="headerlink" title="5.启动Tomcat"></a>5.启动Tomcat</h4><p>启动方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure></p>
-<p>关闭方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure></p>
-<p>查看端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i:8080</span><br></pre></td></tr></table></figure></p>
-<h4 id="6-修改Tomcat监听端口"><a href="#6-修改Tomcat监听端口" class="headerlink" title="6. 修改Tomcat监听端口"></a>6. 修改Tomcat监听端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/local/tomcat/conf/server.xml</span><br><span class="line">//把8080改成18080的话，重启后就监听18080端口</span><br><span class="line">     &lt;Connector port=&quot;18080&quot; protocol=&quot;HTTP/1.1&quot;</span><br><span class="line">                connectionTimeout=&quot;20000&quot;</span><br><span class="line">                redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="7-开放8080端口"><a href="#7-开放8080端口" class="headerlink" title="7.开放8080端口"></a>7.开放8080端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//添加到REJECT 前一条，4表示REJECT 所在行数</span><br><span class="line">iptables -I INPUT 4 -m  state  --state  NEW  -m  tcp  -p  tcp  --dport  8080  -j  ACCEPT</span><br></pre></td></tr></table></figure>
-<p>ubuntu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//安装iptable</span><br><span class="line">sudo apt-get install iptables</span><br><span class="line">//添加规则</span><br><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEP</span><br><span class="line">sudo iptables-save</span><br><span class="line">//持续化</span><br><span class="line">sudo apt-get install iptables-persistent</span><br><span class="line">sudo netfilter-persistent save</span><br><span class="line">sudo netfilter-persistent reload</span><br></pre></td></tr></table></figure></p>
-<p>开机自启 – <code>创建rc.local文件</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh -e</span><br><span class="line">#</span><br><span class="line"># rc.local</span><br><span class="line">#</span><br><span class="line"># This script is executed at the end of each multiuser runlevel.</span><br><span class="line"># Make sure that the script will &quot;exit 0&quot; on success or any other</span><br><span class="line"># value on error.</span><br><span class="line">#</span><br><span class="line"># In order to enable or disable this script just change the execution</span><br><span class="line"># bits.</span><br><span class="line">#</span><br><span class="line"># By default this script does nothing.</span><br><span class="line">#set java</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/java</span><br><span class="line">export TOMCAT_HOME=/usr/local/tomcat</span><br><span class="line">export CATALINA_HOME=/usr/local/tomcat</span><br><span class="line">export CLASS_PATH=$JAVA_HOME/bin/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tool.jar</span><br><span class="line">export PATH=$PATH:/usr/local/java/bin:/usr/local/tomcat/bin</span><br><span class="line"></span><br><span class="line">/usr/local/tomcat/bin/startup.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure></p>
-<p>执行权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /etc/rc.local</span><br></pre></td></tr></table></figure></p>
-<h4 id="8-配置geoserver"><a href="#8-配置geoserver" class="headerlink" title="8.配置geoserver"></a>8.配置geoserver</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget https://jaist.dl.sourceforge.net/project/geoserver/GeoServer/2.14.1/geoserver-2.14.1-war.zip</span><br><span class="line">unzip geoserver-2.14.1-war.zip</span><br><span class="line">sudo mv  geoserver.war /usr/local/tomcat/webapps</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebGIS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/安装教程//" class="article-tag-list-link color5">安装教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/geo安装记录/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20190301" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-20190301" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -572,7 +804,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-20190228" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-20190228" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -619,7 +851,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-20190214" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-20190214" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -666,7 +898,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-20190210" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-20190210" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -713,7 +945,7 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-20190205" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-20190205" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -731,225 +963,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/02/05/20190205/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-zawen" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/02/zawen/">杂文</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/02/zawen/" class="archive-article-date">
-  	<time datetime="2019-02-02T02:16:47.711Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>@(来源：<a href="https://github.com/ruanyf/weekly" target="_blank" rel="noopener">阮一峰的网络日志</a>)<br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
-<h3 id="1-成功的秘诀"><a href="#1-成功的秘诀" class="headerlink" title="1. 成功的秘诀"></a>1. 成功的秘诀</h3><p>呆伯特漫画的作者亚当斯（ Scott Adams），有一次谈到自己的成功秘诀。</p>
-<p>他的经历其实很普通。小时候喜欢画画，画得还可以，但远远不算优秀。长大以后，在一家公司当经理，管理企业，也是业绩平平。无论是选择当画家，或者继续当公司经理，也许都能够干下去，但应该都不会很成功。于是，他灵机一动，把自己的这两个特点结合起来，选择了另一条路：专门画讽刺企业管理的漫画，结果走红了，成了世界闻名的漫画家。</p>
-<p>他说，任何领域最优秀的前5%的人，都能拿到很好的报酬，比如，最优秀的那5%的程序员、面包师、钢琴家、美发师都是高收入的。但是，想要挤进这5%，是很不容易的，需要拼掉其他95%的人。但是，如果标准放宽一点，挤进前25%，普通人经过努力，还是很有希望达到的。</p>
-<p><strong>成功的秘诀就是，你必须有两个能达到前25%水平的领域，这两个领域的交集就是你的职业方向。</strong><br>简单计算就可以知道，两个领域都是前25%，那么交集就是 25% 乘以 25%，等于 6.25%，即很有可能挤进前5%。更进一步，如果在两个领域里面，你都属于前10%的优秀人才，那么在交集里面，就可以达到顶尖的1%。总之，选择交集作为职业方向，你的竞争力会提升一个量级，收入也会随之大涨。</p>
-<h3 id="2-为什么电路板大多是绿色的？"><a href="#2-为什么电路板大多是绿色的？" class="headerlink" title="2. 为什么电路板大多是绿色的？"></a>2. 为什么电路板大多是绿色的？</h3><p><img src="https://blog.seeedstudio.com/wp-content/uploads/2017/07/TIM%E6%88%AA%E5%9B%BE20180414000316.png" alt=""><br>电路板其实就是一块铜片，外面包裹一层树脂。这层树脂外壳又称为阻焊膜，是一种带有彩色颜料的硬化树脂，以丝网印刷的方式涂在铜板上。它的目的是保护下面的电子线路免受潮湿和灰尘的影响，并控制焊料的流动。</p>
-<p>这层树脂可以有多种颜色，如蓝色，红色，黄色，黑色和白色，但是通常情况下，它是绿色，这是为什么？</p>
-<p>早期，电路板是否印刷正确，依赖于工人的裸眼检查。整天看这么微小的电路，非常伤视力。绿色最有利于减轻视觉疲劳。此外，人眼或视锥细胞对绿光非常敏感。绿色电路板的视觉对比度更大，而对比度越高，错误越容易发现。绿色电路板往往肉眼就可以轻松识别电路的缺陷。</p>
-<p>另外，绿色电路板也有更好的性能。目前，绿色阻焊膜是唯一可以可靠地生产 0.1毫米（4mil）焊接掩模坝的颜色。接下来是红色，黄色和蓝色，可以产生0.12毫米，然后才是黑色和白色，只能达到0.15毫米。焊接掩模坝在防止焊桥形成方面很有价值。</p>
-<p>最后，绿色是历史上默认的电路板颜色，所有厂家都支持，所以批量生产绿色电路板的成本是最低的。</p>
-<h3 id="3-5G的应用"><a href="#3-5G的应用" class="headerlink" title="3. 5G的应用"></a>3. 5G的应用</h3><p>苹果公司正在等待英特尔完成其 5G 芯片组，而其他手机公司则是等待高通公司的 5G 芯片组，后者已经完成了。所以苹果的第一款 5G iPhone 将在2020年出现，而三星的 5G 手机将在2019年出现。苹果公司和高通公司之间，有一系列的法律诉讼，所以苹果公司不愿意使用高通的技术。</p>
-<p>有人认为，由于没有 5G iPhone，所以苹果公司会在2019年处于战略劣势。我不这样认为，因为 5G 与我们目前使用的 4G LTE 网络之间的功能差异很小。5G 至少比 LTE 快20倍。但是，这种速度差异对手机用户很重要吗？</p>
-<p>答案是不重要，5G 不是手机的杀手级应用。4G 已经可以支持手机播放最高分辨率的流媒体视频。5G 还能为我提供什么呢？到底什么手机应用只有 5G 才能满足，手机播放 4K 视频吗？</p>
-<p>实际上，5G 不是关于手机的，而是关于基础设施。 5G 是迄今为止最昂贵的无线通信网络架设，因为需要大量新的频段，许多此类频段都是用于无线电视的，最终将没有无线电视，所有电视都通过 5G 接收电视信号。电信商希望未来15年内，5G 网络可以取代有线电视，将电视观众和现在的宽带上网的互联网用户，都变成 5G 用户。</p>
-<p>5G 背后的全部想法是，它将允许无线运营商完全吃掉有线电话、有线电视和互联网服务提供商，同时还取代现在的广播电视。5G 是一个覆盖一切的网络解决方案。通过 5G，无线运营商希望将传统电视台转变为纯粹的内容提供商，同时让传统电话公司和有线电视公司停业。那时，所有网络都将是无线的，再也没有线缆了。</p>
-<h3 id="4-对程序员的告诫"><a href="#4-对程序员的告诫" class="headerlink" title="4. 对程序员的告诫"></a>4. 对程序员的告诫</h3><p>在软件开发中，技术变化如此之快，你花费了大量时间学习技术和工具，一旦这些技术被取代，你的知识将变得毫无价值，因为它们大部分都是实施的细节。</p>
-<p>我最近总是在想这段话，软件开发算不算是真正的知识？</p>
-<p>如果它是一种真正的知识，那么理论上，我们学到的东西大部分应该不会过时，就好像微积分不会过时一样。可是实际上，我们都知道，软件开发技能有时效性，十年前学习的编程知识，十年后几乎肯定不能用于生产。那样的话，软件开发就不能算真正的知识，只是一种实施的细节。</p>
-<p>公司旁边有一家税务所，每天都有很多人排队交税。如果你是第一次来交税，肯定搞不清楚怎么交，交税是一门学问，必须有人教你，要带哪些证件，要填哪些表，去哪些窗口排队等等。</p>
-<p><strong>我现在认为，学习编程跟学习交税是一样的，都是学习实施的细节。一旦外部环境变了，原来的实施细节就没用了。</strong> 当代编程由于层层的抽象和封装，我们已经不必接触底层真正具有通用性的知识了。大部分时候，所谓编程就是在写某个抽象层的配置。比如，网页样式就是在写 CSS 配置，你很难说这到底是真正的知识，还是像《办税指南》那样的实施细节。</p>
-<p>实施细节并不是知识，而是操作步骤。如果技术栈发生变更，实施细节就会毫无用处。但是，你又不能不学习它，不知道实施细节，就没法做出项目。我觉得，程序员应该要警惕，不要落入实施细节的陷阱，不要把全部精力花在实施细节上面，然后以为自己学到了真正的知识。对待各种语言和工具，正确的态度应该是”进得去，出得来”，既要了解足够的细节，也要能够站在宏观的角度看待它，探寻底层到底是怎么实现的。</p>
-<h3 id="5-热情假设"><a href="#5-热情假设" class="headerlink" title="5. 热情假设"></a>5. 热情假设</h3><p>2005年，斯坦福大学邀请乔布斯在毕业典礼演讲。这个演讲后来成为经典，《乔布斯传》说”或许有些演讲对后世影响更大，但是你找不到（比这篇）更好的演讲。”</p>
-<p>演讲中，乔布斯说了一段有名的话。</p>
-<p><code>&quot;你们的时间有限，所以不要把它浪费在过其他人的生活。最重要的是，你要有勇气跟随你的内心和直觉。某种程度上，它们已经知道你真正想要成为什么样子。其他所有事情都是次要的。&quot;</code></p>
-<p>这段话后来被称为”热情假设”，很多人都引用它鼓励年轻人：寻找职业方向的时候，要跟随内心的热情（passion），去做那些你有强烈意愿从事的工作。</p>
-<p>但是，美国最近出版了一本新书《优秀到无法忽略》（《So Good They Can’t Ignore You》），声称乔布斯的这个建议是完全错误的，误导年轻人。别的不说，乔布斯本人也不遵守”热情假设”。年轻时，他对禅宗思想最感兴趣，去印度学习佛教。如果他真的追随自己的内心，他就应该去当一个禅宗老师，而不是跑回美国创办苹果公司。</p>
-<p>这本书认为，以下几个原因导致”热情假设”不是一个好的建议。</p>
-<blockquote>
-<p>第一，热情真的很罕见。大部分人都对自己的工作没兴趣，而是对某种爱好（比如打球、钓鱼）有兴趣。如果大部分人都找不到自己的职业热情，你怎么能叫他们去追随热情呢？<br>第二，热情需要时间来建立。许多人刚开始工作的时候，对自己的职业并没有兴趣，随着时间积累，他们的经验越来越多，能够掌控的东西越来越多，这才慢慢开始热爱自己的工作。找工作阶段，你可能根本不会意识到这个职业就是你的热情所在。<br>第三，过度强调热情，容易对现状产生不满。2010年的一项调查发现，只有45％的美国人对自己的工作满意。由于很多人相信，无法产生热情的工作不是好工作，导致对职业生涯抱有不切实际的期望，对现有的工作不满意，不断跳槽。</p>
-</blockquote>
-<p>这本书提出，热情不是凭空产生的，它跟自主权有关。如果你在某个职位上的自主权越大，能够掌控的东西越多，就越容易对当前的职业产生热情。与其强调跟随内心的热情，不如强调如何在某种职业里面获得自主权。你必须使自己变得优秀，让别人无法忽视你，同意让你掌控更多的资源，这就是书名的含义。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文摘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/02/zawen/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-shuaizhang2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/01/shuaizhang2/">「『帅张和他的朋友们』知识星球第一期精华电子书」读书笔记（下）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/01/shuaizhang2/" class="archive-article-date">
-  	<time datetime="2019-02-01T10:36:57.251Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>@(原作：stormzhang)<br>『帅张和他的朋友们』知识星球第一期读书笔记（下）<br><img src="../../../../image/20190130-1.png" alt=""></p>
-<h3 id="1-程序员如何培养第二技能"><a href="#1-程序员如何培养第二技能" class="headerlink" title="1. 程序员如何培养第二技能"></a>1. 程序员如何培养第二技能</h3><p>想必大家都听过这么一句话，程序员都是吃青春饭。这句话虽然我不完全同意，但是不可否 认的是如果你想一直写代码，你是很难写到 35 岁的，有人反驳了，国外谁谁谁写代码都写到 50 岁呢，以特例来论证整体是不成熟理智的，我敢这么说，单纯的写代码，在国内能写到 35 岁的人极少数，也许你对代码有极大的热情，但是技术的变迁实在太快，年轻的时候你有时 间精力去学习新东西，但是年纪大了，你是心有余而力不足，你跟年轻人比学习是永远没法 比的，而程序员恰恰需要一直不断的去学习，才能保证让自己的技术水平不至于滞后，所以 程序员是吃青春饭的是有那么一点道理的。<br>其实本质上来说，程序员的可积累性较差。</p>
-<p>什么意思呢？就是因为技术的升级变迁太快，你需要保持不断的学习才行，想想以前的 Windows 桌面程序开发、网站开发、手机开发再到现在的人工智能，每一个时代基本都是大 变迁，有人反驳了，我以前做网站开发现在转行做手机开发不一样么？这当然可以，注意， 我说的是可积累性较差，不是代表完全没积累，程序员在技术框架、思维以及逻辑思维上确 实是有积累的，但是在技能的积累上是比较差的，你从一个网站开发转到手机开发，意味着 你要重新开始学习，意味着你以前积累的网站开发经验基本浪费了。<br>医生，大家都知道，肯定是我看的病人越多，积累的经验越丰富，我的技能越强，我的资历 与待遇也越高的。</p>
-<p>律师，打过的官司越多，经验越丰富，同样自己越资深，也越被人认同。</p>
-<p>演员，演的电影越多 ，演过的角色越多，积累的经验越丰富，同样自己的演技越好。<br>但是相比这些职业，程序员哪怕你之前做了十年的 PC 桌面程序开发，到了移动互联网时代，人工智能时代，你的编程经验虽说会有点帮助，但是相比较于十年的付出，你的技能的 积累性太差了，远远不值。<br>所以，我认为程序员培养第二技能非常重要，而第二技能的选择要选择「可积累性」更强的 技能。<br>比如写作、演讲、投资理财、授课、技术咨询等等等。</p>
-<p>你的第一技能，也就是你的本职工作，为了养家糊口，积攒第一桶金，但是你该想到你的价 值远远没有发挥出来，如果你具备第二技能，比如写作、演讲，这种第二技能还能跟你的第 一技能结合起来，让你的第一技能价值最大化，互联网时代，让你的技术影响帮助到更多 人，而不单单让你的技术只为你的老板创造价值，把本身的价值发挥最大化，相信当你影响 帮助足够多的人，第二技能一定会让你有额外的收入，甚至逐渐的第二技能超过你的本职工 作，中年危机对你来说，根本不可能。</p>
-<p>投资理财、授课等等一样的。<br>至于第二技能多种多样，不仅限于以上列举的这些，比如我有位读者学计算机的，吉他谈的 非常好，他在大学的时候搞了个吉他教学班，收费的，这也算是他的第二技能，帮他创造了 价值。你的性格适合什么样的第二技能，需要你自己去发掘，只不过需要提醒的是，你的第 二技能在职场的初期不要影响本职工作，还是应该把主要精力优先放在第一技能的提升，因 为第一技能是吃饭的家伙，业余时间去培养第二技能，第二技能具有不确定性，当有一天你 的第二技能收入超过了第一技能带来的收入，本质上就可以考虑所谓的「自由职业者」了。<br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
-<h3 id="2-程序员注意保护自己"><a href="#2-程序员注意保护自己" class="headerlink" title="2. 程序员注意保护自己"></a>2. 程序员注意保护自己</h3><h5 id="1-技术不是全部"><a href="#1-技术不是全部" class="headerlink" title="1. 技术不是全部"></a>1. 技术不是全部</h5><p>这个观点，我曾不止一次普及过，眼里只有技术的程序员，跟读书时候的书呆子没什么区 别。程序员们很多都认为只要技术够牛，我就可以凭借技术挣更多的钱，然后就可以过的更 好，所以容易往往忽略了其他方面的发展，沟通交流、为人处事都是很重要的，程序员的弱 势在于常年跟机器打交道，以为什么都很机器一样讲道理，低估了人性的复杂与丑陋，没有 一点防范心理，这些都是很危险的，总之一句话，程序员们大多智商较高，但是情商较缺 乏，但是人这一生，情商绝对比智商要更有用的多。</p>
-<h5 id="2-培养第二技能"><a href="#2-培养第二技能" class="headerlink" title="2. 培养第二技能"></a>2. 培养第二技能</h5><p>都说程序员是青春饭，被认为中年危机最严重的一个群体，在很多人看来不理解，说人到中 年，有车有房，收入也较高，怎么会有那么大的危机呢？然而殊不知，人到中年，收入虽然 高了，但是房贷、车贷压力不小，同时还背负着家庭的责任，到处都是花钱的地方，而且经 济大环境不好，很担心公司发展遇到困难，自己受到各种影响，跳槽的话虽然不愁找工作， 但是这个年纪薪资岗位低了不想迁就，高的话除非管理岗位，否则企业不如找个年轻点的、 工资低点的来代替了，种种原因导致中年危机感很重。</p>
-<p>我之前就说过，一定要培养第二技能，永远不要把所有赌注都押宝在工作上，年轻的时候趁 早培养第二技能，写作、演讲、英语、咨询等等都属于第二技能，根据你的个人兴趣爱好去 选择，第二技能会是你的后路，当你到了中年，也许第二技能早就发展的如火如荼，甚至超 越你的本职工作，拥有第二技能的人从不会担心危机的到来，奉劝所有程序员们，一定要重 视第二技能的培养。</p>
-<h5 id="3-永远不要在非正常状态下做任何决定"><a href="#3-永远不要在非正常状态下做任何决定" class="headerlink" title="3. 永远不要在非正常状态下做任何决定"></a>3. 永远不要在非正常状态下做任何决定</h5><p>中兴事件很多人都想不通，当事人高学历，经验丰富，被裁了大不了换份工作就是了，何必想不开呢？简直太懦弱了。其实我们不知道当时是在一个什么环境下，我们处在事外当然看得清，但是很多决定其实都是一念之差，就是那么一瞬间没想通，导致冲动做出错误的选择，我们能总结出的经验教训就是：永远不要在非正常状态下做任何决定。</p>
-<p>什么叫非正常状态？醉酒、愤怒、极度伤心甚至兴奋、异常喜悦等状态都属于非正常状态， 这种情况做出的决定通常都是不客观甚至错误的，另外，做决定的时候多想想身边的家人， 考虑的因素全面点，会更能避免一些想不开发生。</p>
-<h5 id="4-职场中不要讲感情"><a href="#4-职场中不要讲感情" class="headerlink" title="4. 职场中不要讲感情"></a>4. 职场中不要讲感情</h5><p>我以前也说过，成熟的职场人士是不会讲感情的，不要把公司当做家一样，更不能把公司同事当做家人看待，那些只给你打感情牌，没有任何实质性的表示的公司或者老板，你得小心了。</p>
-<p>当然，可以对公司以及同事有感情，但是不可以感情用事，在公司的任何决定，如果你都可 以抛开感情，其实都很好处理，但是很多同学想不开，在遇到类似事情的时候，往往会有非常不理智的处理方式。</p>
-<h3 id="3-生存大于兴趣"><a href="#3-生存大于兴趣" class="headerlink" title="3. 生存大于兴趣"></a>3. 生存大于兴趣</h3><ol>
-<li><p>无论任何时候，生存一定是第一位的，如果生存都有问题，那么兴趣、爱好都是虚的， 所以，生存 &gt; 兴趣。</p>
-</li>
-<li><p>如果工作的行业是自己的兴趣所在，那么是非常幸运与幸福的，但是大部分人都没有这么幸运，大部分人其实先是为了生存，做着做着，发现把这件事做的好，做出成就感了，才慢慢的产生兴趣。</p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">美文</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/01/shuaizhang2/">展开全文 >></a>
         </p>
       
 
@@ -1084,11 +1097,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1096,11 +1113,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1112,11 +1129,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1144,11 +1161,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1156,11 +1173,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>

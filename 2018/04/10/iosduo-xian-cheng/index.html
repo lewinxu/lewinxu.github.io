@@ -187,7 +187,7 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-iosduo-xian-cheng" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-iosduo-xian-cheng" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -229,11 +229,11 @@ var _hmt = _hmt || [];
 <li>3.一个进程中至少要有一个线程。</li>
 <li>4.同一个进程内的线程共享进程的资源。</li>
 </ul>
-<h4 id="iOS多线程对比"><a href="#iOS多线程对比" class="headerlink" title="iOS多线程对比"></a>iOS多线程对比</h4><p><img src="http://ozrhqzqeu.bkt.clouddn.com/thread_2.png" alt=""></p>
+<h4 id="iOS多线程对比"><a href="#iOS多线程对比" class="headerlink" title="iOS多线程对比"></a>iOS多线程对比</h4><p><img src="http://ozrhqzqeu.bkt.clouddn.com/thread_2.png" alt></p>
 <h4 id="1-pthread的简单使用（了解）"><a href="#1-pthread的简单使用（了解）" class="headerlink" title="1.pthread的简单使用（了解）"></a>1.pthread的简单使用（了解）</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//创建线程</span></span><br><span class="line">    pthread_t thread;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     第一个参数pthread_t *restrict:线程对象</span></span><br><span class="line"><span class="comment">     第二个参数const pthread_attr_t *restrict:线程属性</span></span><br><span class="line"><span class="comment">     第三个参数void *(*)(void *) :指向函数的指针</span></span><br><span class="line"><span class="comment">     第四个参数void *restrict:函数的参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    pthread_create(&amp;thread, <span class="literal">NULL</span>,run ,<span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//void *(*)(void *)</span></span><br><span class="line"><span class="keyword">void</span> *run(<span class="keyword">void</span> *param)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i =<span class="number">0</span> ; i&lt;<span class="number">10000</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%zd--%@-"</span>,i,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="2-NSThread"><a href="#2-NSThread" class="headerlink" title="2. NSThread"></a>2. NSThread</h4><h6 id="1-创建线程"><a href="#1-创建线程" class="headerlink" title="1.创建线程"></a>1.创建线程</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一：创建线程，需要自己开启线程</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc]initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(run) object:<span class="literal">nil</span>];</span><br><span class="line">thread.threadPriority = <span class="number">1</span>;<span class="comment">// 设置线程的优先级(0.0 - 1.0，1.0最高级)</span></span><br><span class="line"><span class="comment">// 开启线程</span></span><br><span class="line">[thread start];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二：创建线程后自动启动线程</span></span><br><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector:<span class="keyword">@selector</span>(run) toTarget:<span class="keyword">self</span> withObject:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法三：隐式创建并启动线程</span></span><br><span class="line">[<span class="keyword">self</span> performSelectorInBackground:<span class="keyword">@selector</span>(run) withObject:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
 <h6 id="2-NSThread属性"><a href="#2-NSThread属性" class="headerlink" title="2.NSThread属性"></a>2.NSThread属性</h6><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前线程</span></span><br><span class="line"> + (<span class="built_in">NSThread</span> *)currentThread;</span><br><span class="line"> <span class="comment">// 创建启动线程</span></span><br><span class="line"> + (<span class="keyword">void</span>)detachNewThreadSelector:(SEL)selector toTarget:(<span class="keyword">id</span>)target withObject:(<span class="keyword">id</span>)argument;</span><br><span class="line"> <span class="comment">// 判断是否是多线程</span></span><br><span class="line"> + (<span class="built_in">BOOL</span>)isMultiThreaded;</span><br><span class="line"> <span class="comment">// 线程休眠 NSDate 休眠到什么时候</span></span><br><span class="line"> + (<span class="keyword">void</span>)sleepUntilDate:(<span class="built_in">NSDate</span> *)date;</span><br><span class="line"> <span class="comment">// 线程休眠时间</span></span><br><span class="line"> + (<span class="keyword">void</span>)sleepForTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti;</span><br><span class="line"> <span class="comment">// 结束/退出当前线程</span></span><br><span class="line"> + (<span class="keyword">void</span>)exit;</span><br><span class="line"> <span class="comment">// 获取当前线程优先级</span></span><br><span class="line"> + (<span class="keyword">double</span>)threadPriority;</span><br><span class="line"> <span class="comment">// 设置线程优先级 默认为0.5 取值范围为0.0 - 1.0 </span></span><br><span class="line"> <span class="comment">// 1.0优先级最高</span></span><br><span class="line"> <span class="comment">// 设置优先级</span></span><br><span class="line"> + (<span class="built_in">BOOL</span>)setThreadPriority:(<span class="keyword">double</span>)p;</span><br><span class="line"> <span class="comment">// 获取指定线程的优先级</span></span><br><span class="line"> - (<span class="keyword">double</span>)threadPriority <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_6, <span class="number">4</span>_0);</span><br><span class="line"> - (<span class="keyword">void</span>)setThreadPriority:(<span class="keyword">double</span>)p <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_6, <span class="number">4</span>_0);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 设置线程的名字</span></span><br><span class="line"> - (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)n <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> - (<span class="built_in">NSString</span> *)name <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 判断指定的线程是否是 主线程</span></span><br><span class="line"> - (<span class="built_in">BOOL</span>)isMainThread <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> <span class="comment">// 判断当前线程是否是主线程</span></span><br><span class="line"> + (<span class="built_in">BOOL</span>)isMainThread <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0); <span class="comment">// reports whether current thread is main</span></span><br><span class="line"> <span class="comment">// 获取主线程</span></span><br><span class="line"> + (<span class="built_in">NSThread</span> *)mainThread <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"></span><br><span class="line"> - (<span class="keyword">id</span>)init <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);    <span class="comment">// designated initializer</span></span><br><span class="line"> <span class="comment">// 创建线程</span></span><br><span class="line"> - (<span class="keyword">id</span>)initWithTarget:(<span class="keyword">id</span>)target selector:(SEL)selector object:(<span class="keyword">id</span>)argument <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> <span class="comment">// 指定线程是否在执行</span></span><br><span class="line"> - (<span class="built_in">BOOL</span>)isExecuting <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> <span class="comment">// 线程是否完成</span></span><br><span class="line"> - (<span class="built_in">BOOL</span>)isFinished <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> <span class="comment">// 线程是否被取消 (是否给当前线程发过取消信号)</span></span><br><span class="line"> - (<span class="built_in">BOOL</span>)isCancelled <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> <span class="comment">// 发送线程取消信号的 最终线程是否结束 由 线程本身决定</span></span><br><span class="line"> - (<span class="keyword">void</span>)cancel <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"> <span class="comment">// 启动线程</span></span><br><span class="line"> - (<span class="keyword">void</span>)start <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 线程主函数  在线程中执行的函数 都要在-main函数中调用，自定义线程中重写-main方法</span></span><br><span class="line"> - (<span class="keyword">void</span>)main <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);    <span class="comment">// thread body method</span></span><br></pre></td></tr></table></figure>
-<h6 id="3-NSThread线程的状态（了解）"><a href="#3-NSThread线程的状态（了解）" class="headerlink" title="3. NSThread线程的状态（了解）"></a>3. NSThread线程的状态（了解）</h6><p><img src="http://ozrhqzqeu.bkt.clouddn.com/thread_3.png" alt=""></p>
+<h6 id="3-NSThread线程的状态（了解）"><a href="#3-NSThread线程的状态（了解）" class="headerlink" title="3. NSThread线程的状态（了解）"></a>3. NSThread线程的状态（了解）</h6><p><img src="http://ozrhqzqeu.bkt.clouddn.com/thread_3.png" alt></p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 启动线程</span><br><span class="line">- (<span class="keyword">void</span>)start; </span><br><span class="line"><span class="comment">// 进入就绪状态 -&gt; 运行状态。当线程任务执行完毕，自动进入死亡状态</span></span><br><span class="line"></span><br><span class="line">阻塞（暂停）线程</span><br><span class="line">+ (<span class="keyword">void</span>)sleepUntilDate:(<span class="built_in">NSDate</span> *)date;</span><br><span class="line">+ (<span class="keyword">void</span>)sleepForTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti;</span><br><span class="line"><span class="comment">// 进入阻塞状态</span></span><br><span class="line"></span><br><span class="line">强制停止线程</span><br><span class="line">+ (<span class="keyword">void</span>)exit;</span><br></pre></td></tr></table></figure>
 <h6 id="4-NSThread多线程安全隐患"><a href="#4-NSThread多线程安全隐患" class="headerlink" title="4.NSThread多线程安全隐患"></a>4.NSThread多线程安全隐患</h6><ul>
 <li>那么当多个线程访问同一块资源时，很容易引发<strong>数据错乱和数据安全问题</strong>。</li>
@@ -283,7 +283,7 @@ var _hmt = _hmt || [];
 <ul>
 <li>队列和任务的组合</li>
 </ul>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/thread_4.png" alt=""></p>
+<p><img src="http://ozrhqzqeu.bkt.clouddn.com/thread_4.png" alt></p>
 <h5 id="3-GCD线程间的通信"><a href="#3-GCD线程间的通信" class="headerlink" title="3.GCD线程间的通信"></a>3.GCD线程间的通信</h5><ul>
 <li>GCD线程间的通信非常简单，使用同步或异步函数，传入主队列即可。</li>
 </ul>
@@ -622,11 +622,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +638,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,11 +654,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +686,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,11 +698,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
