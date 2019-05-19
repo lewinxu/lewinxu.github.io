@@ -47,6 +47,8 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 </head>
 </html>
 <body>
@@ -293,7 +295,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明数组</span></span><br><span class="line"><span class="built_in">NSArray</span> *myArr = @[<span class="string">@"a"</span>,<span class="string">@"c"</span>,<span class="string">@"f"</span>,<span class="string">@"e"</span>,<span class="string">@"p"</span>,<span class="string">@"m"</span>];</span><br><span class="line"><span class="comment">// 排序数组</span></span><br><span class="line"><span class="built_in">NSArray</span> *sort = [myArr sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span> obj1, <span class="keyword">id</span> obj2) &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *str1 = obj1;                    <span class="comment">//对什么对象排序就用相应的对象接收</span></span><br><span class="line">    <span class="built_in">NSString</span> *str2 = obj2;</span><br><span class="line">    <span class="keyword">return</span> [str1 compare:str2];</span><br><span class="line">&#125;];</span><br><span class="line"><span class="comment">// 打印排序数组</span></span><br><span class="line">[sort enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, obj);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
       
-
       
         <div class="page-reward">
           <a href="javascript:;" class="page-reward-btn tooltip-top">
@@ -410,8 +411,19 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
+      <div id="vcomments"></div>
+      <script>
+          new Valine({
+              el: '#vcomments',
+              appId: 'WMS9x0Nb9lIjlesgSXSIf6j4-gzGzoHsz',
+              appKey: 'NiPjy4IXW5kb0FnOXnR5UtqC'
+          })
+      </script>
+      
   </div>
 </article>
+
 
   
 <nav id="article-nav">
@@ -451,7 +463,6 @@ var _hmt = _hmt || [];
 </aside>
 
 
-
   
   
   
@@ -460,22 +471,6 @@ var _hmt = _hmt || [];
 
   
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://lewinxu.com/2018/04/10/block/",
-  owner: 'lewinxu',
-  repo: 'lewinxu.github.io',
-  oauth: {
-    client_id: '763ee55973adbc0ae88c',
-    client_secret: '0f313c5387e9f45446ae8d85bd3d0e6e287518d9',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
   
 
 
@@ -581,11 +576,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,11 +608,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,11 +644,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,7 +660,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
             
             <div class="clearfix"></div>

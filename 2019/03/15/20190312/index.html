@@ -49,6 +49,8 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 </head>
 </html>
 <body>
@@ -222,7 +224,6 @@ var _hmt = _hmt || [];
 <p>修改密码<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">'root'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span>;</span><br></pre></td></tr></table></figure></p>
 <h3 id="6-远程连接授权"><a href="#6-远程连接授权" class="headerlink" title="6. 远程连接授权"></a>6. 远程连接授权</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;`</span><br><span class="line">`<span class="keyword">FLUSH</span>  <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
       
-
       
         <div class="page-reward">
           <a href="javascript:;" class="page-reward-btn tooltip-top">
@@ -339,8 +340,19 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
+      <div id="vcomments"></div>
+      <script>
+          new Valine({
+              el: '#vcomments',
+              appId: 'WMS9x0Nb9lIjlesgSXSIf6j4-gzGzoHsz',
+              appKey: 'NiPjy4IXW5kb0FnOXnR5UtqC'
+          })
+      </script>
+      
   </div>
 </article>
+
 
   
 <nav id="article-nav">
@@ -380,7 +392,6 @@ var _hmt = _hmt || [];
 </aside>
 
 
-
   
   
   
@@ -389,22 +400,6 @@ var _hmt = _hmt || [];
 
   
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://lewinxu.com/2019/03/15/20190312/",
-  owner: 'lewinxu',
-  repo: 'lewinxu.github.io',
-  oauth: {
-    client_id: '763ee55973adbc0ae88c',
-    client_secret: '0f313c5387e9f45446ae8d85bd3d0e6e287518d9',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
   
 
 
@@ -510,11 +505,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,11 +537,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,11 +573,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,7 +589,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
             
             <div class="clearfix"></div>

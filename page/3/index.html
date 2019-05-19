@@ -45,6 +45,8 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 </head>
 </html>
 <body>
@@ -233,7 +235,6 @@ var _hmt = _hmt || [];
 <h2 id="plist的存储，读取（沙盒"><a href="#plist的存储，读取（沙盒" class="headerlink" title="plist的存储，读取（沙盒)"></a>plist的存储，读取（沙盒)</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//读取plist</span></span><br><span class="line">    [<span class="keyword">self</span> getDataFromPlist];</span><br><span class="line">    <span class="comment">// 写入plist</span></span><br><span class="line">    [<span class="keyword">self</span> writeDataToPlist:<span class="string">@"Hello"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)getDataFromPlist &#123;</span><br><span class="line">    <span class="comment">//沙盒获取路径</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *docPath = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [docPath stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];<span class="comment">//没有会自动创建</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath: %@"</span>,filePath);</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="keyword">if</span> (docPlistDic==<span class="literal">nil</span>) &#123;</span><br><span class="line">        docPlistDic = [<span class="built_in">NSMutableDictionary</span> new];</span><br><span class="line">        docPlistDic[<span class="string">@"hello"</span>] = <span class="string">@"hello"</span>;</span><br><span class="line">        [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"docPlistDic: %@"</span>,docPlistDic);<span class="comment">//直接打印数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeDataToPlist :(<span class="built_in">NSString</span> *)str&#123;</span><br><span class="line">    <span class="comment">//这里使用位于沙盒的plist（程序会自动新建的那一个）</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *path = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"old Data is %@"</span>,filePath);</span><br><span class="line">    docPlistDic[<span class="string">@"hello"</span>] = str;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"change Data is %@"</span>,docPlistDic);</span><br><span class="line">    <span class="comment">//添加新的Key</span></span><br><span class="line">    docPlistDic[<span class="string">@"add"</span>] = <span class="string">@"add"</span>;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"add Data is %@"</span>,docPlistDic);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除整体文件</span></span><br><span class="line">- (<span class="keyword">void</span>)deleteField &#123;</span><br><span class="line">    <span class="built_in">NSFileManager</span> *manager=[<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">    <span class="comment">//文件路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filepath = [[<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)objectAtIndex:<span class="number">0</span>]stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    [manager removeItemAtPath:filepath error:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -272,8 +273,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -290,7 +293,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -342,7 +344,6 @@ var _hmt = _hmt || [];
 <h4 id="惰性初始化"><a href="#惰性初始化" class="headerlink" title="惰性初始化"></a><strong>惰性初始化</strong></h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-(ObjectType *)example</span><br><span class="line">&#123;</span><br><span class="line">    f(!_example) example =[[ObjectType alloc] init];</span><br><span class="line">     <span class="keyword">return</span> _example;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -381,8 +382,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -399,7 +402,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -463,7 +465,6 @@ var _hmt = _hmt || [];
 <p><img src="http://ozrhqzqeu.bkt.clouddn.com/2491655-f507e043f3e3bc69.jpeg" alt="enter image description here"></p>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -502,8 +503,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -520,7 +523,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -592,7 +594,6 @@ var _hmt = _hmt || [];
 </ul>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -631,8 +632,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -649,7 +652,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -735,7 +737,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// AutoLayout</span></span><br><span class="line">    <span class="built_in">UIView</span> *purpleView = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    purpleView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line">    <span class="comment">// 禁止将 AutoresizingMask 转换为 Constraints</span></span><br><span class="line">    purpleView.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:purpleView];</span><br><span class="line">    <span class="comment">// 添加 width 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *widthConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeWidth</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">0.0</span> constant:<span class="number">150</span>];</span><br><span class="line">    [purpleView addConstraint:widthConstraint];</span><br><span class="line">    <span class="comment">// 添加 height 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *heightConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeHeight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">0.0</span> constant:<span class="number">150</span>];</span><br><span class="line">    [purpleView addConstraint:heightConstraint];</span><br><span class="line">    <span class="comment">// 添加 left 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *leftConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeLeft</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span>.view attribute:<span class="built_in">NSLayoutAttributeLeft</span> multiplier:<span class="number">1.0</span> constant:<span class="number">100</span>];</span><br><span class="line">    [<span class="keyword">self</span>.view addConstraint:leftConstraint];</span><br><span class="line">    <span class="comment">// 添加 top 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *topConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeTop</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span>.view attribute:<span class="built_in">NSLayoutAttributeTop</span> multiplier:<span class="number">1.0</span> constant:<span class="number">200</span>];</span><br><span class="line">    [<span class="keyword">self</span>.view addConstraint:topConstraint];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Masonry</span></span><br><span class="line">    <span class="built_in">UIView</span> *purpleView = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    purpleView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:purpleView];</span><br><span class="line">    [purpleView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        <span class="comment">// 在这个 block 里面，利用 make 对象创建约束</span></span><br><span class="line">        make.size.mas_equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">150</span>, <span class="number">150</span>));</span><br><span class="line">        <span class="comment">//make.center.mas_equalTo(self.view);</span></span><br><span class="line">        make.top.mas_equalTo(<span class="number">200</span>);</span><br><span class="line">        make.left.mas_equalTo(<span class="number">100</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -774,8 +775,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -792,7 +795,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -867,7 +869,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//keyPath:属性名称</span></span><br><span class="line"><span class="comment">//object:被观察的对象</span></span><br><span class="line"><span class="comment">//change:变化前后的值都存储在 change 字典中</span></span><br><span class="line"><span class="comment">//context:注册观察者时，context 传过来的值</span></span><br><span class="line">-(<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -906,8 +907,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -924,7 +927,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -1035,7 +1037,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明数组</span></span><br><span class="line"><span class="built_in">NSArray</span> *myArr = @[<span class="string">@"a"</span>,<span class="string">@"c"</span>,<span class="string">@"f"</span>,<span class="string">@"e"</span>,<span class="string">@"p"</span>,<span class="string">@"m"</span>];</span><br><span class="line"><span class="comment">// 排序数组</span></span><br><span class="line"><span class="built_in">NSArray</span> *sort = [myArr sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span> obj1, <span class="keyword">id</span> obj2) &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *str1 = obj1;                    <span class="comment">//对什么对象排序就用相应的对象接收</span></span><br><span class="line">    <span class="built_in">NSString</span> *str2 = obj2;</span><br><span class="line">    <span class="keyword">return</span> [str1 compare:str2];</span><br><span class="line">&#125;];</span><br><span class="line"><span class="comment">// 打印排序数组</span></span><br><span class="line">[sort enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, obj);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -1074,8 +1075,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1092,7 +1095,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -1162,7 +1164,6 @@ var _hmt = _hmt || [];
 <h4 id="需要实现的方法"><a href="#需要实现的方法" class="headerlink" title="需要实现的方法"></a>需要实现的方法</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark - 数据源方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回分组数 </span></span><br><span class="line">-(<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView;</span><br><span class="line"><span class="comment">// 返回每组行数 </span></span><br><span class="line">-(<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section;</span><br><span class="line"><span class="comment">// 返回每行的单元格 </span></span><br><span class="line">-(<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// 返回每组头标题</span></span><br><span class="line">-(<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForHeaderInSection:(<span class="built_in">NSInteger</span>)section;</span><br><span class="line"><span class="comment">// 返回每组尾部标题</span></span><br><span class="line">-(<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForFooterInSection:(<span class="built_in">NSInteger</span>)section;</span><br><span class="line"><span class="comment">// 返回 Cell 是否在滑动时是否可以编辑</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView canEditRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// 返回 Cell 是否可以移动</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)tableView:(<span class="built_in">UITableView</span> *)tableView canMoveRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// TableView 右侧建立一个索引表需要的数组内容</span></span><br><span class="line">-(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)sectionIndexTitlesForTableView:(<span class="built_in">UITableView</span> *)tableView; </span><br><span class="line"><span class="comment">// 对 Cell 编辑结束后的回调</span></span><br><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView commitEditingStyle:(<span class="built_in">UITableViewCellEditingStyle</span>)editingStyle forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"><span class="comment">// 对 Cell 移动结束后的回调</span></span><br><span class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView moveRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)sourceIndexPath toIndexPath:(<span class="built_in">NSIndexPath</span> *)destinationIndexPath;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - 代理方法</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  设置行高</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 添加每组的组头</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView viewForHeaderInSection:(<span class="built_in">NSInteger</span>)section&#123;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回每组的组尾</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView viewForFooterInSection:(<span class="built_in">NSInteger</span>)section&#123;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 选中某行cell时会调用</span></span><br><span class="line">- (<span class="keyword">void</span>)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"选中didSelectRowAtIndexPath row = %ld"</span>, indexPath.row);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消选中某行cell会调用 (当我选中第0行的时候，如果现在要改为选中第1行 - 》会先取消选中第0行，然后调用选中第1行的操作)</span></span><br><span class="line">- (<span class="keyword">void</span>)tableView:(<span class="keyword">nonnull</span> <span class="built_in">UITableView</span> *)tableView didDeselectRowAtIndexPath:(<span class="keyword">nonnull</span> <span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"取消选中 didDeselectRowAtIndexPath row = %ld "</span>, indexPath.row);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置UITableView的索引条，返回数组字符串集</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)sectionIndexTitlesForTableView:(<span class="built_in">UITableView</span> *)tableView;</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -1201,8 +1202,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1219,7 +1222,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -1251,7 +1253,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************UIView-层次关系***************/</span></span><br><span class="line">    <span class="comment">//添加视图：addSubview</span></span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:view5];</span><br><span class="line">    <span class="comment">//移除视图：removeFromSuperview</span></span><br><span class="line"><span class="comment">//    [view5 removeFromSuperview];</span></span><br><span class="line">    <span class="comment">//将某个视图移动到最上面  bringSubviewToFront:</span></span><br><span class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:view1];</span><br><span class="line">    <span class="comment">//将某个视图移动到最下面   sendSubviewToBack:</span></span><br><span class="line">    [<span class="keyword">self</span>.view sendSubviewToBack:view1];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的上面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 aboveSubview:view3];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的下面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 belowSubview:view2];</span><br><span class="line">    <span class="comment">//将某个视图放到指定的位置</span></span><br><span class="line"><span class="comment">//    [self.view insertSubview:view1 atIndex:3];</span></span><br><span class="line">    <span class="comment">//交换两个视图的位置</span></span><br><span class="line">    [<span class="keyword">self</span>.view exchangeSubviewAtIndex:<span class="number">1</span> withSubviewAtIndex:<span class="number">4</span>];</span><br></pre></td></tr></table></figure>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -1290,8 +1291,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1308,7 +1311,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -1376,7 +1378,6 @@ var _hmt = _hmt || [];
 <p><img src="http://ozrhqzqeu.bkt.clouddn.com/extern_3.jpg" alt></p>
 
       
-
       
     </div>
     <div class="article-info article-info-index">
@@ -1415,8 +1416,10 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
   </div>
 </article>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1433,7 +1436,6 @@ var _hmt = _hmt || [];
         
     </div>
 </aside>
-
 
 
 
@@ -1547,11 +1549,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1579,11 +1581,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1615,11 +1617,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1631,7 +1633,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
             
             <div class="clearfix"></div>

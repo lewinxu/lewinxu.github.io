@@ -50,6 +50,8 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 </head>
 </html>
 <body>
@@ -217,7 +219,6 @@ var _hmt = _hmt || [];
 <h2 id="墨卡托投影"><a href="#墨卡托投影" class="headerlink" title="墨卡托投影"></a>墨卡托投影</h2><p>使用经纬度表示位置的大地坐标系虽然可以描述地球上点的位置，但是对于地图地理数据在二维平面内展示的场景，需要通过投影的方式将三维空间中的点映射到二维空间中。地图投影需要建立地球表面点与投影平面点的一一对应关系，在互联网地图中常使用墨卡托投影。墨卡托投影是荷兰地理学家墨卡托于1569年提出的一种地球投影方法，该方法是圆柱投影的一种。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/map_mercator.png" alt><br>各大地图服务商都采用了<a href="https://en.wikipedia.org/wiki/Web_Mercator" target="_blank" rel="noopener">Web Mercator</a>进行投影，瓦片坐标系的不同主要是投影截取的地球范围不同、瓦片坐标起点不同。</p>
 
       
-
       
         <div class="page-reward">
           <a href="javascript:;" class="page-reward-btn tooltip-top">
@@ -334,8 +335,19 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
+      <div id="vcomments"></div>
+      <script>
+          new Valine({
+              el: '#vcomments',
+              appId: 'WMS9x0Nb9lIjlesgSXSIf6j4-gzGzoHsz',
+              appKey: 'NiPjy4IXW5kb0FnOXnR5UtqC'
+          })
+      </script>
+      
   </div>
 </article>
+
 
   
 <nav id="article-nav">
@@ -375,7 +387,6 @@ var _hmt = _hmt || [];
 </aside>
 
 
-
   
   
   
@@ -384,22 +395,6 @@ var _hmt = _hmt || [];
 
   
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://lewinxu.com/2018/03/21/TailMap/",
-  owner: 'lewinxu',
-  repo: 'lewinxu.github.io',
-  oauth: {
-    client_id: '763ee55973adbc0ae88c',
-    client_secret: '0f313c5387e9f45446ae8d85bd3d0e6e287518d9',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
   
 
 
@@ -505,11 +500,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,11 +532,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,11 +568,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,7 +584,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
             
             <div class="clearfix"></div>

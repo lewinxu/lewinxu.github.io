@@ -47,6 +47,8 @@ var _hmt = _hmt || [];
 </script>
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 </head>
 </html>
 <body>
@@ -233,7 +235,6 @@ var _hmt = _hmt || [];
 <h2 id="plist的存储，读取（沙盒"><a href="#plist的存储，读取（沙盒" class="headerlink" title="plist的存储，读取（沙盒)"></a>plist的存储，读取（沙盒)</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//读取plist</span></span><br><span class="line">    [<span class="keyword">self</span> getDataFromPlist];</span><br><span class="line">    <span class="comment">// 写入plist</span></span><br><span class="line">    [<span class="keyword">self</span> writeDataToPlist:<span class="string">@"Hello"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)getDataFromPlist &#123;</span><br><span class="line">    <span class="comment">//沙盒获取路径</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *docPath = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [docPath stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];<span class="comment">//没有会自动创建</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath: %@"</span>,filePath);</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="keyword">if</span> (docPlistDic==<span class="literal">nil</span>) &#123;</span><br><span class="line">        docPlistDic = [<span class="built_in">NSMutableDictionary</span> new];</span><br><span class="line">        docPlistDic[<span class="string">@"hello"</span>] = <span class="string">@"hello"</span>;</span><br><span class="line">        [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"docPlistDic: %@"</span>,docPlistDic);<span class="comment">//直接打印数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeDataToPlist :(<span class="built_in">NSString</span> *)str&#123;</span><br><span class="line">    <span class="comment">//这里使用位于沙盒的plist（程序会自动新建的那一个）</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *path = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"old Data is %@"</span>,filePath);</span><br><span class="line">    docPlistDic[<span class="string">@"hello"</span>] = str;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"change Data is %@"</span>,docPlistDic);</span><br><span class="line">    <span class="comment">//添加新的Key</span></span><br><span class="line">    docPlistDic[<span class="string">@"add"</span>] = <span class="string">@"add"</span>;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"add Data is %@"</span>,docPlistDic);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除整体文件</span></span><br><span class="line">- (<span class="keyword">void</span>)deleteField &#123;</span><br><span class="line">    <span class="built_in">NSFileManager</span> *manager=[<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">    <span class="comment">//文件路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filepath = [[<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)objectAtIndex:<span class="number">0</span>]stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    [manager removeItemAtPath:filepath error:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-
       
         <div class="page-reward">
           <a href="javascript:;" class="page-reward-btn tooltip-top">
@@ -350,8 +351,19 @@ var _hmt = _hmt || [];
       
       <div class="clearfix"></div>
     </div>
+    
+      <div id="vcomments"></div>
+      <script>
+          new Valine({
+              el: '#vcomments',
+              appId: 'WMS9x0Nb9lIjlesgSXSIf6j4-gzGzoHsz',
+              appKey: 'NiPjy4IXW5kb0FnOXnR5UtqC'
+          })
+      </script>
+      
   </div>
 </article>
+
 
   
 <nav id="article-nav">
@@ -391,7 +403,6 @@ var _hmt = _hmt || [];
 </aside>
 
 
-
   
   
   
@@ -400,22 +411,6 @@ var _hmt = _hmt || [];
 
   
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://lewinxu.com/2018/04/10/IOS数据存储常用方式1/",
-  owner: 'lewinxu',
-  repo: 'lewinxu.github.io',
-  oauth: {
-    client_id: '763ee55973adbc0ae88c',
-    client_secret: '0f313c5387e9f45446ae8d85bd3d0e6e287518d9',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
   
 
 
@@ -521,11 +516,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,11 +548,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,11 +584,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -605,7 +600,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
             
             <div class="clearfix"></div>
