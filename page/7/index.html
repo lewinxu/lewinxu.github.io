@@ -8,13 +8,16 @@
   <link rel="dns-prefetch" href="http://lewinxu.com">
   <title>lewinxu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="lewin`blog">
+<meta property="og:type" content="website">
 <meta property="og:title" content="lewinxu">
 <meta property="og:url" content="http://lewinxu.com/page/7/index.html">
 <meta property="og:site_name" content="lewinxu">
+<meta property="og:description" content="lewin`blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lewinxu">
+<meta name="twitter:description" content="lewin`blog">
   
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
@@ -53,11 +56,13 @@ var _hmt = _hmt || [];
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/images/lewin.JPG" class="js-avatar">
+			<img src="/images/noone.png" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Lewin</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">Stay hungry,Stay foolish!</p>
 		
 
 		<nav class="header-menu">
@@ -67,7 +72,7 @@ var _hmt = _hmt || [];
 	        
 				<li><a href="/archives/">目录</a></li>
 	        
-				<li><a href="/mypdf/">学习</a></li>
+				<li><a href="/study/">学习</a></li>
 	        
 				<li><a href="/project/">项目</a></li>
 	        
@@ -117,11 +122,13 @@ var _hmt = _hmt || [];
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/images/lewin.JPG" class="js-avatar">
+				<img src="/images/noone.png" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Lewin</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry,Stay foolish!<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -159,7 +166,7 @@ var _hmt = _hmt || [];
 		        
 					<li style="width: 20%"><a href="/archives/">目录</a></li>
 		        
-					<li style="width: 20%"><a href="/mypdf/">学习</a></li>
+					<li style="width: 20%"><a href="/study/">学习</a></li>
 		        
 					<li style="width: 20%"><a href="/project/">项目</a></li>
 		        
@@ -179,6 +186,189 @@ var _hmt = _hmt || [];
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-MSP430常用寄存器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/11/MSP430常用寄存器/">MSP430常用寄存器(持续更新)</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/11/MSP430常用寄存器/" class="archive-article-date">
+  	<time datetime="2016-07-11T06:09:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Edit By Lewinxu</p>
+<blockquote>
+<p><strong>P1OUT: I/O口输出设定寄存器</strong><br>                如设定P1.1和P1.2输出高电平<br>                操作为： P1OUT |=（BIT1+BIT2）。<br><strong>P1IN:     I/O口输入设定寄存器</strong><br>                如设定P1.1和P1.2的输入为低电平<br>                 操作为： P1IN &amp;=~（BIT1+BIT2）。<br><strong>P1DIR:    I/O方向设定寄存器</strong><br>                如设定P1.1和P1.2为输出状态<br>                操作为： P1DIR |=（BIT1+BIT2）<br><strong>P1SEL:   功能选择寄存器</strong><br><strong>PXREN: 上拉/下拉电阻使能寄存器</strong><br>                  低电平该寄存器为无效状态；<br>                  高电平该寄存器为有效状态；<br><strong>PxIFGx     中断标志寄存器：</strong><br>                只有相应的中断使能PXIE打开且总中断GIE打开，该寄存器才有效。<br>                  低电平表示没有中断请求等待响应；<br>                 高电平表示有中断请求等待响应；<br><strong>PxIE     中断使能寄存器   </strong><br>            低电平表示中断关闭；<br>            高电平表示中断允许；<br><strong>PXIES    中断触发方式选择寄存器 </strong><br>                  低电平表示上升沿触发；<br>                  高电平表示下降沿触发；</p>
+</blockquote>
+<h3 id="设置P2-2为下降沿触发"><a href="#设置P2-2为下降沿触发" class="headerlink" title="设置P2.2为下降沿触发"></a>设置P2.2为下降沿触发</h3><pre><code>P2IFG = 0x00;    //清除P2口的中断标志
+P2IE = BIT2;    //P2.2开启中断
+P2IES = 0xff;   //P2为下降沿触发
+P2IN = BIT2; //P2.2输入拉高，因此开关闭合时会拉低产生下降沿（即中断）
+P2OUT = 0xff;
+P2REN = 0xff;   //作为输入的时候一定要配置上拉电阻（很重要，容易忘记，我就在这错了-_’） 
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/单片机//" class="article-tag-list-link color4">单片机</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/11/MSP430常用寄存器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-优秀软件推荐(持续更新)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/09/优秀软件推荐(持续更新)/">优秀软件推荐(持续更新)</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/09/优秀软件推荐(持续更新)/" class="archive-article-date">
+  	<time datetime="2016-07-08T16:00:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Edit By Lewinxu<br><img src="https://unsplash.it/1000/300/?random" alt="enter image description here"></p>
+<p><strong>PC端</strong></p>
+<blockquote>
+<p>1.<a href="http://www.wiz.cn/" target="_blank" rel="noopener">Wiz笔记</a>–适合常做笔记·记录事件<br>2.<a href="https://www.jianguoyun.com/" target="_blank" rel="noopener">坚果云</a>–官方品牌，口碑网盘，稳定运营多年，值得信赖<br>3.<a href="http://www.sublimetext.com/" target="_blank" rel="noopener">Sublime Text</a>–The text editor you’ll fall in love with<br>4.<a href="https://justgetflux.com/" target="_blank" rel="noopener">f.lux护眼</a>–software to make your life better<br>5.<a href="http://music.163.com/" target="_blank" rel="noopener">网易云音乐</a>–用心做音乐，听见好时光</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/实用技能//" class="article-tag-list-link color5">实用技能</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/09/优秀软件推荐(持续更新)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-U盘安装系统详细教程(Win10版)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -900,11 +1090,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -916,7 +1106,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL node</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Test</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -936,11 +1134,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -968,6 +1166,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
@@ -976,19 +1178,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
               </li>
             
             <div class="clearfix"></div>
