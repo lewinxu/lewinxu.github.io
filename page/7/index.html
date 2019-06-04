@@ -201,6 +201,199 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CS概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/CS概述/">C Sharp概述</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/19/CS概述/" class="archive-article-date">
+  	<time datetime="2016-07-19T08:25:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>C#语言是微软于2000年发布，基于.NET Framewrok框架的、面向对象的高级语言。经过近十三年的发展，经历了5次大的升级，最新版本为C#5.0(对应于.NET Framework 4.5)，下面是C#语言发展过程的简单性总结：</em><br> <img src="http://i1.piimg.com/4851/b3542cbbd7fcffb6.png" alt="enter image description here"></p>
+<blockquote>
+<p>托管代码(managed code)：指由”运行时”控制程序的主要行为，管理诸如内存分配、安全性和JIT编译等方面。</p>
+</blockquote>
+<p>C#作为一门托管语言，和C/C++这些本地语言不同；C/C++经过编译后直接变成处理器可执行的机器码，而C#编译器则会将C#转换为CIL(简称IL)代码，而不是机器码，我们知道C#是基于.NET Framework 框架的语言，CIL代码转换为可执行的代码还需要经过CLR的转换，CLR根据需要编译CIL代码，这个过程称为JIT编译(Just-in-time)或即时编译。下面是C#代码编译到执行的过程：<br><img src="https://i-msdn.sec.s-msft.com/dynimg/IC210180.png" alt="enter image description here"></p>
+<p>###C# 代码执行过程<br> 　　学习一种语言最开的方式就是开始动手写程序，我们先从一个最简单的Hello world开始：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">class test</span><br><span class="line">&#123;</span><br><span class="line">	public static void Main(string[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		Console.WriteLine(&quot;Hello!&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>程序编写完成后将代码所在文件保存为以.cs为后缀(C#编译器允许为C#源代码文件使用任何扩展名，但通常都是使用*.cs)；接下来可以直接使用控制台(如果你想使用<code>Visual Studio</code>也可以)调用编译器进行编译(具体步骤参考：通过控制台调用编译器和IL反汇编工具)，根据前面的示例图，我们知道C#源码经过C#编译器编译后会生成一个托管模块，如下：<br><img src="http://i2.piimg.com/567571/2d87df0f93529617.png" alt="enter image description here"><br>我们打开源文件所在目录，源码经过编译器编译后生成了一个exe文件，点击即可运行。在这里我们需要注意：在进行一次成功的C#编译之后，生成的肯定是一个程序集，无论它是一个程序，还是一个库。在前面我们知道：为了执行一个方法，首先必须把它的IL转换成本地的CPU指令(由CLR的JIT编译器负责)，下面展示了Hello World程序首次调用时发生的情况：<br><img src="http://i2.piimg.com/567571/3645d57de72c53bd.png" alt="enter image description here"><br>一个方法只有在首次调用的时候会调用JIT编译器编译成本地代码，以后对该方法所有的调用都以本地代码的形式全速运行，无需重新验证IL并把它编译成本地代码。因为JIT编译器会将本地CPU指令存储到动态内存中。下面是方法第二次被调用时的示意图：<br><img src="http://i2.piimg.com/567571/d22ff3861b8fd951.png" alt="enter image description here"></p>
+<blockquote>
+<p>这里我们需要注意，一旦程序终止，编译好的代码也会被丢弃。如果再次运行应用程序，JIT编译器将会再次将IL编译成本地代码。</p>
+</blockquote>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C Sharp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/19/CS概述/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-CS里partial关键字的作用(转摘)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/CS里partial关键字的作用(转摘)/">C Sharp里partial关键字的作用(转载)</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/19/CS里partial关键字的作用(转摘)/" class="archive-article-date">
+  	<time datetime="2016-07-19T08:14:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-什么是局部类型？"><a href="#1-什么是局部类型？" class="headerlink" title="1. 什么是局部类型？"></a>1. 什么是局部类型？</h4><blockquote>
+<p><code>C#</code> 2.0 引入了局部类型的概念。局部类型允许我们将一个类、结构或接口分成几个部分，分别实现在几个不同的<code>.cs</code>文件中。</p>
+</blockquote>
+<p><strong>局部类型适用于以下情况：</strong></p>
+<p>(1) 类型特别大，不宜放在一个文件中实现。<br>(2) 一个类型中的一部分代码为自动化工具生成的代码，不宜与我们自己编写的代码混合在一起。<br>(3) 需要多人合作编写一个类。</p>
+<p><code>局部类型</code>是一个纯语言层的编译处理，不影响任何执行机制——事实上C#编译器在编译的时候仍会将各个部分的局部类型合并成一个完整的类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public partial class Program</span><br><span class="line">&#123;</span><br><span class="line">  static void Main(string[] args)</span><br><span class="line">  &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">partial class Program</span><br><span class="line">&#123; </span><br><span class="line">  public void Test()</span><br><span class="line">  &#123; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-局部类型的限制"><a href="#2-局部类型的限制" class="headerlink" title="2. 局部类型的限制"></a>2. 局部类型的限制</h4><p>(1) 局部类型只适用于类、接口、结构，不支持委托和枚举。<br>(2) 同一个类型的各个部分必须都有修饰符 partial。<br>(3) 使用局部类型时，一个类型的各个部分必须位于相同的命名空间中。<br>(4) 一个类型的各个部分必须被同时编译。</p>
+<h4 id="3-局部类型的注意点"><a href="#3-局部类型的注意点" class="headerlink" title="3. 局部类型的注意点"></a>3. 局部类型的注意点</h4><p>(1) 关键字partial是一个上下文关键字，只有和 class、struct、interface 放在一起时才有关键字的含义。因此partial的引入不会影响现有代码中名称为partial的变量。<br>(2) 局部类型的各个部分一般是分开放在几个不同的.cs文件中，但C#编译器允许我们将他们放在同一文件中。</p>
+<h4 id="4-局部类型的应用特性"><a href="#4-局部类型的应用特性" class="headerlink" title="4. 局部类型的应用特性"></a>4. 局部类型的应用特性</h4><p>在局部类型上的特性具有“累加”效应。<br>[Attribute1, Attribute2(“Hello”)]<br>partial class Class1{}</p>
+<p>[Attribute3, Attribute2(“Exit”)]<br>partial class Class1{}</p>
+<p>相当于<br>[Attribute1, Attribute2(“Hello”), Attribute3, Attribute2(“Exit”)]<br>class Class1 {}</p>
+<p>注：Attribute2属性允许在类上多次使用。</p>
+<h4 id="5-局部类型上的修饰符"><a href="#5-局部类型上的修饰符" class="headerlink" title="5. 局部类型上的修饰符"></a>5. 局部类型上的修饰符</h4><p>(1) 一个类型的各个部分上的访问修饰符必须维持一致性。<br>(2) 如果一个部分类使用了abstract修饰符，那么整个类都将被视为抽象类。<br>(3) 如果一个部分类使用了 sealed 修饰符，那么整个类都将被视为密封类。<br>(4) 一个类的各个部分不能使用相互矛盾的修饰符，比如不能在一个部分上使用abstract，又在另一个部分上使用sealed。<br>(5)如果一个部分类使用了 static修饰符，那么整个类都将被视为静态类。</p>
+<h4 id="6-局部类型的基类和接口"><a href="#6-局部类型的基类和接口" class="headerlink" title="6. 局部类型的基类和接口"></a>6. 局部类型的基类和接口</h4><p><em>(1) 一个类型的各个部分上指定的基类必须一致。某个部分可以不指定基类，但如果指定，则必须相同。</em><br><em>(2) 局部类型上的接口具有“累加”效应。</em><br>partial class Class2: Iinterface1, Iinterface2 {}<br>partial class Class2: Iinterface3 {}<br>partial class Class2: Iinterface2 {}</p>
+<p>相当于<br>class Class2: Iinterface1, Iinterface2, Iinterface3 {}</p>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C Sharp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/19/CS里partial关键字的作用(转摘)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-MSP430常用寄存器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1112,19 +1305,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1144,11 +1337,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1168,19 +1361,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1188,7 +1373,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1196,7 +1393,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
             
             <div class="clearfix"></div>
