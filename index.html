@@ -201,6 +201,156 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-how2git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/31/how2git/">【转载】Git 版本控制与提交规范</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/31/how2git/" class="archive-article-date">
+  	<time datetime="2019-07-31T02:05:11.099Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.yuque.com/fe9" target="_blank" rel="noopener">@语雀-前端九部</a></p>
+<blockquote>
+<p><strong>参考文章</strong><br><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">廖雪峰-Git教程</a><br><a href="https://backlog.com/git-tutorial/cn/" target="_blank" rel="noopener">Git入门</a><br><a href="https://www.yuque.com/fe9/basic/nruxq8#df368884" target="_blank" rel="noopener">Git 协同与提交规范</a><br><a href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines" target="_blank" rel="noopener">Developing AngularJS</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在现代化的软件开发中，尤其是在企业中的团队协同开发流程与代码管理方面，git 都充当着不可或缺的角色。<br>本文将会说明如何使用 git 来进行一些基本的版本控制操作与团队协同中的 git 使用流程管理与提交规范。</p>
+<h2 id="Git-快速入门"><a href="#Git-快速入门" class="headerlink" title="Git 快速入门"></a>Git 快速入门</h2><h3 id="Git-的简单介绍"><a href="#Git-的简单介绍" class="headerlink" title="Git 的简单介绍"></a>Git 的简单介绍</h3><p>Git 是一个用于控制管理代码历史版本的工具，区别于集中式的 SVN，Git 使用了分布式的管理方式。<br><img src="../../../../image/how2git/how2git-1.png" alt><br>团队每人都拥有一个自己的本地仓库，不仅可以自己本地进行版本管理，也可以将代码版本在各个成员间共享。</p>
+<h3 id="初始化一个本地仓库"><a href="#初始化一个本地仓库" class="headerlink" title="初始化一个本地仓库"></a>初始化一个本地仓库</h3><p>在开始操作之前，确保你的系统环境已经安装了 Git， <a href="https://git-scm.com" target="_blank" rel="noopener">https://git-scm.com</a> 上提供了各个系统环境的 Git 下载。<br>在使用 <code>git</code> 命令进行操作之前，你需要一个 Git 仓库，你可以移动到你的工作目录，命令行中执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in /path/to/work/directory/.git/</span><br></pre></td></tr></table></figure></p>
+<p>这样你就可以得到一个本地仓库了，你会看到工作目录下已经新增了一个 .git 目录。<br>注：某些系统中可能预设隐藏以 . 开头的文件夹，可能需要开启相关设置才能看到</p>
+<h3 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h3><p>当然如果你已经有了一个远程仓库，你就不需要初始化一个本地仓库了，你可以使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;remote address&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面的命令会将链接指向的远程仓库克隆到本地，这样你也得到了一个 Git 仓库，并且这个仓库是与远程仓库关联的，如果你有远程仓库的权限，你就可以对这个仓库推送你的提交。</p>
+<h3 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h3><p>上面我们已经初始化了一个空仓库，我们可以通过指令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">nothing to commit (create/copy files and use "git add" to track)</span><br></pre></td></tr></table></figure></p>
+<p>通过 <em>git status</em> 查看当前的仓库(或代码分支)的状态。</p>
+<h3 id="追踪文件修改"><a href="#追踪文件修改" class="headerlink" title="追踪文件修改"></a>追踪文件修改</h3><p>接下来我们可以为这个仓库添加一些文件, 在工作目录下执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> touch index.js</span><br></pre></td></tr></table></figure></p>
+<p>上面的指令为我们在工作目录下创建一个名为 <code>index.js</code> 的文件, 使用 <code>git status</code> 可以查看到已经添加了一个 <code>index.js</code> 文件, 下面我们在这个文件中写入一些内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> echo "console.log('Hello World!');" &gt; index.js</span><br></pre></td></tr></table></figure></p>
+<p>上面这条指令为我们将 “console.log(‘Hello World!’)” 这个内容写入了 <code>index.js</code> 文件中。此时查看仓库状态如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be commited)</span><br><span class="line">    </span><br><span class="line">        index.js</span><br><span class="line">nothing added to commit but untracked files present(use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到信息反馈说到 <code>index.js</code> 这个文件是未追踪的(Untracked files), 而在 git 中，如果一个文件需要 git 进行版本控制与内容修改追踪，那么就需要先将它加入到 git 仓库的暂存区 (stage) 中。将文件加入到暂存区只需要执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.js</span><br></pre></td></tr></table></figure></p>
+<p><img src="../../../../image/how2git/how2git-2.png" alt><br>                               (将工作区的修改通过 add 命令移到暂存区)<br>相信很多人在使用 git 添加修改或者新增文件的时候，会习惯直接使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure></p>
+<p>直接将当前目录下的修改的全部文件添加到暂存区(stage), 一般情况下，这样的方式既方便又快捷，但是我仍然推荐在执行 <code>git add</code> 先使用 <code>git status</code> 命令来查看一下仓库有哪些文件被修改了，这样是因为如果你的仓库中使用了 git 的子模块功能，直接 <code>git add .</code> 会将子模块的 commit ID 也一并添加到暂存区，万一这个 commit ID 的提交并不是你的本意，那么提交到远程可能会导致子模块错乱的问题。<br>为了养成良好习惯，最好在 <code>git add</code> 前使用 <code>git status</code> 查看一下仓库状态。</p>
+<h3 id="提交文件修改的历史信息"><a href="#提交文件修改的历史信息" class="headerlink" title="提交文件修改的历史信息"></a>提交文件修改的历史信息</h3><p>通过 <code>git add</code> 我们已经将对文件的操作(新增或修改, 删除等)添加到了暂存区 (stage) 中，但是这样是不够的，我们还需要对这个操作记录成一个历史记录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;Add a file named index.js&quot;</span><br><span class="line">[master (root-commit) 910f65f] Add a file named index.js</span><br><span class="line"></span><br><span class="line">1 file changed, 1 insertion(+)</span><br><span class="line">create mode 100644 index.js</span><br></pre></td></tr></table></figure></p>
+<p>这样我们对文件的操作生成一条历史记录，历史记录可以通过 <code>git log</code> 进行查看。不加 -m 参数直接 commit 的提交信息会默认使用 vim 编辑器进行编辑(对于 vim 编辑器的操作介绍请看后面章节)。对于 commit 记录，原则上我们应该每个 commit 所记录的修改保持纯洁与单一，不允许比如对两个 bug 的修复都提交到一个 commit 中的情况，这样一旦 bug A 的修复会导致另一个问题，但是 bug B 的修复是没有问题的，此时如果回退该 commit，虽然回退了 bug A 的提交，但是也丢失 bug B 的修复工作了。<br><img src="../../../../image/how2git/how2git-3.png" alt><br>                            (将暂存区的修改通过 commit 命令存储到历史库中)</p>
+<p><em>注：笔者不推荐 commit -m 的操作，因为这不符合提交规范，这里是为了简短说明 commit 的使用，详情请看后面章节</em></p>
+<h4 id="Vim-编辑器的简单介绍"><a href="#Vim-编辑器的简单介绍" class="headerlink" title="Vim 编辑器的简单介绍"></a>Vim 编辑器的简单介绍</h4><p>使用 <code>git commit</code> 命令会默认使用 vim 编辑器进行提交信息的编写，同时笔者不推荐使用 <code>git commit -m</code> 的方式来提交信息，因为这样编写出来的提交信息不符合规范，只能说明一些简短信息或者甚至直接为空，尤其是空信息是不被允许的。所以这里会简单介绍 vim 的基本用法，有兴趣的读者可以搜索相关 vim 的学习资料进行深入学习。<br>当你使用 add 命令将对于文件的修改添加到缓存区后，你可以使用输入 git commit 然后直接回车，然后你会进入到 vim 编辑器的界面，你会在界面上看到类似下面的信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Please enter the commit message for your changes. Lines starting</span><br><span class="line"><span class="meta">#</span> with '#' will be ignored, and an empty message aborts the commit.</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> Committer: shawn &lt;test@yourMBP.local&gt;</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> On branch master</span><br><span class="line"><span class="meta">#</span> Changes to be committed:</span><br><span class="line"><span class="meta">#</span>       modified:   index.js</span><br><span class="line"><span class="meta">#</span></span><br><span class="line">~</span><br><span class="line">~</span><br><span class="line">"~/pathtoyourdirectory/.git/COMMIT_EDITMSG" 10L, 274C</span><br></pre></td></tr></table></figure></p>
+<p>以 # 开头的信息是注释，不用担心他们会添加到你的提交信息中，而且如果你没有填写信息就直接退出则该 commit 会被中断。</p>
+<h5 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h5><p>接下来，当你需要填写数据的时候，你需要按下 “i” 键进入插入模式，进入插入模式之后才能进行文本的插入与编写，然后就可以类似在一般的编辑器下编写你想填写的信息。<br>而当你编写完信息后，你需要先退出插入模式而回到原来的普通模式，退出插入模式你只需要按下 “esc” 键。</p>
+<h5 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h5><p>当你想退出 vim 编辑器的时候，我们需要进入命令模式，在普通模式下输入 : ， 进入命令模式，输入<code>wq</code> 回车,就可以保存并退出编辑了，下面提供一些常用的命令供大家参考：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:q   退出</span><br><span class="line">:q!  强制退出，不进行保存</span><br><span class="line">:wq  保存并退出</span><br><span class="line">:wq! 强制保存并退出</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用分支"><a href="#使用分支" class="headerlink" title="使用分支"></a>使用分支</h3><p>分支功能是 <code>git</code> 最为强大的功能之一，它能够让你并发地在多个场景下进行开发。并且可以让你同时开发不同功能而不冲突，用于区分功能或版本。<br>在企业里面，有规模的开发团队在开发功能的时候是不可能大家都在一个分支上开发的，因为这可能需要不断地解决冲突，此外功能与功能间通常相互独立，在同一个分支上开发本就不合理。<br>你可以执行下面这个命令来创建一个分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch &lt;branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例如你执行 <code>git branch test</code> 这条命令创建了一条分支，实际上你是创建了一个指向该 commit 节点的名为 test 的指针：<br><img src="../../../../image/how2git/how2git-4.png" alt><br>                                    (创建一个名为 test 的分支)</p>
+<h3 id="在不同场景间切换"><a href="#在不同场景间切换" class="headerlink" title="在不同场景间切换"></a>在不同场景间切换</h3><p>在日常开发的时候，我们可能经常会需要切换到不同的开发场景，比如你正在一个功能分支上开发，但是产品经理或者测试忽然需要你在线上环境看一个问题，所以你需要将你目前的代码切换到线上环境的代码，当你需要切换分支的时候，可以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;branch-name&gt;|&lt;tag&gt;|&lt;commit hash id&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面只是 <code>git checkout</code> 的使用场景之一，checkout 不仅可以切换分支，还可以切换 tag，或者 commit hash id 等环境的代码。比如你需要切换到上面创建的 test 分支，那么你需要执行 git checkout test 这条指令，在 git 中是使用 Head 指针来指向当前提交记录的，而 checkout 命令实际上是将 git 的 head 指针指向了 test 这一指针：<br><img src="../../../../image/how2git/how2git-5.png" alt><br>                        (将当前工作分支由 master 分支变为 test 分支)<br>那么现在的当前工作分支就是 test 分支了。这里就会明白，实际上 checkout 命令的本质就是移动 git 的 Head 指针。<br>当然，直接 checkout 可能会不能顺利切换过去，因为你的工作区内对于某些文件的修改没有提交，会 git 阻止你进行分支切换，提醒你先对文件的修改进行 commit 提交，相关的 commit 提交操作像上面的章节一样操作就可以，但是如果你因为一些其他原因不希望进行 commit 比如这部分的修改不满足一个 commit 或者这些是实验性的代码，所以你可以将当前的工作区修改进行 “储藏”：<br><code>$ git stash</code><br>git stash 命令可以为你保存起目前的代码，并将这些修改压入到一个栈中，换言之你可以多次进行 stash。<br>然后当你解决了问题，想回到原来的工作代码环境，你只需要切换到原来的分支上，进行：<code>$ git stash pop</code><br>这里会默认拿栈顶的代码(也就是最近一次 stash 的代码)修改记录并将其反映到你的工作区中。</p>
+<h2 id="Git-多人合作基本模型"><a href="#Git-多人合作基本模型" class="headerlink" title="Git 多人合作基本模型"></a>Git 多人合作基本模型</h2><p>在实际的软件研发过程中，团队作战的场景远远多于单兵作战，所以仅仅是掌握上面章节对于自己本地仓库进行操作的 git 指令是不够的，我们会需要一个远程的集中式仓库。所谓集中式仓库就是团队中所有人的代码都上传到这个地方进行存储，有了集中式的仓库，可以方便地进行成果共享与协作。</p>
+<h3 id="添加远程仓库地址"><a href="#添加远程仓库地址" class="headerlink" title="添加远程仓库地址"></a>添加远程仓库地址</h3><p>如果你已经使用 <code>git init</code> 初始化了一个 git 仓库，并且你想要将你的工作成果放到一个远程仓库上，为可能的多人协作做准备的话，你需要为你的本地仓库添加远程连接，也即是说将你本地仓库的历史库放到一个远程服务器的仓库中保存里面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add &lt;name&gt; &lt;remote address&gt;</span><br></pre></td></tr></table></figure></p>
+<p>使用 git remote add 命令为本地仓库添加一个远程仓库的地址，地址可以是 http/https 格式的也可以是 ssh 格式的。而 name 是指这个远程仓库链接名称，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin https://github.com/username/example</span><br></pre></td></tr></table></figure></p>
+<p>当然，如果你的仓库是通过 git clone 克隆下来的，你可以不需要添加一个远程仓库链接。<br>将本地修改推送到远程仓库<br>当你有若干个 commit 提交记录需要更新到远程仓库，在执行了 commit 命令后，使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br><span class="line">Counting objects: 3, done.</span><br><span class="line">Writing objects: 100% (3/3), 274 bytes | 274.00 KiB/s, done.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">To https://github.com/username/example.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以将你本地的 commit 提交传送到远程仓库中进行共享。注意第一个推送修改的时候需要指定远程连接的名称(这里是 origin, 即上一步添加远程仓库地址的名称), 并指定推送的分支名(这里是 master 分支)。</p>
+<h3 id="拉取并合并他人修改"><a href="#拉取并合并他人修改" class="headerlink" title="拉取并合并他人修改"></a>拉取并合并他人修改</h3><p>当团队其他成员对该分支上的代码进行了修改并且已经 push 到远程仓库后，你可以将他的提交拉取到本地并且将他的提交进行合并自己本地仓库上，通过：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br><span class="line">There is no tracking information for the current branch.</span><br><span class="line">Please specify which branch you want to merge with.</span><br><span class="line">See git-pull(1) for details.</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream-to=origin/&lt;branch&gt; master</span><br></pre></td></tr></table></figure></p>
+<p>第一次拉取远程仓库的修改的时候，会出现像上面 “There is no tracking information for the current branch” 的错误，这是因为本地分支与远程分支没有建立起关联关系，所以我们需要通过以下两种方式来达到目的:</p>
+<ol>
+<li><p>通过执行 pull 命令的时候指定分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过执行 branch 命令建立本地分支与远程分支的关联关系后再次执行 pull 命令 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --set-upstream-to=origin/master</span><br><span class="line">Branch &apos;master&apos; set up to track remote branch &apos;master&apos; from &apos;origin&apos;.</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样，你本地仓库就会出现其他人提交的代码修改了。</p>
+<h3 id="协作基本模型"><a href="#协作基本模型" class="headerlink" title="协作基本模型"></a>协作基本模型</h3><p>使用 git 的 push 命令与 pull 命令其实已经可以实现多人代码共享的情景，你对本地代码进行了很多修改，同时创建了很多 commit 记录，然后你可以通过 push 推送到远程仓库，团队其他人通过 pull 命令拉取你的提交，同时他们也有可能将他们的 commit 记录提交远程仓库，你可以使用 pull 命令拉取他们的提交。<br><img src="../../../../image/how2git/how2git-6.png" alt><br>                                        (团队基本协作模型)<br>但是大家并行开发同时进行提交，大概率会出现 push 的时候被 git 阻止的情况，原因是两个并行的提交，远程仓库需要对两者的提交顺序进行编排，所以会要求你先进行 pull 命令执行，将远程的提交拉取下来并合并到本地分支，在本地编排好你的本地提交记录与其他人的提交记录之后，才允许你进行 push 命令的执行。</p>
+<h2 id="Git-工作流与分支管理规范"><a href="#Git-工作流与分支管理规范" class="headerlink" title="Git 工作流与分支管理规范"></a>Git 工作流与分支管理规范</h2><p>对于一些规模比较大的团队，一般会使用 git 分支来管理与规范不同环境的代码。</p>
+<h3 id="分支管理的必要性"><a href="#分支管理的必要性" class="headerlink" title="分支管理的必要性"></a>分支管理的必要性</h3><p>也许你会有疑问为什么我们会需要分支管理，并且需要分如此多的分支？因为在软件开发中，我们通常会有几个阶段，比如开发阶段，冒烟阶段，提测阶段，预发布阶段与上线阶段，而这些阶段都会对应有不同的部署环境，如果我们没有分支管理与将这些环境分别用不同的分支进行区分，代码版本管理将会无从谈起。所以我们会给分出很多分支，并且赋予这些分支不同的角色对应不同的环境与阶段。<br><em>注：1. 冒烟这一术语原来自硬件行业，在软件工程中指由开发人员自身对新的程序代码进行测试，确保新的代码不出故障</em></p>
+<h3 id="使用-gitflow-工作流"><a href="#使用-gitflow-工作流" class="headerlink" title="使用 gitflow 工作流"></a>使用 gitflow 工作流</h3><p>对于分支的管理，推荐使用 gitflow 工作流的模式，流程大概如下图：<br><img src="../../../../image/how2git/how2git-7.png" alt><br>                                     (gitflow 分支管理)<br>对上面的分支说明如下：</p>
+<ul>
+<li>feature branches。功能分支，一般是从 develop 开发分支上检出(checkout)</li>
+<li>develop。公共的开发主线分支，feature 功能分支的代码开发完成后，经过 code review 后会合并到此分支</li>
+<li>release branches。测试、发布主线，此分支是从 develop 分支上检出(checkout), 一般是提测阶段会使用该分支的代码</li>
+<li>bugfix。修复 release 分支问题，</li>
+<li>hotfix。紧急修复，一般是用于修复上线后的生产环境的问题。</li>
+<li>master。可发布的稳定版分支<br><em>注：gitflow 分支管理图来自网络</em><h4 id="功能开发流程"><a href="#功能开发流程" class="headerlink" title="功能开发流程"></a>功能开发流程</h4>团队在使用 gitflow 分支管理规范下，当我们需要有新的功能进行开发的时候，我们需要从最新的 develop 分支上检出(checkout) 一个功能分支分支，命名形式如 feature-xxx-version，然后就可以在该功能分支上进行开发，当你开发完成后，可以将分支 push 到远程仓库中，并在对应的远程仓库管理软件(gitlab 等)中提交 merge request，经过相关人员的代码审查后，会将功能分支合并到 develop 分支上并删除这个功能分支。<h4 id="提测流程"><a href="#提测流程" class="headerlink" title="提测流程"></a>提测流程</h4>当开发人员完成了该版本的所有功能后，会向测试人员发起测试功能的请求，此时会将最新的 develop 分支(此时的 develop 分支已有所有该版本的新功能的代码)检出 release 分支，命名格式如 release-version，测试人员 QA 会基于 release-version 为主线对代码进行测试与测试环境部署。<br>当测试人员在 release 分支上发布代码 bug 的时候，开发人员需要从 release-version 分支上检出 bugfix 分支，命名格式如 bugfix-xxx ，然后类似功能开发流程，将 bugfix-xxx 分支合并到 release-version 分支上。<h4 id="部署发布流程"><a href="#部署发布流程" class="headerlink" title="部署发布流程"></a>部署发布流程</h4>当测试人员测试通过后，会将 release-version 分支合并到 master 分支，并将 release-version 分支合并到 develop 分支，将 master 分支的代码进行部署，并测试线上，测试通过后对 master 分支打上 tag，并将 master 分支合并会 develop 分支。这里解释一下打 tag 的作用，tag 相当于是一个当前 commit 的一个快照，作用与 commit-sha1 类似，但是 tag 更具有可读性，可以供快速回退到想要的版本记录。<h4 id="线上问题紧急修复流程"><a href="#线上问题紧急修复流程" class="headerlink" title="线上问题紧急修复流程"></a>线上问题紧急修复流程</h4>当线上即生产环境发现 bug 的时候，需要在 master 分支上检出(checkout)一个 hotfix-x.x.x (x.x.x 是指语义化版本号)分支，然后相关的开发人员的修复代码都合并到 hotfix-x.x.x 分支上，在测试通过后，将 hotfix-x.x.x 分支合并到 master 与 develop 分支上，并为 master 分支打上 tag。<h3 id="便于-code-review-的合作流程"><a href="#便于-code-review-的合作流程" class="headerlink" title="便于 code review 的合作流程"></a>便于 code review 的合作流程</h3>在编写代码的时候，为了代码的高质量与开发人员的知识共享，通常会加上代码审查也就是 code review 环节。这个环节是借助 merge request 或者 pull request 来做到的，所以我们提交的 commit 记录应该尽量保持为一个，这样的好处有很多：</li>
+</ul>
+<blockquote>
+<ol>
+<li>方便代码审核者进行 code review，只需要看这一个 commit 记录的逻辑即可</li>
+<li>万一该 commit 的代码导致出现问题，我们可以只针对这个 commit 进行快速回退。</li>
+<li>一个功能保持一个 commit 记录如果遇到需要对这个功能提前提交到某些环境比如生产环境上，我们可以快速用过 cherry-pick 命令，在对应的分支上”重现”该提交记录，达到提前提交的目的。</li>
+</ol>
+</blockquote>
+<p>也许你会有疑问，单个功能保持一个 commit 记录与 commit 提交记录尽量保持较细的粒度这一原则是否相悖，笔者觉得并没有冲突，因为这两个 git 协作要求是基于不同的角度来看待问题的，对于自己开发的分支上，我们需要保持每个提交的粒度在一个 commit 做一个修改，这样有利于我们记录工作内容与方便自己在本分支上做回滚，但是对于一个软件开发的主分支来说，它上面的提交应该是以功能为单位的，而无需关心这个功能内开发人员开发这个功能做了多少次修改。<br>面对这种情况，我们会使用 rebase 命令，也就是衍合(变基)操作。所谓衍合就是将你此分支上的 commit 提交，按顺序重新在某个分支上的某个基础点重新”演绎”一次，而这个重新”演绎”重新提交的 commit 记录与原来的 commit 提交会有些许不同，不同点在于 commit 的 HashId 会不同，但是提交内容是一样的。<br>rebase 命令提供了交互式的界面，并且提供多种的命令让你能够将多个 commit 记录合并为一个，从而达到我们单一功能保持一个 commit 记录的目的，保持提交历史的清爽。<br><img src="../../../../image/how2git/how2git-8.png" alt><br>                                (便于 code review 的 git 合作流程图)<br><em>注：企业中一般会使用需求管理系统来管理需要开发的需求等</em></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本章节介绍了 git 的一些常用命令的操作与基本概念，与基于此的 git 合作流程.对于 git 的使用，笔者建议多加练习，不能只”纸上谈兵”, 实际操作才能加深对于 git 的理解。</p>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">软件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Git//" class="article-tag-list-link color4">Git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/31/how2git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-190604" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -263,53 +413,6 @@ var _hmt = _hmt || [];
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/06/04/190604/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-0backup/190526" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/26/0backup/190526/">展开全文 >></a>
         </p>
       
 
@@ -1279,10 +1382,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -1299,15 +1398,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1343,11 +1446,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1359,11 +1462,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
