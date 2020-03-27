@@ -201,6 +201,398 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-20190312" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/15/20190312/">CentOS + MySQL</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/15/20190312/" class="archive-article-date">
+  	<time datetime="2019-03-15T11:45:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@来源：<a href="http://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/" target="_blank" rel="noopener">MySQL</a><br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
+<blockquote>
+<p>尝试过最新版本(80)的安装，遇到一些小问题，所以重新安装57版本</p>
+</blockquote>
+<h3 id="1-下载-Mysql-yum包"><a href="#1-下载-Mysql-yum包" class="headerlink" title="1. 下载 Mysql yum包"></a>1. 下载 Mysql yum包</h3><p><code>wget http://repo.mysql.com/mysql57-community-release-el7-10.noarch.rpm</code></p>
+<h3 id="2-安装软件源"><a href="#2-安装软件源" class="headerlink" title="2. 安装软件源"></a>2. 安装软件源</h3><p><code>sudo rpm -Uvh mysql57-community-release-el7-10.noarch.rpm</code></p>
+<h3 id="3-安装mysql服务端"><a href="#3-安装mysql服务端" class="headerlink" title="3. 安装mysql服务端"></a>3. 安装mysql服务端</h3><p><code>yum install  -y  mysql-community-server</code></p>
+<h3 id="4-启动mysql"><a href="#4-启动mysql" class="headerlink" title="4. 启动mysql"></a>4. 启动mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">systemctl start mysqld.service</span><br></pre></td></tr></table></figure>
+<p>检查mysql 的运行状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld status</span><br><span class="line">systemctl status mysqld.service</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-修改密码"><a href="#5-修改密码" class="headerlink" title="5. 修改密码"></a>5. 修改密码</h3><p>获取临时密码<br><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code><br>使用临时密码登陆<br><code>mysql -uroot -p</code><br>修改密码策略<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> validate_password_length=<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<p>修改密码<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">'root'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-远程连接授权"><a href="#6-远程连接授权" class="headerlink" title="6. 远程连接授权"></a>6. 远程连接授权</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'passwd'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;`</span><br><span class="line">`<span class="keyword">FLUSH</span>  <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/安装教程//" class="article-tag-list-link color5">安装教程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/15/20190312/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-geo安装记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/13/geo安装记录/">Centos7.5+Geoserver 安装记录</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/13/geo安装记录/" class="archive-article-date">
+  	<time datetime="2019-03-13T11:59:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>已有环境：</p>
+<ul>
+<li>Centos7.5 </li>
+<li>Java 1.8.0_191(系统自带)</li>
+</ul>
+<h4 id="1-配置JDK-8u191"><a href="#1-配置JDK-8u191" class="headerlink" title="1.配置JDK 8u191"></a>1.配置JDK 8u191</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.获取</span><br><span class="line">sudo wget http://219.238.82.130/cache/4/02/download.oracle.com/8f33c32cec3297a5d83111295de16374/jdk-8u191-linux-x64.tar.gz?AuthParam=1543979495_6bed33922b1900d42b9a67a4f2b0729f</span><br><span class="line">//2.解压</span><br><span class="line">sudo  tar xvf jdk-8u191-linux-x64.tar.gz\?AuthParam\=1543979495_6bed33922b1900d42b9a67a4f2b0729f -C /usr/local/</span><br><span class="line">//3.移动</span><br><span class="line">sudo mv /usr/local/jdk1.8.0_191/ /usr/local/java/</span><br></pre></td></tr></table></figure>
+<h4 id="2-配置Tomcat"><a href="#2-配置Tomcat" class="headerlink" title="2.配置Tomcat"></a>2.配置Tomcat</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.获取tomcat8.5版本</span><br><span class="line">sudo wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz </span><br><span class="line">//2.解压</span><br><span class="line">sudo tar xvf apache-tomcat-8.5.35.tar.gz -C /usr/local/ </span><br><span class="line">//3.移动位置</span><br><span class="line">sudo mv /usr/local/apache-tomcat-8.5.35/ /usr/local/tomcat/</span><br></pre></td></tr></table></figure>
+<h4 id="3-Tomcat-目录结构说明"><a href="#3-Tomcat-目录结构说明" class="headerlink" title="3.Tomcat 目录结构说明"></a>3.Tomcat 目录结构说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@Tomcat ~]# cd /usr/local/tomcat/</span><br><span class="line">[root@Tomcat tomcat]# ls</span><br><span class="line">    bin             --启动命令目录</span><br><span class="line">    conf           --配置文件目录      ＊重点</span><br><span class="line">    lib              --库文件目录</span><br><span class="line">    logs           --日志文件目录      ＊重点</span><br><span class="line">    temp         --临时缓存文件</span><br><span class="line">    webapps  --web应用家目录    ＊重点</span><br><span class="line">    work         --工作缓存目录</span><br></pre></td></tr></table></figure>
+<h4 id="4-修改Tomcat环境变量"><a href="#4-修改Tomcat环境变量" class="headerlink" title="4.修改Tomcat环境变量"></a>4.修改Tomcat环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//修改tomcat的启动程序</span><br><span class="line">sudo vim /usr/local/tomcat/bin/startup.sh  </span><br><span class="line">//修改tomcat的关闭程序</span><br><span class="line">sudo vim /usr/local/tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure>
+<p>在startup.sh和shutdown.sh这两个脚本里的最前面加上如下代码</p>
+<blockquote>
+<p>export JAVA_HOME=/usr/local/java<br>export TOMCAT_HOME=/usr/local/tomcat<br>export CATALINA_HOME=/usr/local/tomcat<br>export CLASS_PATH=\$JAVA_HOME/bin/lib:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib/tool.jar<br>export PATH=$PATH:/usr/local/java/bin:/usr/local/tomcat/bin</p>
+</blockquote>
+<h4 id="5-启动Tomcat"><a href="#5-启动Tomcat" class="headerlink" title="5.启动Tomcat"></a>5.启动Tomcat</h4><p>启动方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/tomcat/bin/startup.sh</span><br></pre></td></tr></table></figure></p>
+<p>关闭方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/local/tomcat/bin/shutdown.sh</span><br></pre></td></tr></table></figure></p>
+<p>查看端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i:8080</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-修改Tomcat监听端口"><a href="#6-修改Tomcat监听端口" class="headerlink" title="6. 修改Tomcat监听端口"></a>6. 修改Tomcat监听端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /usr/local/tomcat/conf/server.xml</span><br><span class="line">//把8080改成18080的话，重启后就监听18080端口</span><br><span class="line">     &lt;Connector port=&quot;18080&quot; protocol=&quot;HTTP/1.1&quot;</span><br><span class="line">                connectionTimeout=&quot;20000&quot;</span><br><span class="line">                redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="7-开放8080端口"><a href="#7-开放8080端口" class="headerlink" title="7.开放8080端口"></a>7.开放8080端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">方法一（推荐）</span><br><span class="line">1. 查看状态： </span><br><span class="line">systemctl status firewalld</span><br><span class="line">2. 查看当前开了哪些端口 </span><br><span class="line">firewall-cmd --list-services</span><br><span class="line">3. 添加开放端口 </span><br><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent</span><br><span class="line">4. 更新防火墙规则</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line">方法二</span><br><span class="line">//添加到REJECT 前一条，4表示REJECT 所在行数</span><br><span class="line">iptables -I INPUT 4 -m  state  --state  NEW  -m  tcp  -p  tcp  --dport  8080  -j  ACCEPT</span><br></pre></td></tr></table></figure>
+<p>ubuntu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//安装iptable</span><br><span class="line">sudo apt-get install iptables</span><br><span class="line">//添加规则</span><br><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEP</span><br><span class="line">sudo iptables-save</span><br><span class="line">//持续化</span><br><span class="line">sudo apt-get install iptables-persistent</span><br><span class="line">sudo netfilter-persistent save</span><br><span class="line">sudo netfilter-persistent reload</span><br></pre></td></tr></table></figure></p>
+<p>开机自启 – <code>创建rc.local文件</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh -e</span><br><span class="line">#</span><br><span class="line"># rc.local</span><br><span class="line">#</span><br><span class="line"># This script is executed at the end of each multiuser runlevel.</span><br><span class="line"># Make sure that the script will &quot;exit 0&quot; on success or any other</span><br><span class="line"># value on error.</span><br><span class="line">#</span><br><span class="line"># In order to enable or disable this script just change the execution</span><br><span class="line"># bits.</span><br><span class="line">#</span><br><span class="line"># By default this script does nothing.</span><br><span class="line">#set java</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/usr/local/java</span><br><span class="line">export TOMCAT_HOME=/usr/local/tomcat</span><br><span class="line">export CATALINA_HOME=/usr/local/tomcat</span><br><span class="line">export CLASS_PATH=$JAVA_HOME/bin/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tool.jar</span><br><span class="line">export PATH=$PATH:/usr/local/java/bin:/usr/local/tomcat/bin</span><br><span class="line"></span><br><span class="line">/usr/local/tomcat/bin/startup.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure></p>
+<p>执行权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /etc/rc.local</span><br></pre></td></tr></table></figure></p>
+<h4 id="8-配置geoserver"><a href="#8-配置geoserver" class="headerlink" title="8.配置geoserver"></a>8.配置geoserver</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo wget https://jaist.dl.sourceforge.net/project/geoserver/GeoServer/2.14.1/geoserver-2.14.1-war.zip</span><br><span class="line">unzip geoserver-2.14.1-war.zip</span><br><span class="line">sudo mv  geoserver.war /usr/local/tomcat/webapps</span><br></pre></td></tr></table></figure>
+<h4 id="9-安装字体"><a href="#9-安装字体" class="headerlink" title="9.安装字体"></a>9.安装字体</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/fangwentong/dotfiles/raw/master/ubuntu-gui/fonts/Monaco.ttf</span><br><span class="line">sudo mkdir -p /usr/share/fonts/custom</span><br><span class="line">sudo mv Monaco.ttf /usr/share/fonts/custom</span><br><span class="line">sudo chmod 744 /usr/share/fonts/custom/Monaco.ttf</span><br><span class="line"></span><br><span class="line">sudo mkfontscale  #生成核心字体信息</span><br><span class="line">sudo mkfontdir</span><br><span class="line">sudo fc-cache -fv</span><br></pre></td></tr></table></figure>
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebGIS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/安装教程//" class="article-tag-list-link color5">安装教程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/13/geo安装记录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-linux-luks" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/06/linux-luks/">Linux 加密磁盘的挂载--开机自启</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/06/linux-luks/" class="archive-article-date">
+  	<time datetime="2019-03-06T08:18:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>磁盘 –&gt; 映射 –&gt; 验证 –&gt; 挂载</p>
+</blockquote>
+<h4 id="1-创建一个磁盘分区"><a href="#1-创建一个磁盘分区" class="headerlink" title="1. 创建一个磁盘分区"></a>1. 创建一个磁盘分区</h4><p>修改分区表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sdb</span><br><span class="line">mklabel</span><br><span class="line">gpt</span><br><span class="line">Yes</span><br><span class="line">quit</span><br></pre></td></tr></table></figure></p>
+<p><code>fdisk /dev/sdb1</code><br><code>p</code>查看已有分区<br><code>d</code>删除分区<br><code>n</code>创建新分区</p>
+<h4 id="2-加密分区"><a href="#2-加密分区" class="headerlink" title="2. 加密分区"></a>2. 加密分区</h4><p><code>cryptsetup -v -y -c aes-cbc-plain luksFormat /dev/sdb1</code><br><code>YES</code></p>
+<h4 id="3-映射分区"><a href="#3-映射分区" class="headerlink" title="3. 映射分区"></a>3. 映射分区</h4><p><code>cryptsetup luksOpen /dev/sdb1 t_disk  //把sdb1映射为t_disk</code></p>
+<h4 id="4-挂载使用"><a href="#4-挂载使用" class="headerlink" title="4. 挂载使用"></a>4. 挂载使用</h4><p><code>mkfs.ext4 /dev/mapper/t_disk //格式化</code><br><code>mount /dev/mapper/t_disk /mnt/test/  //挂载到 /mnt/test/ 目录下</code></p>
+<h4 id="5-设置开机自动挂载"><a href="#5-设置开机自动挂载" class="headerlink" title="5.设置开机自动挂载"></a>5.设置开机自动挂载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch /root/cryptpasswd </span><br><span class="line">cryptsetup luksAddKey /dev/sdb1 /root/cryptpasswd</span><br></pre></td></tr></table></figure>
+<h4 id="6-设置开机自动解密"><a href="#6-设置开机自动解密" class="headerlink" title="6.设置开机自动解密"></a>6.设置开机自动解密</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/crypttab </span><br><span class="line">        t_disk /dev/sdb1 /root/cryptpasswd</span><br><span class="line">    :wq</span><br><span class="line">vim /etc/fstab </span><br><span class="line">        /dev/mapper/t_disk       /mnt/t_disk             ext4 defaults   0 0</span><br><span class="line">    :wq</span><br></pre></td></tr></table></figure>
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux//" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/06/linux-luks/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-20190301" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/01/20190301/">杂文(二)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/01/20190301/" class="archive-article-date">
+  	<time datetime="2019-03-01T15:14:43.322Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>@(来源：<a href="https://github.com/ruanyf/weekly" target="_blank" rel="noopener">阮一峰的网络日志</a>)<br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
+<h3 id="1-资产的重要性"><a href="#1-资产的重要性" class="headerlink" title="1. 资产的重要性"></a>1. 资产的重要性</h3><p>美国科幻小说大师阿西莫夫，写过一本回忆录《人生舞台》。他在里面提到，成名后，他的收入一年比一年高，完稿时的1990年是收入最高的一年。</p>
+<p>很不幸，1992年他就去世了，享年72岁。据他的妻子说，那一年的收入比1990年还要高。也就是说，去世时，他达到了一生最高的年收入。我当时心想，这种收入模式真是太好了。老了以后，收入反而更多了，根本不用为养老发愁。</p>
+<p>大多数人的收入模式恰恰相反：工作时达到收入的高峰，退休停止工作以后，收入就逐渐减少，人到老年，手头越来越紧。所以，大多数人为了养老，年轻时必须足够储蓄。要是年轻就背负了很多房贷和卡债，老了以后，往往会陷入困境。</p>
+<p>为什么阿西莫夫老了还有大量收入，其他大多数人就没有呢？原因是普通人的收入，来自出卖自己的时间，老了不工作，自然就没收入了。但是，阿西莫夫的收入来自于他的书，这些著作一再重版，为他带来了一年比一年多的版税收入。再加上，他勤奋写作，每年都有新书问世，自然就收入高了。</p>
+<p>这件事的启示就是，如果退休以后，还想有稳定的收入保障，最好的方式就是你必须拥有资产。在阿西莫夫的例子里，就是他拥有版权，版权就是一种产生收入的资产。其他类型的资产包括房产、专利、股权等等。总之，年轻时就必须明确，你的工作目标不完全是高收入，更重要的是必须积累资产。</p>
+<h3 id="2-通过拥有东西致富"><a href="#2-通过拥有东西致富" class="headerlink" title="2. 通过拥有东西致富"></a>2. 通过拥有东西致富</h3><p>小时候，我对于经济的最大误解是，人们通过高工资致富。实际上，虽然有一些例外（比如娱乐明星），高工资并不足以让你发财，福布斯富豪榜上，几乎没有人是领工资的。</p>
+<p>真正富裕起来的人，都是通过拥有某种价值迅速增长的东西而致富。</p>
+<p>这种价值迅速增长的东西，可以是股权、房地产、自然资源、知识产权或其他类似的东西。你需要拥有一些这样的东西来获取收入，而不能仅仅依靠出卖自己的时间换取收入，因为时间是一种线性资源。想要要多的收入，只能出卖更多的时间，这对你不利。</p>
+<p>使你的东西的价值迅速增长，最好方法就是让大量的人想要你的东西。</p>
+<h3 id="3-有趣的网站"><a href="#3-有趣的网站" class="headerlink" title="3.有趣的网站"></a>3.有趣的网站</h3><blockquote>
+<p>访问该网站会随机显示一张人像照片。这些人像都是 AI 生成的，并不是真实的人。</p>
+</blockquote>
+<p><a href="https://thispersondoesnotexist.com/" target="_blank" rel="noopener">随机生成人脸图像</a></p>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文摘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/01/20190301/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-zawen" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -777,6 +1169,7 @@ var _hmt = _hmt || [];
 <li>方式二(推荐使用)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -e &quot;SS_PORT=443&quot; -e &quot;SS_PASSWORD=paswword&quot; -e \</span><br><span class="line">&quot;SS_METHOD=yourmothed&quot; -e &quot;SS_TIMEOUT=600&quot; -e &quot;KCP_PORT=9443&quot; -e &quot;KCP_MODE=fast&quot; -e &quot;MTU=1400&quot; -e \</span><br><span class="line"> &quot;SNDWND=1024&quot; -e &quot;RCVWND=1024&quot; -p 443:443 -p 443:443/udp -p 9443:9443/udp --name \</span><br><span class="line"> ssserver imhang/kcp-shadowsocks-docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--crypt none --mode fast --mtu 1400 --sndwnd 1024 --rcvwnd 1024--parityshard 0 --nocomp</span><br></pre></td></tr></table></figure>
 
       
       
@@ -841,498 +1234,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-tong-xin-fang-shi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/19/tong-xin-fang-shi/">iOS中的通信方式</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/19/tong-xin-fang-shi/" class="archive-article-date">
-  	<time datetime="2018-04-19T07:59:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-属性"><a href="#1-属性" class="headerlink" title="1.属性"></a>1.属性</h2><h2 id="2-持有实例"><a href="#2-持有实例" class="headerlink" title="2.持有实例"></a>2.持有实例</h2><h2 id="3-初始化传入"><a href="#3-初始化传入" class="headerlink" title="3.初始化传入"></a>3.初始化传入</h2><h2 id="4-KVO、KVC"><a href="#4-KVO、KVC" class="headerlink" title="4.KVO、KVC"></a>4.KVO、KVC</h2><p>使用场景：模型（Model）不能直接与控制器（Controller）通信</p>
-<ul>
-<li>key-value-code: 间接访问对象的属性</li>
-<li>key-value-observer :监听property的变化。</li>
-</ul>
-<p>KVC</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[someObj setValue:<span class="string">@"something"</span> forKey:<span class="string">@"name"</span>];</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>使用场景</p>
-<p>（1）apple 官网的一个例子，当我们需要统计很多People的时候，每一行是一个人的实例，并且有2列属性，name, age, 这时候我们可以会这样做</p>
-<p>(2)解析服务端返回的json字符串的时候，会用到KVC</p>
-<p>(3)修改数组中元素的属性，如把一个数组里的People的名字的首字母大写，并且把新的名字存入新的数组。</p>
-</blockquote>
-<p>KVO</p>
-<blockquote>
-<p>(1)添加观察者：</p>
-<p>(2)截获变化：</p>
-<p>(3)移除观察者：</p>
-</blockquote>
-<h2 id="5-通知"><a href="#5-通知" class="headerlink" title="5.通知"></a>5.通知</h2><p>使用场景：模型（Model）不能直接与控制器（Controller）通信</p>
-<ul>
-<li>适用于跨层和跨页面专递消息。</li>
-</ul>
-<blockquote>
-<p>(1)在NSNotificationCenter中注册观察者，关注某个事件</p>
-<p>(2)发送通知</p>
-<p>(3)收到通知后执行相应的方法</p>
-<p>(4)如果不需要通知了，要移除</p>
-</blockquote>
-<h3 id="5-1-NotificationCenter"><a href="#5-1-NotificationCenter" class="headerlink" title="5.1 NotificationCenter"></a>5.1 NotificationCenter</h3><p><a href="https://www.jianshu.com/p/b63f2be8af91" target="_blank" rel="noopener">参考链接</a></p>
-<p>NotificationCenter 就是通知中心,多用于一对多的情况</p>
-<blockquote>
-<p>一般在使用NotificationCenter时我们通常都是直接使用系统默认的NotificationCenter</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">class</span>, <span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">NSNotificationCenter</span> *defaultCenter;</span><br></pre></td></tr></table></figure>
-<h3 id="5-2-添加观察者"><a href="#5-2-添加观察者" class="headerlink" title="5.2 添加观察者"></a>5.2 添加观察者</h3><ul>
-<li>添加观察者有两种方式</li>
-</ul>
-<ul>
-<li>一个是直接调用函数添加，然后再编写实现的方法，通过selector来响应通知。</li>
-<li>还有一种方法是使用block，在代码块内部实现响应通知的操作。</li>
-</ul>
-<h3 id="5-2-1-直接添加"><a href="#5-2-1-直接添加" class="headerlink" title="5.2.1 直接添加"></a>5.2.1 直接添加</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">void</span>)addObserver:(<span class="keyword">id</span>)observer selector:(SEL)aSelector name:(<span class="keyword">nullable</span> <span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>observer</p>
-<blockquote>
-<p>通知的观察者，当通知post出来之后，观察者会收到响应的通知，不可以为nil。</p>
-</blockquote>
-</li>
-<li><p>aSelector</p>
-<blockquote>
-<p>收到通知之后需要做的操作，当通知post出来之后，会触发该方法，当中会传递一个NSNotification的参数。</p>
-</blockquote>
-</li>
-<li><p>aName</p>
-<blockquote>
-<p>通知名称，用来区分发送通知的对象，可以为nil，但是因为应用的执行的过程中会发出很多通知，如果为nil则代表接受所有的通知。</p>
-</blockquote>
-</li>
-<li><p>anObject</p>
-<blockquote>
-<p>发送的对象，也是用来区分发送通知的对象，可以为nil，当为nil时，也会接受同一通知名称的所有的通知。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="5-2-2-使用block"><a href="#5-2-2-使用block" class="headerlink" title="5.2.2 使用block"></a>5.2.2 使用block</h3><p>使用block添加观察者时可以调用如下函数：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span> &lt;<span class="built_in">NSObject</span>&gt;)addObserverForName:(<span class="keyword">nullable</span> <span class="built_in">NSNotificationName</span>)name object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)obj queue:(<span class="keyword">nullable</span> <span class="built_in">NSOperationQueue</span> *)queue usingBlock:(<span class="keyword">void</span> (^)(<span class="built_in">NSNotification</span> *note))block API_AVAILABLE(macos(<span class="number">10.6</span>), ios(<span class="number">4.0</span>), watchos(<span class="number">2.0</span>), tvos(<span class="number">9.0</span>));</span><br></pre></td></tr></table></figure>
-<p>例如</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserverForName:<span class="string">@"postNotification"</span> object:<span class="literal">nil</span> queue:<span class="literal">nil</span> usingBlock:^(<span class="built_in">NSNotification</span> * _Nonnull note) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">NSLog</span>(<span class="string">@"notification = %@"</span>, note.name);</span><br><span class="line"></span><br><span class="line"> &#125;];</span><br><span class="line"></span><br><span class="line"> [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:<span class="string">@"postNotification"</span> object:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
-<h3 id="5-3-发送通知"><a href="#5-3-发送通知" class="headerlink" title="5.3 发送通知"></a>5.3 发送通知</h3><p>post通知一共有三种方法。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)postNotification:(<span class="built_in">NSNotification</span> *)notification;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)postNotificationName:(<span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)postNotificationName:(<span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject userInfo:(<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span> *)aUserInfo;</span><br></pre></td></tr></table></figure>
-<h3 id="5-4-移除观察者"><a href="#5-4-移除观察者" class="headerlink" title="5.4 移除观察者"></a>5.4 移除观察者</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="keyword">id</span>)observer;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="keyword">id</span>)observer name:(<span class="keyword">nullable</span> <span class="built_in">NSNotificationName</span>)aName object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)anObject;</span><br></pre></td></tr></table></figure>
-<h3 id="5-5-简单示例"><a href="#5-5-简单示例" class="headerlink" title="5.5 简单示例"></a>5.5 简单示例</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   <span class="comment">//添加监听者</span></span><br><span class="line">   [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(YourMethed:) name:<span class="string">@"yourNameNotification"</span> object:<span class="literal">nil</span>];</span><br><span class="line">   </span><br><span class="line">   <span class="comment">//响应事件</span></span><br><span class="line">   - (<span class="keyword">void</span>)YourMethed:(<span class="built_in">NSNotification</span> *)notification &#123;</span><br><span class="line">   	<span class="built_in">NSDictionary</span> *userInfo = notification.userInfo;</span><br><span class="line">   	<span class="comment">//处理内容</span></span><br><span class="line">   	<span class="built_in">NSNumber</span> *index = userInfo[<span class="string">@"Index"</span>];</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"><span class="comment">//移除监听者</span></span><br><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="keyword">self</span> name:<span class="string">@"yourNameNotification"</span> object:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">   <span class="comment">//发送消息</span></span><br><span class="line">   [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:<span class="string">@"yourNameNotification"</span> object:<span class="keyword">self</span> userInfo:@&#123;<span class="string">@"Index"</span>:index&#125;];</span><br></pre></td></tr></table></figure>
-<h2 id="6-代理"><a href="#6-代理" class="headerlink" title="6.代理"></a>6.代理</h2><p>使用场景：视图（View）不能直接与控制器（Controller）通信</p>
-<blockquote>
-<h5 id="实现代理主要有3个部分："><a href="#实现代理主要有3个部分：" class="headerlink" title="实现代理主要有3个部分："></a>实现代理主要有3个部分：</h5><p>（1）协议：指定代理的内容，即要做什么</p>
-<p>（2）委托者：根据协议，让代理者实现功能</p>
-<p>（3）代理者：根据协议，实现功能</p>
-</blockquote>
-<h2 id="7-block"><a href="#7-block" class="headerlink" title="7.block"></a>7.block</h2><ul>
-<li><p>block是带有局部变量的匿名函数。</p>
-<p>使用场景：block实现对象间通信</p>
-</li>
-</ul>
-<blockquote>
-<p>事件在哪里发生,就在哪里回调block</p>
-<p>事件在哪里响应，就在哪里实现并且传递block</p>
-</blockquote>
-<h2 id="8-target-action"><a href="#8-target-action" class="headerlink" title="8.target-action"></a>8.target-action</h2><p>使用场景：视图（View）不能直接与控制器（Controller）通信</p>
-<p>如按钮，滑动条</p>
-<p>##做出正确的选择<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/iosnotification.png" alt="选择"></p>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/19/tong-xin-fang-shi/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-iOS数据存储常用方式2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/11/iOS数据存储常用方式2/">iOS数据存储常用方式（二）</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/11/iOS数据存储常用方式2/" class="archive-article-date">
-  	<time datetime="2018-04-11T12:43:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Preference"><a href="#Preference" class="headerlink" title="Preference"></a>Preference</h2><p>Preference是通过NSUserDefaults来使用的，是通过键值对的方式记录设置。配置文件存储在设备的(Library/Preferences/{appid}.plist)</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line">[defaults setObject:@”Tom“ forKey:<span class="string">@"Name"</span>];</span><br><span class="line">[defaults setInteger:<span class="number">10</span> forKey:<span class="string">@"Age"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImage</span> *image =[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"somepic"</span>];</span><br><span class="line"><span class="built_in">NSData</span> *imageData = <span class="built_in">UIImageJPEGRepresentation</span>(image, <span class="number">100</span>);<span class="comment">//把image归档为NSData</span></span><br><span class="line">[defaults setObject:imageData forKey:<span class="string">@"image"</span>];</span><br><span class="line"></span><br><span class="line">[defaults synchronize];</span><br></pre></td></tr></table></figure>
-<ul>
-<li>方法synchronise是为了强制存储</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读</span></span><br><span class="line"><span class="built_in">NSUserDefaults</span> *defaults = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *firstName = [defaults objectForKey:<span class="string">@"Name"</span>]</span><br><span class="line"><span class="built_in">NSInteger</span> age = [defaults integerForKey:<span class="string">@"Age"</span>];</span><br><span class="line"><span class="built_in">NSData</span> *imageData = [defaults dataForKey:<span class="string">@"image"</span>];</span><br><span class="line"><span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageWithData:imageData];</span><br></pre></td></tr></table></figure>
-<h2 id="NSKeyedArchiver"><a href="#NSKeyedArchiver" class="headerlink" title="NSKeyedArchiver"></a>NSKeyedArchiver</h2><p>特点：</p>
-<ul>
-<li>可以存储自定义模型对象</li>
-<li>归档不能存储大批量数据（相比较Sqlite而言），存储数据到文件是将所有的数据一下子存储到文件中，从文件中读取数据也是一下子读取所有的数据；</li>
-</ul>
-<p>基本使用：</p>
-<ul>
-<li>需要归档的模型类必须要遵守NSCoding协议，然后模型实现类中必须实现两个方法：</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果父类也遵守了NSCoding协议</span></span><br><span class="line"><span class="comment">// 归档；</span></span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line">  [<span class="keyword">super</span> encodeWithCode:encode]; <span class="comment">// 确保继承的实例变量也能被编码，即也能被归档</span></span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//解档</span></span><br><span class="line">- (<span class="keyword">id</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line">	<span class="keyword">self</span> = [<span class="keyword">super</span> initWithCoder:decoder]; <span class="comment">// 确保继承的实例变量也能被解码，即也能被恢复</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//归档aObject</span></span><br><span class="line">[<span class="built_in">NSKeyedArchiver</span> archiveRootObject: aObject toFile:<span class="string">@"yourPath"</span>];</span><br><span class="line"><span class="comment">//解档</span></span><br><span class="line">myObject = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithFile:yourPath];</span><br></pre></td></tr></table></figure>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/11/iOS数据存储常用方式2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-IOS数据存储常用方式1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/IOS数据存储常用方式1/">iOS数据存储(一）plist</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/IOS数据存储常用方式1/" class="archive-article-date">
-  	<time datetime="2018-04-10T13:18:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.jianshu.com/p/7eb9105c4929" target="_blank" rel="noopener">参考链接</a></p>
-<h1 id="一-数据存储主要方式"><a href="#一-数据存储主要方式" class="headerlink" title="一.数据存储主要方式"></a>一.数据存储主要方式</h1><blockquote>
-</blockquote>
-<ul>
-<li>XML属性列表（plist）归档 ／写入Document目录下 存储 数组，字符串，字典等数据</li>
-<li>Preference(偏好设置) ／我们一般使用它来进行一些设置的记录，比如用户名，开关是否打开等设置。</li>
-<li>NSKeyedArchiver归档(NSCoding)</li>
-<li>SQLite3</li>
-<li>Core Data</li>
-<li>keychain(SQLite API进行封装的库)</li>
-<li>FMDB</li>
-</ul>
-<h2 id="plist存储"><a href="#plist存储" class="headerlink" title="plist存储"></a>plist存储</h2><blockquote>
-<p>它全名是：Property List，属性列表文件，它是一种用来存储串行化后的对象的文件。属性列表文件的扩展名为.plist ，因此通常被称为 plist文件。文件是xml格式的。Plist文件通常用于储存用户设置，也可以用于存储捆绑的信息。</p>
-</blockquote>
-<p>特点：只能存储OC常用数据类型(NSString、NSDictionary、NSArray、NSData、NSNumber等类型)而不能直接存储自定义模型对象</p>
-<blockquote>
-<p>如果想存储自定义模型对象 -&gt; 只能将自定义模型对象转换为字典存储；</p>
-</blockquote>
-<h2 id="plist保存的地方"><a href="#plist保存的地方" class="headerlink" title="plist保存的地方"></a>plist保存的地方</h2><ul>
-<li>工程自身里（就是在工程里手动创建一个如.plist文件，把固定的内容写入，这个需要人工手动写入）</li>
-<li>工程沙盒里（保存到user Document下，不过不需要读写文件，用系统的 NSUserDefaults 可以快速保存添加读取删除基本数据类型 ）</li>
-</ul>
-<h2 id="plist的存储，读取（沙盒"><a href="#plist的存储，读取（沙盒" class="headerlink" title="plist的存储，读取（沙盒)"></a>plist的存储，读取（沙盒)</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//读取plist</span></span><br><span class="line">    [<span class="keyword">self</span> getDataFromPlist];</span><br><span class="line">    <span class="comment">// 写入plist</span></span><br><span class="line">    [<span class="keyword">self</span> writeDataToPlist:<span class="string">@"Hello"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)getDataFromPlist &#123;</span><br><span class="line">    <span class="comment">//沙盒获取路径</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *docPath = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [docPath stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];<span class="comment">//没有会自动创建</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath: %@"</span>,filePath);</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="keyword">if</span> (docPlistDic==<span class="literal">nil</span>) &#123;</span><br><span class="line">        docPlistDic = [<span class="built_in">NSMutableDictionary</span> new];</span><br><span class="line">        docPlistDic[<span class="string">@"hello"</span>] = <span class="string">@"hello"</span>;</span><br><span class="line">        [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"docPlistDic: %@"</span>,docPlistDic);<span class="comment">//直接打印数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeDataToPlist :(<span class="built_in">NSString</span> *)str&#123;</span><br><span class="line">    <span class="comment">//这里使用位于沙盒的plist（程序会自动新建的那一个）</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *path = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"old Data is %@"</span>,filePath);</span><br><span class="line">    docPlistDic[<span class="string">@"hello"</span>] = str;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"change Data is %@"</span>,docPlistDic);</span><br><span class="line">    <span class="comment">//添加新的Key</span></span><br><span class="line">    docPlistDic[<span class="string">@"add"</span>] = <span class="string">@"add"</span>;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"add Data is %@"</span>,docPlistDic);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除整体文件</span></span><br><span class="line">- (<span class="keyword">void</span>)deleteField &#123;</span><br><span class="line">    <span class="built_in">NSFileManager</span> *manager=[<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">    <span class="comment">//文件路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filepath = [[<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)objectAtIndex:<span class="number">0</span>]stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    [manager removeItemAtPath:filepath error:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/IOS数据存储常用方式1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-iOS属性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/iOS属性/">iOS属性的语义以及使用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/iOS属性/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:31:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="iOS属性的语义以及使用"><a href="#iOS属性的语义以及使用" class="headerlink" title="iOS属性的语义以及使用"></a>iOS属性的语义以及使用</h1><p><strong>iOS属性修饰符总结</strong> （ <a href="http://blog.csdn.net/woaifen3344/article/details/50219177" target="_blank" rel="noopener">http://blog.csdn.net/woaifen3344/article/details/50219177</a> ）</p>
-<ul>
-<li><p><strong>原子性：natomic </strong>  该属性为默认属性，在多线程操作下，一个实例变量在某一时刻，只有一个线程访问 。即变量的存取是互斥锁定的。（不一定线程安全）</p>
-</li>
-<li><p><strong>非原子性: nonatomic </strong>nonatomic特质的变量可以直接返回值，不受线程的影响，所以在执行效率上更快。</p>
-</li>
-<li><p><strong>读/写权限</strong>：readwrite(读写)、readonly (只读)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从字面上就能理解readonly值具有get方法，readwrite具有get和set方法。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>retain</strong> :使引用计数加1</p>
-</li>
-<li><p><strong>strong</strong> : 每次对属性引用，retainCount都会加1，不用能与修饰基本数据类型，是NSObject和id的默认修饰符。</p>
-</li>
-<li><p><strong>weak</strong>：不会使retainCount增加，只用于修饰NSObject，不能用于修饰基本数据类型。（delegate和控件都推荐使用weak，防止循环引用）在对象被销毁以后，指针指向nil。</p>
-</li>
-<li><p><strong>copy</strong>：建立一个索引计数为1的对象，在赋值时使用传入值的一份拷贝。这里分为深拷贝和浅拷贝（block建议使用copy，block建立的时候是放在栈上的，调用完毕以后就会被销毁，使用copy将其放在堆上，只有在对象销毁的时候才会销毁）</p>
-</li>
-<li><p><strong>深拷贝</strong>：浅拷贝类似retain，引用计数对象+1.创建一个指针。也就是说，不仅改变值，还改变指正指向的内存地址；</p>
-</li>
-<li><p><strong>浅拷贝</strong>：只改变指针指向的地址。即只拷贝了原对象的指针</p>
-</li>
-</ul>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/Property_1.png" alt="Property"></p>
-<h5 id="synthesize"><a href="#synthesize" class="headerlink" title="@synthesize"></a><strong>@synthesize</strong></h5><p>　　同时重写属性的setter与getter方法时，需要显式合成，否则编译器默认生成@synthesize example = _example;</p>
-<h4 id="惰性初始化"><a href="#惰性初始化" class="headerlink" title="惰性初始化"></a><strong>惰性初始化</strong></h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-(ObjectType *)example</span><br><span class="line">&#123;</span><br><span class="line">    f(!_example) example =[[ObjectType alloc] init];</span><br><span class="line">     <span class="keyword">return</span> _example;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/iOS属性/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1347,7 +1248,7 @@ var _hmt = _hmt || [];
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
+    		&copy; 2020 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
     	</div>
       	<div class="footer-right">
       		<a>Hosted by </a> <a href="https://cloud.tencent.com/" target="_blank">Qcloud</a>
@@ -1430,15 +1331,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1454,19 +1351,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1486,7 +1375,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1498,6 +1387,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
@@ -1506,11 +1399,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1527,6 +1420,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
             
             <div class="clearfix"></div>

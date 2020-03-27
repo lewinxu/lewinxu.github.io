@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="lewinxu">
 <meta property="og:description" content="Docker — 从入门到实践 在 Vultr 上搭建 Shadowsocks 服务端  使用脚本自动安装在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装： 12$ curl -fsSL get.docker.com -o get-docker.sh$ sudo sh get-docker.sh --mirror Aliy">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-03T04:29:59.218Z">
+<meta property="og:updated_time" content="2019-12-29T09:44:37.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux+Docker+SS">
 <meta name="twitter:description" content="Docker — 从入门到实践 在 Vultr 上搭建 Shadowsocks 服务端  使用脚本自动安装在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，Ubuntu 系统上可以使用这套脚本安装： 12$ curl -fsSL get.docker.com -o get-docker.sh$ sudo sh get-docker.sh --mirror Aliy">
@@ -240,6 +240,7 @@ var _hmt = _hmt || [];
 <li>方式二(推荐使用)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -e &quot;SS_PORT=443&quot; -e &quot;SS_PASSWORD=paswword&quot; -e \</span><br><span class="line">&quot;SS_METHOD=yourmothed&quot; -e &quot;SS_TIMEOUT=600&quot; -e &quot;KCP_PORT=9443&quot; -e &quot;KCP_MODE=fast&quot; -e &quot;MTU=1400&quot; -e \</span><br><span class="line"> &quot;SNDWND=1024&quot; -e &quot;RCVWND=1024&quot; -p 443:443 -p 443:443/udp -p 9443:9443/udp --name \</span><br><span class="line"> ssserver imhang/kcp-shadowsocks-docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--crypt none --mode fast --mtu 1400 --sndwnd 1024 --rcvwnd 1024--parityshard 0 --nocomp</span><br></pre></td></tr></table></figure>
 
       
       
@@ -428,7 +429,7 @@ var _hmt = _hmt || [];
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
+    		&copy; 2020 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
     	</div>
       	<div class="footer-right">
       		<a>Hosted by </a> <a href="https://cloud.tencent.com/" target="_blank">Qcloud</a>
@@ -511,15 +512,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,19 +532,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,7 +556,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,6 +568,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
@@ -587,11 +580,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网站</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,6 +601,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
             
             <div class="clearfix"></div>
