@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/shu.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -60,7 +60,7 @@ var _hmt = _hmt || [];
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/images/noone.png" class="js-avatar">
+			<img src="/images/shu.JPG" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Lewin</a></h1>
@@ -83,8 +83,6 @@ var _hmt = _hmt || [];
 				<li><a href="/mymap/">地图</a></li>
 	        
 				<li><a href="/game/">娱乐</a></li>
-	        
-				<li><a href="http://lewinxu.github.io/map/">测试</a></li>
 	        
 			</ul>
 		</nav>
@@ -130,7 +128,7 @@ var _hmt = _hmt || [];
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/images/noone.png" class="js-avatar">
+				<img src="/images/shu.JPG" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Lewin</h1>
@@ -139,8 +137,6 @@ var _hmt = _hmt || [];
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry,Stay foolish!<i class="icon icon-quo-right"></i></p>
 			
 			
-			
-				
 			
 				
 			
@@ -174,19 +170,17 @@ var _hmt = _hmt || [];
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/archives/">目录</a></li>
+					<li style="width: 16.666666666666668%"><a href="/archives/">目录</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/study/">学习</a></li>
+					<li style="width: 16.666666666666668%"><a href="/study/">学习</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/project/">项目</a></li>
+					<li style="width: 16.666666666666668%"><a href="/project/">项目</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/mymap/">地图</a></li>
+					<li style="width: 16.666666666666668%"><a href="/mymap/">地图</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/game/">娱乐</a></li>
-		        
-					<li style="width: 14.285714285714286%"><a href="http://lewinxu.github.io/map/">测试</a></li>
+					<li style="width: 16.666666666666668%"><a href="/game/">娱乐</a></li>
 		        
 				</ul>
 			</nav>
@@ -282,37 +276,6 @@ var _hmt = _hmt || [];
 <p><strong> C#示例程序 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            //------------------声明数组------------------</span><br><span class="line">            int[][] myArray1 = new int[3][];    //交叉数据</span><br><span class="line">            int[][] myArray2 = new int[3][] &#123; new int[3] &#123; 5, 6, 2 &#125;, new int[5] &#123; 6, 9, 7, 8, 3 &#125;, new int[3] &#123; 3, 2, 4 &#125; &#125;;    //交叉数据(赋值)</span><br><span class="line">           int[,] myArray5 = new int[3, 3];    //二维数据</span><br><span class="line">           int[,] myArray6 = new int[3, 3] &#123; &#123; 5, 6, 2 &#125;, &#123; 7, 8, 3 &#125;, &#123; 3, 2, 4 &#125; &#125;;    //二维数据(赋值)</span><br><span class="line">            //交叉数据</span><br><span class="line">            myArray1[0] = new int[] &#123; 5, 3, 7, 1, 9 &#125;;</span><br><span class="line">            Console.WriteLine(myArray1[0].Count());    //OutPut: 5</span><br><span class="line">            //Console.WriteLine(myArray1[1][2]);    //抛出未将对象运用到实例</span><br><span class="line">            Console.WriteLine(myArray2[0][2]);     //OutPut: 2</span><br><span class="line">           //二维数据</span><br><span class="line">            myArray5[0, 2] = 8;</span><br><span class="line">            Console.WriteLine(myArray5[0, 2]);    //OutPut: 8</span><br><span class="line">            Console.WriteLine(myArray5[1, 2]);    //OutPut: 0</span><br><span class="line">            Console.WriteLine(myArray6[2, 2]);    //OutPut: 4</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
       
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-alipay.JPG">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-wechat.JPG">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -415,7 +378,7 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/02/04/2017计划/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/02/04/计划2017/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -551,38 +514,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
@@ -591,23 +522,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,7 +542,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,15 +562,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,11 +586,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">

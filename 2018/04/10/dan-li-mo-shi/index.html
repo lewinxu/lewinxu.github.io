@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/shu.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -60,7 +60,7 @@ var _hmt = _hmt || [];
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/images/noone.png" class="js-avatar">
+			<img src="/images/shu.JPG" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Lewin</a></h1>
@@ -83,8 +83,6 @@ var _hmt = _hmt || [];
 				<li><a href="/mymap/">地图</a></li>
 	        
 				<li><a href="/game/">娱乐</a></li>
-	        
-				<li><a href="http://lewinxu.github.io/map/">测试</a></li>
 	        
 			</ul>
 		</nav>
@@ -130,7 +128,7 @@ var _hmt = _hmt || [];
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/images/noone.png" class="js-avatar">
+				<img src="/images/shu.JPG" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Lewin</h1>
@@ -139,8 +137,6 @@ var _hmt = _hmt || [];
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry,Stay foolish!<i class="icon icon-quo-right"></i></p>
 			
 			
-			
-				
 			
 				
 			
@@ -174,19 +170,17 @@ var _hmt = _hmt || [];
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/archives/">目录</a></li>
+					<li style="width: 16.666666666666668%"><a href="/archives/">目录</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/study/">学习</a></li>
+					<li style="width: 16.666666666666668%"><a href="/study/">学习</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/project/">项目</a></li>
+					<li style="width: 16.666666666666668%"><a href="/project/">项目</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/mymap/">地图</a></li>
+					<li style="width: 16.666666666666668%"><a href="/mymap/">地图</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/game/">娱乐</a></li>
-		        
-					<li style="width: 14.285714285714286%"><a href="http://lewinxu.github.io/map/">测试</a></li>
+					<li style="width: 16.666666666666668%"><a href="/game/">娱乐</a></li>
 		        
 				</ul>
 			</nav>
@@ -250,37 +244,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Singleton.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="keyword">static</span> Singleton* _instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">instancetype</span>) shareInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:<span class="literal">NULL</span>] init] ;</span><br><span class="line">    &#125;) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _instance ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">id</span>) allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>) copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="meta">#pragma mark --------单例测试</span></span><br><span class="line">    Singleton* obj1 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj1 = %@."</span>, obj1) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj2 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj2 = %@."</span>, obj2) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj3 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj3 = %@."</span>, obj3) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj4 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj4 = %@."</span>, [obj4 <span class="keyword">copy</span>]) ;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">obj1 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj2 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj3 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj4 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br></pre></td></tr></table></figure>
 
       
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-alipay.JPG">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-wechat.JPG">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -519,38 +482,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
@@ -559,23 +490,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,7 +510,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,15 +530,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,11 +554,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">

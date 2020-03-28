@@ -29,7 +29,7 @@
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/shu.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -65,7 +65,7 @@ var _hmt = _hmt || [];
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/images/noone.png" class="js-avatar">
+			<img src="/images/shu.JPG" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Lewin</a></h1>
@@ -88,8 +88,6 @@ var _hmt = _hmt || [];
 				<li><a href="/mymap/">地图</a></li>
 	        
 				<li><a href="/game/">娱乐</a></li>
-	        
-				<li><a href="http://lewinxu.github.io/map/">测试</a></li>
 	        
 			</ul>
 		</nav>
@@ -135,7 +133,7 @@ var _hmt = _hmt || [];
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/images/noone.png" class="js-avatar">
+				<img src="/images/shu.JPG" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Lewin</h1>
@@ -144,8 +142,6 @@ var _hmt = _hmt || [];
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry,Stay foolish!<i class="icon icon-quo-right"></i></p>
 			
 			
-			
-				
 			
 				
 			
@@ -179,19 +175,17 @@ var _hmt = _hmt || [];
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/archives/">目录</a></li>
+					<li style="width: 16.666666666666668%"><a href="/archives/">目录</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/study/">学习</a></li>
+					<li style="width: 16.666666666666668%"><a href="/study/">学习</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/project/">项目</a></li>
+					<li style="width: 16.666666666666668%"><a href="/project/">项目</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/mymap/">地图</a></li>
+					<li style="width: 16.666666666666668%"><a href="/mymap/">地图</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/game/">娱乐</a></li>
-		        
-					<li style="width: 14.285714285714286%"><a href="http://lewinxu.github.io/map/">测试</a></li>
+					<li style="width: 16.666666666666668%"><a href="/game/">娱乐</a></li>
 		        
 				</ul>
 			</nav>
@@ -287,37 +281,6 @@ var _hmt = _hmt || [];
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// AutoLayout</span></span><br><span class="line">    <span class="built_in">UIView</span> *purpleView = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    purpleView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line">    <span class="comment">// 禁止将 AutoresizingMask 转换为 Constraints</span></span><br><span class="line">    purpleView.translatesAutoresizingMaskIntoConstraints = <span class="literal">NO</span>;</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:purpleView];</span><br><span class="line">    <span class="comment">// 添加 width 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *widthConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeWidth</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">0.0</span> constant:<span class="number">150</span>];</span><br><span class="line">    [purpleView addConstraint:widthConstraint];</span><br><span class="line">    <span class="comment">// 添加 height 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *heightConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeHeight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">0.0</span> constant:<span class="number">150</span>];</span><br><span class="line">    [purpleView addConstraint:heightConstraint];</span><br><span class="line">    <span class="comment">// 添加 left 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *leftConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeLeft</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span>.view attribute:<span class="built_in">NSLayoutAttributeLeft</span> multiplier:<span class="number">1.0</span> constant:<span class="number">100</span>];</span><br><span class="line">    [<span class="keyword">self</span>.view addConstraint:leftConstraint];</span><br><span class="line">    <span class="comment">// 添加 top 约束</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *topConstraint = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:purpleView attribute:<span class="built_in">NSLayoutAttributeTop</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span>.view attribute:<span class="built_in">NSLayoutAttributeTop</span> multiplier:<span class="number">1.0</span> constant:<span class="number">200</span>];</span><br><span class="line">    [<span class="keyword">self</span>.view addConstraint:topConstraint];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Masonry</span></span><br><span class="line">    <span class="built_in">UIView</span> *purpleView = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    purpleView.backgroundColor = [<span class="built_in">UIColor</span> purpleColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:purpleView];</span><br><span class="line">    [purpleView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        <span class="comment">// 在这个 block 里面，利用 make 对象创建约束</span></span><br><span class="line">        make.size.mas_equalTo(<span class="built_in">CGSizeMake</span>(<span class="number">150</span>, <span class="number">150</span>));</span><br><span class="line">        <span class="comment">//make.center.mas_equalTo(self.view);</span></span><br><span class="line">        make.top.mas_equalTo(<span class="number">200</span>);</span><br><span class="line">        make.left.mas_equalTo(<span class="number">100</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
       
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-alipay.JPG">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-wechat.JPG">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -556,38 +519,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
@@ -596,23 +527,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,7 +547,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,15 +567,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +591,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">

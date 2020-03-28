@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/shu.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -60,7 +60,7 @@ var _hmt = _hmt || [];
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/images/noone.png" class="js-avatar">
+			<img src="/images/shu.JPG" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Lewin</a></h1>
@@ -83,8 +83,6 @@ var _hmt = _hmt || [];
 				<li><a href="/mymap/">地图</a></li>
 	        
 				<li><a href="/game/">娱乐</a></li>
-	        
-				<li><a href="http://lewinxu.github.io/map/">测试</a></li>
 	        
 			</ul>
 		</nav>
@@ -130,7 +128,7 @@ var _hmt = _hmt || [];
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/images/noone.png" class="js-avatar">
+				<img src="/images/shu.JPG" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Lewin</h1>
@@ -139,8 +137,6 @@ var _hmt = _hmt || [];
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry,Stay foolish!<i class="icon icon-quo-right"></i></p>
 			
 			
-			
-				
 			
 				
 			
@@ -174,19 +170,17 @@ var _hmt = _hmt || [];
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/archives/">目录</a></li>
+					<li style="width: 16.666666666666668%"><a href="/archives/">目录</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/study/">学习</a></li>
+					<li style="width: 16.666666666666668%"><a href="/study/">学习</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/project/">项目</a></li>
+					<li style="width: 16.666666666666668%"><a href="/project/">项目</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/mymap/">地图</a></li>
+					<li style="width: 16.666666666666668%"><a href="/mymap/">地图</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/game/">娱乐</a></li>
-		        
-					<li style="width: 14.285714285714286%"><a href="http://lewinxu.github.io/map/">测试</a></li>
+					<li style="width: 16.666666666666668%"><a href="/game/">娱乐</a></li>
 		        
 				</ul>
 			</nav>
@@ -247,37 +241,6 @@ var _hmt = _hmt || [];
 <h2 id="plist的存储，读取（沙盒"><a href="#plist的存储，读取（沙盒" class="headerlink" title="plist的存储，读取（沙盒)"></a>plist的存储，读取（沙盒)</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//读取plist</span></span><br><span class="line">    [<span class="keyword">self</span> getDataFromPlist];</span><br><span class="line">    <span class="comment">// 写入plist</span></span><br><span class="line">    [<span class="keyword">self</span> writeDataToPlist:<span class="string">@"Hello"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)getDataFromPlist &#123;</span><br><span class="line">    <span class="comment">//沙盒获取路径</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *docPath = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [docPath stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];<span class="comment">//没有会自动创建</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"filePath: %@"</span>,filePath);</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="keyword">if</span> (docPlistDic==<span class="literal">nil</span>) &#123;</span><br><span class="line">        docPlistDic = [<span class="built_in">NSMutableDictionary</span> new];</span><br><span class="line">        docPlistDic[<span class="string">@"hello"</span>] = <span class="string">@"hello"</span>;</span><br><span class="line">        [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"docPlistDic: %@"</span>,docPlistDic);<span class="comment">//直接打印数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeDataToPlist :(<span class="built_in">NSString</span> *)str&#123;</span><br><span class="line">    <span class="comment">//这里使用位于沙盒的plist（程序会自动新建的那一个）</span></span><br><span class="line">    <span class="built_in">NSArray</span> *pathArray = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *path = [pathArray objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//获取文件的完整路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filePath = [path stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"old Data is %@"</span>,filePath);</span><br><span class="line">    docPlistDic[<span class="string">@"hello"</span>] = str;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"change Data is %@"</span>,docPlistDic);</span><br><span class="line">    <span class="comment">//添加新的Key</span></span><br><span class="line">    docPlistDic[<span class="string">@"add"</span>] = <span class="string">@"add"</span>;</span><br><span class="line">    [docPlistDic writeToFile:filePath atomically:<span class="literal">YES</span>];</span><br><span class="line">    docPlistDic = [[<span class="built_in">NSMutableDictionary</span> alloc]initWithContentsOfFile:filePath];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"add Data is %@"</span>,docPlistDic);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除整体文件</span></span><br><span class="line">- (<span class="keyword">void</span>)deleteField &#123;</span><br><span class="line">    <span class="built_in">NSFileManager</span> *manager=[<span class="built_in">NSFileManager</span> defaultManager];</span><br><span class="line">    <span class="comment">//文件路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *filepath = [[<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>)objectAtIndex:<span class="number">0</span>]stringByAppendingPathComponent:<span class="string">@"Test.plist"</span>];</span><br><span class="line">    [manager removeItemAtPath:filepath error:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-alipay.JPG">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/qr-wechat.JPG">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -516,38 +479,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
@@ -556,23 +487,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,7 +507,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,15 +527,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,11 +551,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">

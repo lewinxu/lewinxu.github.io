@@ -22,7 +22,7 @@
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/shu.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -58,7 +58,7 @@ var _hmt = _hmt || [];
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="/images/noone.png" class="js-avatar">
+			<img src="/images/shu.JPG" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">Lewin</a></h1>
@@ -81,8 +81,6 @@ var _hmt = _hmt || [];
 				<li><a href="/mymap/">地图</a></li>
 	        
 				<li><a href="/game/">娱乐</a></li>
-	        
-				<li><a href="http://lewinxu.github.io/map/">测试</a></li>
 	        
 			</ul>
 		</nav>
@@ -128,7 +126,7 @@ var _hmt = _hmt || [];
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="/images/noone.png" class="js-avatar">
+				<img src="/images/shu.JPG" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">Lewin</h1>
@@ -137,8 +135,6 @@ var _hmt = _hmt || [];
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry,Stay foolish!<i class="icon icon-quo-right"></i></p>
 			
 			
-			
-				
 			
 				
 			
@@ -172,19 +168,17 @@ var _hmt = _hmt || [];
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 14.285714285714286%"><a href="/">主页</a></li>
+					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/archives/">目录</a></li>
+					<li style="width: 16.666666666666668%"><a href="/archives/">目录</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/study/">学习</a></li>
+					<li style="width: 16.666666666666668%"><a href="/study/">学习</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/project/">项目</a></li>
+					<li style="width: 16.666666666666668%"><a href="/project/">项目</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/mymap/">地图</a></li>
+					<li style="width: 16.666666666666668%"><a href="/mymap/">地图</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/game/">娱乐</a></li>
-		        
-					<li style="width: 14.285714285714286%"><a href="http://lewinxu.github.io/map/">测试</a></li>
+					<li style="width: 16.666666666666668%"><a href="/game/">娱乐</a></li>
 		        
 				</ul>
 			</nav>
@@ -200,95 +194,6 @@ var _hmt = _hmt || [];
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    <article id="post-uiview" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/10/uiview/">UIView的层次关系</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/10/uiview/" class="archive-article-date">
-  	<time datetime="2018-04-10T12:29:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>相关文章</p>
-<ul>
-<li><a href="http://www.jianshu.com/p/3a22c0d14802" target="_blank" rel="noopener">http://www.jianshu.com/p/3a22c0d14802</a>      （iOS 之UIView）</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************UIView-层次关系***************/</span></span><br><span class="line">    <span class="comment">//添加视图：addSubview</span></span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:view5];</span><br><span class="line">    <span class="comment">//移除视图：removeFromSuperview</span></span><br><span class="line"><span class="comment">//    [view5 removeFromSuperview];</span></span><br><span class="line">    <span class="comment">//将某个视图移动到最上面  bringSubviewToFront:</span></span><br><span class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:view1];</span><br><span class="line">    <span class="comment">//将某个视图移动到最下面   sendSubviewToBack:</span></span><br><span class="line">    [<span class="keyword">self</span>.view sendSubviewToBack:view1];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的上面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 aboveSubview:view3];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的下面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 belowSubview:view2];</span><br><span class="line">    <span class="comment">//将某个视图放到指定的位置</span></span><br><span class="line"><span class="comment">//    [self.view insertSubview:view1 atIndex:3];</span></span><br><span class="line">    <span class="comment">//交换两个视图的位置</span></span><br><span class="line">    [<span class="keyword">self</span>.view exchangeSubviewAtIndex:<span class="number">1</span> withSubviewAtIndex:<span class="number">4</span>];</span><br></pre></td></tr></table></figure>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/10/uiview/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
   
     <article id="post-lei-de-ji-cheng" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1551,6 +1456,117 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-未来数学家的挑战4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/22/未来数学家的挑战4/">四、古克定律与 NP-completeness</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/22/未来数学家的挑战4/" class="archive-article-date">
+  	<time datetime="2018-03-22T08:52:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/page4.html" target="_blank" rel="noopener">原文链接</a></li>
+</ul>
+<p>古克定律的证明很难，就是了解它也不容易，我们将从几个角度来看这个问题，试着去了解它。它的主要结果是把前节那类问题大部归于一个较易证明的集合，称之为 NP，而在 NP 中找到一批互依的问题称之为 NP-complete 类并得到下面的结果。</p>
+<ol>
+<li>若有一个 NP-complete 问题可以用 O(n^k) 计算量来解决， 则全体的 NP 问题都可以用 O(n^k) 之计算量来解决，即</li>
+</ol>
+<blockquote>
+<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt>P，则 P=NP。</p>
+</blockquote>
+<p>又换句话说，NP-complete 是 NP 中的难题，NP-complete 解决了， NP 就解决了。但若有一个属于 NP 而不属于 NP-complete 的问题解决了，则其他的 NP 问题不一定可以解决。</p>
+<p>什么叫做 NP？NP 是英文 non-deterministic polynomial 的缩写，意思就是<strong>非确定性的多项式时间</strong>。要了解这个字。我们先看一看普通计算机的作用。</p>
+<p>现在已知用一个计算机，要解决售货员旅行问题非常困难，但若我们有许多计算机同时用，是否可以快到把原问题在 O(n^k) 时间内解决？「许多」，不是一、二，多一二个是于事无补的，多百个千个仍是杯水车薪，不能有很大的作用，因为就是一千个机子可以分开做，也最多只能快一千倍，在第一节内已说过，帮助不大。 因此计算机学家先放眼望去，干脆允许你可以无限的增加机器。 现在我们要注意的是并不是有了无限多的机器所有的问题就可以立刻解决了，因有的问题有先后次序，例如在算下式的时候</p>
+<p><code>[(a1+a2)a3+a4]a5+a6</code></p>
+<p>除非换个形式，否则必须一步一步的解括弧，机子多了并不能加快计算的速度，而且机子多了，其间之联络千变万化，一个机子要应付千千万万别的机子送来的信号也疲于奔命了。 因此我们只假定所有的机子都只承上启下，单线作业，不作任何横向联络，也就是说，机器1可以把它的结果传给它下面的机子，像 a1,a2,…,an 而每一个机子又可以把它们的结果传给自己的子机， 但在 a1,a2,…,an 之间不互相联络。 以售货员旅行问题为例，若有20个城，第一个机子开始，叫下面19个机子各取一个不同的城及计算与 A 距离， 而这个19个机子又将它所求得的距离交给自己的18个子机令它们取一个与自己不同的城加上距离，如此往下，在第十次时， 第十阶段的机子把它已取9城及总距离告诉下一个机子，叫他们再取一与已取之城不同之城加上距离，如此一直做到第19次， 所有路线的距离都有了，在时间上求得所有的距离是 O(n)（但用了 19! 个计算机）， 古克定义凡可以在 O(n^k) 时间内用无限多计算机解决的问题为一 NP 问题。</p>
+<p> 现在要记住的是由于无横向连络，在所有路径的距离都有了之后，并没有解决售货员问题（甲），因为不知谁是最短（若加以比较以求最短距离，则要 O(n!) 个比较），因此我们不能说售货员旅行问题（甲）是一个 NP 问题。 但上节问题2，售货员旅行问题乙，任何一个单线都可以知道它的总距离是否不大于 B， 因此每单线都有一个「Yes」或「No」的答桉。 只要有一个「Yes」的答桉，我们即知道本问题已解决，故问题二是一个 NP 问题。在单线作业中，每个机子可以作三件事。</p>
+<ul>
+<li>1.目前答案不明确，大家各自作业。</li>
+<li>2.某线已找到答案，立刻叫停，大家停止作业，解题完毕。</li>
+<li>3.此路不通，本线不再作业，但不叫停，别线仍然作业。</li>
+</ul>
+<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt></p>
+<p>我们无法知道此路是否最短，但在(B)问题中，一个「Yes」或「No」的结果只要7个加法就可以回答了。 因此根据新的定义，问题2是一个 NP 问题。<br>由这两个定义，读者不难看出问题2,4,6,7,8,9（乙）与10皆为 NP 问题，特别是问题9之（甲），（乙）， 其实是一样的问题，但如果你猜二个 m,n，立刻就可知道 a 是否是 mn。</p>
+<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt></p>
+<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt></p>
+<p>永为 0，故此 f 为不可满足。<br>直觉上，这类问题除了将 u1, u2,…,un 一个一个以 0,1 代入检查 2n 次之外，显无捷径可循，古克1971年之论文即证明这是一切 NP 问题之母。</p>
+<p><strong>古克定理：</strong><br>满足问题为 NP-complete。现在已可证明在前节中之问题，除了问题1,3,5,9 之外，全是 NP-complete 问题</p>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1648,38 +1664,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
@@ -1688,23 +1672,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1712,7 +1692,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1720,15 +1712,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">文摘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1736,11 +1736,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
