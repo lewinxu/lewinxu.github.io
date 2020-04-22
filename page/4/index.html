@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -194,6 +194,95 @@ var _hmt = _hmt || [];
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-uiview" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/uiview/">UIView的层次关系</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/uiview/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:29:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/3a22c0d14802" target="_blank" rel="noopener">http://www.jianshu.com/p/3a22c0d14802</a>      （iOS 之UIView）</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************UIView-层次关系***************/</span></span><br><span class="line">    <span class="comment">//添加视图：addSubview</span></span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:view5];</span><br><span class="line">    <span class="comment">//移除视图：removeFromSuperview</span></span><br><span class="line"><span class="comment">//    [view5 removeFromSuperview];</span></span><br><span class="line">    <span class="comment">//将某个视图移动到最上面  bringSubviewToFront:</span></span><br><span class="line">    [<span class="keyword">self</span>.view bringSubviewToFront:view1];</span><br><span class="line">    <span class="comment">//将某个视图移动到最下面   sendSubviewToBack:</span></span><br><span class="line">    [<span class="keyword">self</span>.view sendSubviewToBack:view1];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的上面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 aboveSubview:view3];</span><br><span class="line">    <span class="comment">//将某一个视图移动到另一个视图的下面</span></span><br><span class="line">    [<span class="keyword">self</span>.view insertSubview:view1 belowSubview:view2];</span><br><span class="line">    <span class="comment">//将某个视图放到指定的位置</span></span><br><span class="line"><span class="comment">//    [self.view insertSubview:view1 atIndex:3];</span></span><br><span class="line">    <span class="comment">//交换两个视图的位置</span></span><br><span class="line">    [<span class="keyword">self</span>.view exchangeSubviewAtIndex:<span class="number">1</span> withSubviewAtIndex:<span class="number">4</span>];</span><br></pre></td></tr></table></figure>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/uiview/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
   
     <article id="post-lei-de-ji-cheng" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1290,7 +1379,7 @@ var _hmt = _hmt || [];
 <li><p>拷贝对象也是同样的原理，覆写<strong>copyWithZone</strong>方法，然后在这个方法中调用<strong>shareInstance</strong>方法返回单例对象。</p>
 </li>
 </ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Singleton.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="keyword">static</span> Singleton* _instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">instancetype</span>) shareInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:<span class="literal">NULL</span>] init] ;</span><br><span class="line">    &#125;) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _instance ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">id</span>) allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>) copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="meta">#pragma mark --------单例测试</span></span><br><span class="line">    Singleton* obj1 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj1 = %@."</span>, obj1) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj2 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj2 = %@."</span>, obj2) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj3 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj3 = %@."</span>, obj3) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj4 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj4 = %@."</span>, [obj4 <span class="keyword">copy</span>]) ;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">obj1 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj2 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj3 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj4 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Singleton.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="keyword">static</span> Singleton* _instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">instancetype</span>) shareInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:<span class="literal">NULL</span>] init] ;</span><br><span class="line">    &#125;) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _instance ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">id</span>) allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>) copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark --------单例测试</span></span><br><span class="line">    Singleton* obj1 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj1 = %@."</span>, obj1) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj2 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj2 = %@."</span>, obj2) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj3 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj3 = %@."</span>, obj3) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj4 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj4 = %@."</span>, [obj4 <span class="keyword">copy</span>]) ;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">obj1 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj2 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj3 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj4 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br></pre></td></tr></table></figure>
 
       
       
@@ -1456,117 +1545,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-未来数学家的挑战4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/未来数学家的挑战4/">四、古克定律与 NP-completeness</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/未来数学家的挑战4/" class="archive-article-date">
-  	<time datetime="2018-03-22T08:52:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><a href="http://episte.math.ntu.edu.tw/articles/mm/mm_10_2_04/page4.html" target="_blank" rel="noopener">原文链接</a></li>
-</ul>
-<p>古克定律的证明很难，就是了解它也不容易，我们将从几个角度来看这个问题，试着去了解它。它的主要结果是把前节那类问题大部归于一个较易证明的集合，称之为 NP，而在 NP 中找到一批互依的问题称之为 NP-complete 类并得到下面的结果。</p>
-<ol>
-<li>若有一个 NP-complete 问题可以用 O(n^k) 计算量来解决， 则全体的 NP 问题都可以用 O(n^k) 之计算量来解决，即</li>
-</ol>
-<blockquote>
-<p>1’ 若有一个<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt> NP-complete且<img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmx.gif" alt>P，则 P=NP。</p>
-</blockquote>
-<p>又换句话说，NP-complete 是 NP 中的难题，NP-complete 解决了， NP 就解决了。但若有一个属于 NP 而不属于 NP-complete 的问题解决了，则其他的 NP 问题不一定可以解决。</p>
-<p>什么叫做 NP？NP 是英文 non-deterministic polynomial 的缩写，意思就是<strong>非确定性的多项式时间</strong>。要了解这个字。我们先看一看普通计算机的作用。</p>
-<p>现在已知用一个计算机，要解决售货员旅行问题非常困难，但若我们有许多计算机同时用，是否可以快到把原问题在 O(n^k) 时间内解决？「许多」，不是一、二，多一二个是于事无补的，多百个千个仍是杯水车薪，不能有很大的作用，因为就是一千个机子可以分开做，也最多只能快一千倍，在第一节内已说过，帮助不大。 因此计算机学家先放眼望去，干脆允许你可以无限的增加机器。 现在我们要注意的是并不是有了无限多的机器所有的问题就可以立刻解决了，因有的问题有先后次序，例如在算下式的时候</p>
-<p><code>[(a1+a2)a3+a4]a5+a6</code></p>
-<p>除非换个形式，否则必须一步一步的解括弧，机子多了并不能加快计算的速度，而且机子多了，其间之联络千变万化，一个机子要应付千千万万别的机子送来的信号也疲于奔命了。 因此我们只假定所有的机子都只承上启下，单线作业，不作任何横向联络，也就是说，机器1可以把它的结果传给它下面的机子，像 a1,a2,…,an 而每一个机子又可以把它们的结果传给自己的子机， 但在 a1,a2,…,an 之间不互相联络。 以售货员旅行问题为例，若有20个城，第一个机子开始，叫下面19个机子各取一个不同的城及计算与 A 距离， 而这个19个机子又将它所求得的距离交给自己的18个子机令它们取一个与自己不同的城加上距离，如此往下，在第十次时， 第十阶段的机子把它已取9城及总距离告诉下一个机子，叫他们再取一与已取之城不同之城加上距离，如此一直做到第19次， 所有路线的距离都有了，在时间上求得所有的距离是 O(n)（但用了 19! 个计算机）， 古克定义凡可以在 O(n^k) 时间内用无限多计算机解决的问题为一 NP 问题。</p>
-<p> 现在要记住的是由于无横向连络，在所有路径的距离都有了之后，并没有解决售货员问题（甲），因为不知谁是最短（若加以比较以求最短距离，则要 O(n!) 个比较），因此我们不能说售货员旅行问题（甲）是一个 NP 问题。 但上节问题2，售货员旅行问题乙，任何一个单线都可以知道它的总距离是否不大于 B， 因此每单线都有一个「Yes」或「No」的答桉。 只要有一个「Yes」的答桉，我们即知道本问题已解决，故问题二是一个 NP 问题。在单线作业中，每个机子可以作三件事。</p>
-<ul>
-<li>1.目前答案不明确，大家各自作业。</li>
-<li>2.某线已找到答案，立刻叫停，大家停止作业，解题完毕。</li>
-<li>3.此路不通，本线不再作业，但不叫停，别线仍然作业。</li>
-</ul>
-<p>从上项作用，很容易看出找出答案的计算时间即某线叫停的时间，亦即任何一个有「Yes」答案线中计算量之总和， 也就是说找到答案「捷径」上所需的时间。易言之，在一非确定性计算机系统下，其子机像有「猜测」到捷径的功能。 若在任何计算步骤中，某人猜了一个答案，而计算机可以在 O(n^k) 时间内回答「Yes」或「No」，这个问题即是一个 NP 问题。 再以售货员旅行（甲）及图1为例，若你猜一个路径<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmABCD.gif" alt></p>
-<p>我们无法知道此路是否最短，但在(B)问题中，一个「Yes」或「No」的结果只要7个加法就可以回答了。 因此根据新的定义，问题2是一个 NP 问题。<br>由这两个定义，读者不难看出问题2,4,6,7,8,9（乙）与10皆为 NP 问题，特别是问题9之（甲），（乙）， 其实是一样的问题，但如果你猜二个 m,n，立刻就可知道 a 是否是 mn。</p>
-<p>古克定理的关键在证明若一种叫满足问题 (Satisfactability Problem) 的例子属于 P， 则所有 NP 问题均属于 P（即此问题属于 NP-complete）， 令 .,+,-（且，或，反）表三个基本的逻辑运算（即对0与1逻辑符号而言，0非为1,1非为0,除了1+1=1之外，+，. 与一般代数之加乘相同）。 令f为一个含有 n 个逻辑变数 (u1,u2,…,un) 的函数。 假如我们可以找到一组 u1,u2,…,un，使得 f(u1,u2,…,un) = 1，则 f(u1,u2,…,un) 称为可满足。 例如<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2.gif" alt></p>
-<p>为一可满足函数，取u1=u2=u3即可，但<br><img src="http://ozrhqzqeu.bkt.clouddn.com/image/alogrithmfu1u2u3.gif" alt></p>
-<p>永为 0，故此 f 为不可满足。<br>直觉上，这类问题除了将 u1, u2,…,un 一个一个以 0,1 代入检查 2n 次之外，显无捷径可循，古克1971年之论文即证明这是一切 NP 问题之母。</p>
-<p><strong>古克定理：</strong><br>满足问题为 NP-complete。现在已可证明在前节中之问题，除了问题1,3,5,9 之外，全是 NP-complete 问题</p>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">P = NP？</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/未来数学家的挑战4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1584,7 +1562,7 @@ var _hmt = _hmt || [];
     		&copy; 2020 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
     	</div>
       	<div class="footer-right">
-      		<a>Hosted by </a> <a href="https://cloud.tencent.com/" target="_blank">Qcloud</a>
+			<span><a href="http://www.beian.miit.gov.cn" target="_blank">鲁ICP备17029006号-1</a></span>
       	</div>
     </div>
   </div>
@@ -1664,11 +1642,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1676,19 +1654,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1696,19 +1662,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1716,11 +1678,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1736,11 +1714,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1752,15 +1730,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
@@ -1768,7 +1746,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

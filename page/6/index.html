@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -194,6 +194,106 @@ var _hmt = _hmt || [];
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-tensorflow安装教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/17/tensorflow安装教程/">TensorFlow安装教程</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/17/tensorflow安装教程/" class="archive-article-date">
+  	<time datetime="2017-12-17T12:58:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-Mac-CPU-Installing-with-virtualenv"><a href="#1-Mac-CPU-Installing-with-virtualenv" class="headerlink" title="1.Mac+CPU (Installing with virtualenv)"></a>1.Mac+CPU (Installing with virtualenv)</h3><p>参考教程：<a href="https://www.tensorflow.org/install/install_mac" target="_blank" rel="noopener">TensorFlow的官方指导</a></p>
+<h5 id="1-安装pip以及Virtualenv"><a href="#1-安装pip以及Virtualenv" class="headerlink" title="1.安装pip以及Virtualenv"></a>1.安装pip以及Virtualenv</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo easy_install pip</span><br><span class="line">$ sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure>
+<h5 id="2-在目录中创建一个Virtualenv的工作环境-tensorflow"><a href="#2-在目录中创建一个Virtualenv的工作环境-tensorflow" class="headerlink" title="2.在目录中创建一个Virtualenv的工作环境~/tensorflow:"></a>2.在目录中创建一个Virtualenv的工作环境~/tensorflow:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv --system-site-packages ~/tensorflow               # for Python 2.7</span><br><span class="line">$ virtualenv --system-site-packages -p python3 ~/tensorflow    # for Python 3.n</span><br></pre></td></tr></table></figure>
+<h5 id="3-激活Virtualenv的环境："><a href="#3-激活Virtualenv的环境：" class="headerlink" title="3.激活Virtualenv的环境："></a>3.激活Virtualenv的环境：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/tensorflow/bin/activate</span><br></pre></td></tr></table></figure>
+<h5 id="4-Pip-installation方式一样安装TensorFlow"><a href="#4-Pip-installation方式一样安装TensorFlow" class="headerlink" title="4.Pip installation方式一样安装TensorFlow"></a>4.Pip installation方式一样安装TensorFlow</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade tensorflow   # for Python 2.7</span><br><span class="line">(tensorflow)$ pip3 install --upgrade tensorflow  # for Python 3.n</span><br></pre></td></tr></table></figure>
+<h5 id="5-确认你的安装"><a href="#5-确认你的安装" class="headerlink" title="5.确认你的安装"></a>5.确认你的安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ deactivate $ source ~/tensorflow/bin/activate             //激活tensorflow</span><br><span class="line">(tensorflow)$ deactivate $ cd tensorflow/</span><br><span class="line">(tensorflow)$ deactivate $ vim test.py                                  //创建并编辑test.py</span><br><span class="line"></span><br><span class="line">              import tensorflow as tf</span><br><span class="line">              hello = tf.constant(&apos;Hello,Tensorflow!&apos;)</span><br><span class="line">              sess = tf.Session()</span><br><span class="line">              print(sess.run(hello))</span><br><span class="line">              :wq </span><br><span class="line">                                                                        //保存退出</span><br><span class="line">(tensorflow)$ deactivate $ python test.py                               //运行</span><br><span class="line">              Hello,Tensorflow!                                         //输出</span><br><span class="line">(tensorflow)$ deactivate                                                //退出tensorflow</span><br></pre></td></tr></table></figure>
+<h3 id="2-Ubuntu-CPU-Installing-with-virtualenv"><a href="#2-Ubuntu-CPU-Installing-with-virtualenv" class="headerlink" title="2.Ubuntu+CPU (Installing with virtualenv)"></a>2.Ubuntu+CPU (Installing with virtualenv)</h3><h5 id="1-安装pip以及Virtualenv-1"><a href="#1-安装pip以及Virtualenv-1" class="headerlink" title="1.安装pip以及Virtualenv"></a>1.安装pip以及Virtualenv</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install python-pip python-dev python-virtualenv       # for Python 2.7</span><br><span class="line">$ sudo apt-get install python3-pip python3-dev python-virtualenv     # for Python 3.n</span><br></pre></td></tr></table></figure>
+<h5 id="2-在目录中创建一个Virtualenv的工作环境-tensorflow-1"><a href="#2-在目录中创建一个Virtualenv的工作环境-tensorflow-1" class="headerlink" title="2.在目录中创建一个Virtualenv的工作环境~/tensorflow:"></a>2.在目录中创建一个Virtualenv的工作环境~/tensorflow:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ virtualenv --system-site-packages ~/tensorflow               # for Python 2.7</span><br><span class="line">$ virtualenv --system-site-packages -p python3 ~/tensorflow    # for Python 3.n</span><br></pre></td></tr></table></figure>
+<h5 id="3-激活Virtualenv的环境：-1"><a href="#3-激活Virtualenv的环境：-1" class="headerlink" title="3.激活Virtualenv的环境："></a>3.激活Virtualenv的环境：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/tensorflow/bin/activate</span><br><span class="line">$ (tensorflow)$ easy_install -U pip            //确认pip安装了</span><br></pre></td></tr></table></figure>
+<h5 id="4-Pip-installation方式一样安装TensorFlow-1"><a href="#4-Pip-installation方式一样安装TensorFlow-1" class="headerlink" title="4.Pip installation方式一样安装TensorFlow"></a>4.Pip installation方式一样安装TensorFlow</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip install --upgrade tensorflow   # for Python 2.7</span><br><span class="line">(tensorflow)$ pip3 install --upgrade tensorflow  # for Python 3.n</span><br><span class="line">(tensorflow)$ pip install --upgrade tensorflow-gpu  # for Python 2.7 and GPU</span><br><span class="line">(tensorflow)$ pip3 install --upgrade tensorflow-gpu # for Python 3.n and GPU</span><br></pre></td></tr></table></figure>
+<h5 id="5-确认你的安装-1"><a href="#5-确认你的安装-1" class="headerlink" title="5.确认你的安装"></a>5.确认你的安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ deactivate $ source ~/tensorflow/bin/activate             //激活tensorflow</span><br><span class="line">(tensorflow)$ deactivate $ cd tensorflow/</span><br><span class="line">(tensorflow)$ deactivate $ vim test.py                                  //创建并编辑test.py</span><br><span class="line"></span><br><span class="line">              import tensorflow as tf</span><br><span class="line">              hello = tf.constant(&apos;Hello,Tensorflow!&apos;)</span><br><span class="line">              sess = tf.Session()</span><br><span class="line">              print(sess.run(hello))</span><br><span class="line">              :wq </span><br><span class="line">                                                                        //保存退出</span><br><span class="line">(tensorflow)$ deactivate $ python test.py                               //运行</span><br><span class="line">              Hello,Tensorflow!                                         //输出</span><br><span class="line">(tensorflow)$ deactivate                                                //退出tensorflow</span><br></pre></td></tr></table></figure>
+<h3 id="3-Ubuntu-docker"><a href="#3-Ubuntu-docker" class="headerlink" title="3.Ubuntu+docker"></a>3.Ubuntu+docker</h3><blockquote>
+<p>ubuntu 14.04 LTS</p>
+<p>docker</p>
+<p>sudo docker run -it -p 8888:8888 tensorflow/tensorflow</p>
+</blockquote>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/实用技能//" class="article-tag-list-link color5">实用技能</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/17/tensorflow安装教程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
   
     <article id="post-nei-cun-guan-li" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1139,105 +1239,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-CS里partial关键字的作用(转摘)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/19/CS里partial关键字的作用(转摘)/">C Sharp里partial关键字的作用(转载)</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/19/CS里partial关键字的作用(转摘)/" class="archive-article-date">
-  	<time datetime="2016-07-19T08:14:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-什么是局部类型？"><a href="#1-什么是局部类型？" class="headerlink" title="1. 什么是局部类型？"></a>1. 什么是局部类型？</h4><blockquote>
-<p><code>C#</code> 2.0 引入了局部类型的概念。局部类型允许我们将一个类、结构或接口分成几个部分，分别实现在几个不同的<code>.cs</code>文件中。</p>
-</blockquote>
-<p><strong>局部类型适用于以下情况：</strong></p>
-<p>(1) 类型特别大，不宜放在一个文件中实现。<br>(2) 一个类型中的一部分代码为自动化工具生成的代码，不宜与我们自己编写的代码混合在一起。<br>(3) 需要多人合作编写一个类。</p>
-<p><code>局部类型</code>是一个纯语言层的编译处理，不影响任何执行机制——事实上C#编译器在编译的时候仍会将各个部分的局部类型合并成一个完整的类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public partial class Program</span><br><span class="line">&#123;</span><br><span class="line">  static void Main(string[] args)</span><br><span class="line">  &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">partial class Program</span><br><span class="line">&#123; </span><br><span class="line">  public void Test()</span><br><span class="line">  &#123; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-局部类型的限制"><a href="#2-局部类型的限制" class="headerlink" title="2. 局部类型的限制"></a>2. 局部类型的限制</h4><p>(1) 局部类型只适用于类、接口、结构，不支持委托和枚举。<br>(2) 同一个类型的各个部分必须都有修饰符 partial。<br>(3) 使用局部类型时，一个类型的各个部分必须位于相同的命名空间中。<br>(4) 一个类型的各个部分必须被同时编译。</p>
-<h4 id="3-局部类型的注意点"><a href="#3-局部类型的注意点" class="headerlink" title="3. 局部类型的注意点"></a>3. 局部类型的注意点</h4><p>(1) 关键字partial是一个上下文关键字，只有和 class、struct、interface 放在一起时才有关键字的含义。因此partial的引入不会影响现有代码中名称为partial的变量。<br>(2) 局部类型的各个部分一般是分开放在几个不同的.cs文件中，但C#编译器允许我们将他们放在同一文件中。</p>
-<h4 id="4-局部类型的应用特性"><a href="#4-局部类型的应用特性" class="headerlink" title="4. 局部类型的应用特性"></a>4. 局部类型的应用特性</h4><p>在局部类型上的特性具有“累加”效应。<br>[Attribute1, Attribute2(“Hello”)]<br>partial class Class1{}</p>
-<p>[Attribute3, Attribute2(“Exit”)]<br>partial class Class1{}</p>
-<p>相当于<br>[Attribute1, Attribute2(“Hello”), Attribute3, Attribute2(“Exit”)]<br>class Class1 {}</p>
-<p>注：Attribute2属性允许在类上多次使用。</p>
-<h4 id="5-局部类型上的修饰符"><a href="#5-局部类型上的修饰符" class="headerlink" title="5. 局部类型上的修饰符"></a>5. 局部类型上的修饰符</h4><p>(1) 一个类型的各个部分上的访问修饰符必须维持一致性。<br>(2) 如果一个部分类使用了abstract修饰符，那么整个类都将被视为抽象类。<br>(3) 如果一个部分类使用了 sealed 修饰符，那么整个类都将被视为密封类。<br>(4) 一个类的各个部分不能使用相互矛盾的修饰符，比如不能在一个部分上使用abstract，又在另一个部分上使用sealed。<br>(5)如果一个部分类使用了 static修饰符，那么整个类都将被视为静态类。</p>
-<h4 id="6-局部类型的基类和接口"><a href="#6-局部类型的基类和接口" class="headerlink" title="6. 局部类型的基类和接口"></a>6. 局部类型的基类和接口</h4><p><em>(1) 一个类型的各个部分上指定的基类必须一致。某个部分可以不指定基类，但如果指定，则必须相同。</em><br><em>(2) 局部类型上的接口具有“累加”效应。</em><br>partial class Class2: Iinterface1, Iinterface2 {}<br>partial class Class2: Iinterface3 {}<br>partial class Class2: Iinterface2 {}</p>
-<p>相当于<br>class Class2: Iinterface1, Iinterface2, Iinterface3 {}</p>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C Sharp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/19/CS里partial关键字的作用(转摘)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -1255,7 +1256,7 @@ var _hmt = _hmt || [];
     		&copy; 2020 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
     	</div>
       	<div class="footer-right">
-      		<a>Hosted by </a> <a href="https://cloud.tencent.com/" target="_blank">Qcloud</a>
+			<span><a href="http://www.beian.miit.gov.cn" target="_blank">鲁ICP备17029006号-1</a></span>
       	</div>
     </div>
   </div>
@@ -1335,11 +1336,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1347,19 +1348,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1367,19 +1356,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1387,11 +1372,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1407,11 +1408,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1423,15 +1424,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
@@ -1439,7 +1440,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -241,7 +241,7 @@ var _hmt = _hmt || [];
 <li><p>拷贝对象也是同样的原理，覆写<strong>copyWithZone</strong>方法，然后在这个方法中调用<strong>shareInstance</strong>方法返回单例对象。</p>
 </li>
 </ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Singleton.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="keyword">static</span> Singleton* _instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">instancetype</span>) shareInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:<span class="literal">NULL</span>] init] ;</span><br><span class="line">    &#125;) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _instance ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">id</span>) allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>) copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="meta">#pragma mark --------单例测试</span></span><br><span class="line">    Singleton* obj1 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj1 = %@."</span>, obj1) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj2 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj2 = %@."</span>, obj2) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj3 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj3 = %@."</span>, obj3) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj4 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj4 = %@."</span>, [obj4 <span class="keyword">copy</span>]) ;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">obj1 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj2 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj3 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj4 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Singleton.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="keyword">static</span> Singleton* _instance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">instancetype</span>) shareInstance</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _instance = [[<span class="keyword">super</span> allocWithZone:<span class="literal">NULL</span>] init] ;</span><br><span class="line">    &#125;) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _instance ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">id</span>) allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">id</span>) copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [Singleton shareInstance] ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark --------单例测试</span></span><br><span class="line">    Singleton* obj1 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj1 = %@."</span>, obj1) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj2 = [Singleton shareInstance] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj2 = %@."</span>, obj2) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj3 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj3 = %@."</span>, obj3) ;</span><br><span class="line">    </span><br><span class="line">    Singleton* obj4 = [[Singleton alloc] init] ;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"obj4 = %@."</span>, [obj4 <span class="keyword">copy</span>]) ;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">obj1 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj2 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj3 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br><span class="line">obj4 = &lt;Singleton: <span class="number">0x60000000cc90</span>&gt;.</span><br></pre></td></tr></table></figure>
 
       
       
@@ -402,7 +402,7 @@ var _hmt = _hmt || [];
     		&copy; 2020 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
     	</div>
       	<div class="footer-right">
-      		<a>Hosted by </a> <a href="https://cloud.tencent.com/" target="_blank">Qcloud</a>
+			<span><a href="http://www.beian.miit.gov.cn" target="_blank">鲁ICP备17029006号-1</a></span>
       	</div>
     </div>
   </div>
@@ -482,11 +482,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,19 +494,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -514,19 +502,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,11 +518,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,11 +554,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -570,15 +570,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
@@ -586,7 +586,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

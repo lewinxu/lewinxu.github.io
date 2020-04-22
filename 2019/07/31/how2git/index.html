@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://lewinxu.com/image/how2git/how2git-6.png">
 <meta property="og:image" content="http://lewinxu.com/image/how2git/how2git-7.png">
 <meta property="og:image" content="http://lewinxu.com/image/how2git/how2git-8.png">
-<meta property="og:updated_time" content="2019-07-31T05:56:23.751Z">
+<meta property="og:updated_time" content="2019-07-31T05:56:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【转载】Git 版本控制与提交规范">
 <meta name="twitter:description" content="@语雀-前端九部  参考文章廖雪峰-Git教程Git入门Git 协同与提交规范Developing AngularJS  前言在现代化的软件开发中，尤其是在企业中的团队协同开发流程与代码管理方面，git 都充当着不可或缺的角色。本文将会说明如何使用 git 来进行一些基本的版本控制操作与团队协同中的 git 使用流程管理与提交规范。 Git 快速入门Git 的简单介绍Git 是一个用于控制管理代码">
@@ -217,7 +217,7 @@ var _hmt = _hmt || [];
 
         
         <a href="/2019/07/31/how2git/" class="archive-article-date">
-  	<time datetime="2019-07-31T02:05:11.099Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
+  	<time datetime="2019-07-31T05:56:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
 </a>
         
       </header>
@@ -234,10 +234,10 @@ var _hmt = _hmt || [];
 <p>这样你就可以得到一个本地仓库了，你会看到工作目录下已经新增了一个 .git 目录。<br>注：某些系统中可能预设隐藏以 . 开头的文件夹，可能需要开启相关设置才能看到</p>
 <h3 id="克隆远程仓库"><a href="#克隆远程仓库" class="headerlink" title="克隆远程仓库"></a>克隆远程仓库</h3><p>当然如果你已经有了一个远程仓库，你就不需要初始化一个本地仓库了，你可以使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;remote address&gt;</span><br></pre></td></tr></table></figure></p>
 <p>上面的命令会将链接指向的远程仓库克隆到本地，这样你也得到了一个 Git 仓库，并且这个仓库是与远程仓库关联的，如果你有远程仓库的权限，你就可以对这个仓库推送你的提交。</p>
-<h3 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h3><p>上面我们已经初始化了一个空仓库，我们可以通过指令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">nothing to commit (create/copy files and use "git add" to track)</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h3><p>上面我们已经初始化了一个空仓库，我们可以通过指令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">nothing to commit (create/copy files and use "git add" to track)</span><br></pre></td></tr></table></figure></p>
 <p>通过 <em>git status</em> 查看当前的仓库(或代码分支)的状态。</p>
-<h3 id="追踪文件修改"><a href="#追踪文件修改" class="headerlink" title="追踪文件修改"></a>追踪文件修改</h3><p>接下来我们可以为这个仓库添加一些文件, 在工作目录下执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> touch index.js</span><br></pre></td></tr></table></figure></p>
-<p>上面的指令为我们在工作目录下创建一个名为 <code>index.js</code> 的文件, 使用 <code>git status</code> 可以查看到已经添加了一个 <code>index.js</code> 文件, 下面我们在这个文件中写入一些内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> echo "console.log('Hello World!');" &gt; index.js</span><br></pre></td></tr></table></figure></p>
+<h3 id="追踪文件修改"><a href="#追踪文件修改" class="headerlink" title="追踪文件修改"></a>追踪文件修改</h3><p>接下来我们可以为这个仓库添加一些文件, 在工作目录下执行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> touch index.js</span></span><br></pre></td></tr></table></figure></p>
+<p>上面的指令为我们在工作目录下创建一个名为 <code>index.js</code> 的文件, 使用 <code>git status</code> 可以查看到已经添加了一个 <code>index.js</code> 文件, 下面我们在这个文件中写入一些内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"console.log('Hello World!');"</span> &gt; index.js</span></span><br></pre></td></tr></table></figure></p>
 <p>上面这条指令为我们将 “console.log(‘Hello World!’)” 这个内容写入了 <code>index.js</code> 文件中。此时查看仓库状态如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line"></span><br><span class="line">No commits yet</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be commited)</span><br><span class="line">    </span><br><span class="line">        index.js</span><br><span class="line">nothing added to commit but untracked files present(use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure></p>
 <p>可以看到信息反馈说到 <code>index.js</code> 这个文件是未追踪的(Untracked files), 而在 git 中，如果一个文件需要 git 进行版本控制与内容修改追踪，那么就需要先将它加入到 git 仓库的暂存区 (stage) 中。将文件加入到暂存区只需要执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add index.js</span><br></pre></td></tr></table></figure></p>
 <p><img src="../../../../image/how2git/how2git-2.png" alt><br>                               (将工作区的修改通过 add 命令移到暂存区)<br>相信很多人在使用 git 添加修改或者新增文件的时候，会习惯直接使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure></p>
@@ -245,7 +245,7 @@ var _hmt = _hmt || [];
 <h3 id="提交文件修改的历史信息"><a href="#提交文件修改的历史信息" class="headerlink" title="提交文件修改的历史信息"></a>提交文件修改的历史信息</h3><p>通过 <code>git add</code> 我们已经将对文件的操作(新增或修改, 删除等)添加到了暂存区 (stage) 中，但是这样是不够的，我们还需要对这个操作记录成一个历史记录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;Add a file named index.js&quot;</span><br><span class="line">[master (root-commit) 910f65f] Add a file named index.js</span><br><span class="line"></span><br><span class="line">1 file changed, 1 insertion(+)</span><br><span class="line">create mode 100644 index.js</span><br></pre></td></tr></table></figure></p>
 <p>这样我们对文件的操作生成一条历史记录，历史记录可以通过 <code>git log</code> 进行查看。不加 -m 参数直接 commit 的提交信息会默认使用 vim 编辑器进行编辑(对于 vim 编辑器的操作介绍请看后面章节)。对于 commit 记录，原则上我们应该每个 commit 所记录的修改保持纯洁与单一，不允许比如对两个 bug 的修复都提交到一个 commit 中的情况，这样一旦 bug A 的修复会导致另一个问题，但是 bug B 的修复是没有问题的，此时如果回退该 commit，虽然回退了 bug A 的提交，但是也丢失 bug B 的修复工作了。<br><img src="../../../../image/how2git/how2git-3.png" alt><br>                            (将暂存区的修改通过 commit 命令存储到历史库中)</p>
 <p><em>注：笔者不推荐 commit -m 的操作，因为这不符合提交规范，这里是为了简短说明 commit 的使用，详情请看后面章节</em></p>
-<h4 id="Vim-编辑器的简单介绍"><a href="#Vim-编辑器的简单介绍" class="headerlink" title="Vim 编辑器的简单介绍"></a>Vim 编辑器的简单介绍</h4><p>使用 <code>git commit</code> 命令会默认使用 vim 编辑器进行提交信息的编写，同时笔者不推荐使用 <code>git commit -m</code> 的方式来提交信息，因为这样编写出来的提交信息不符合规范，只能说明一些简短信息或者甚至直接为空，尤其是空信息是不被允许的。所以这里会简单介绍 vim 的基本用法，有兴趣的读者可以搜索相关 vim 的学习资料进行深入学习。<br>当你使用 add 命令将对于文件的修改添加到缓存区后，你可以使用输入 git commit 然后直接回车，然后你会进入到 vim 编辑器的界面，你会在界面上看到类似下面的信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Please enter the commit message for your changes. Lines starting</span><br><span class="line"><span class="meta">#</span> with '#' will be ignored, and an empty message aborts the commit.</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> Committer: shawn &lt;test@yourMBP.local&gt;</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> On branch master</span><br><span class="line"><span class="meta">#</span> Changes to be committed:</span><br><span class="line"><span class="meta">#</span>       modified:   index.js</span><br><span class="line"><span class="meta">#</span></span><br><span class="line">~</span><br><span class="line">~</span><br><span class="line">"~/pathtoyourdirectory/.git/COMMIT_EDITMSG" 10L, 274C</span><br></pre></td></tr></table></figure></p>
+<h4 id="Vim-编辑器的简单介绍"><a href="#Vim-编辑器的简单介绍" class="headerlink" title="Vim 编辑器的简单介绍"></a>Vim 编辑器的简单介绍</h4><p>使用 <code>git commit</code> 命令会默认使用 vim 编辑器进行提交信息的编写，同时笔者不推荐使用 <code>git commit -m</code> 的方式来提交信息，因为这样编写出来的提交信息不符合规范，只能说明一些简短信息或者甚至直接为空，尤其是空信息是不被允许的。所以这里会简单介绍 vim 的基本用法，有兴趣的读者可以搜索相关 vim 的学习资料进行深入学习。<br>当你使用 add 命令将对于文件的修改添加到缓存区后，你可以使用输入 git commit 然后直接回车，然后你会进入到 vim 编辑器的界面，你会在界面上看到类似下面的信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Please enter the commit message <span class="keyword">for</span> your changes. Lines starting</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> with <span class="string">'#'</span> will be ignored, and an empty message aborts the commit.</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Committer: shawn &lt;<span class="built_in">test</span>@yourMBP.local&gt;</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> On branch master</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Changes to be committed:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">       modified:   index.js</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line">~</span><br><span class="line">~</span><br><span class="line">"~/pathtoyourdirectory/.git/COMMIT_EDITMSG" 10L, 274C</span><br></pre></td></tr></table></figure></p>
 <p>以 # 开头的信息是注释，不用担心他们会添加到你的提交信息中，而且如果你没有填写信息就直接退出则该 commit 会被中断。</p>
 <h5 id="插入模式"><a href="#插入模式" class="headerlink" title="插入模式"></a>插入模式</h5><p>接下来，当你需要填写数据的时候，你需要按下 “i” 键进入插入模式，进入插入模式之后才能进行文本的插入与编写，然后就可以类似在一般的编辑器下编写你想填写的信息。<br>而当你编写完信息后，你需要先退出插入模式而回到原来的普通模式，退出插入模式你只需要按下 “esc” 键。</p>
 <h5 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h5><p>当你想退出 vim 编辑器的时候，我们需要进入命令模式，在普通模式下输入 : ， 进入命令模式，输入<code>wq</code> 回车,就可以保存并退出编辑了，下面提供一些常用的命令供大家参考：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:q   退出</span><br><span class="line">:q!  强制退出，不进行保存</span><br><span class="line">:wq  保存并退出</span><br><span class="line">:wq! 强制保存并退出</span><br></pre></td></tr></table></figure></p>
@@ -450,7 +450,7 @@ var _hmt = _hmt || [];
     		&copy; 2020 Lewin Powered By <a href="http://hexo.io/" target="_blank">Hexo</a>
     	</div>
       	<div class="footer-right">
-      		<a>Hosted by </a> <a href="https://cloud.tencent.com/" target="_blank">Qcloud</a>
+			<span><a href="http://www.beian.miit.gov.cn" target="_blank">鲁ICP备17029006号-1</a></span>
       	</div>
     </div>
   </div>
@@ -530,11 +530,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,19 +542,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,19 +550,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">单片机</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,11 +566,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebGIS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,11 +602,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+                <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CS</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,15 +618,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
@@ -634,7 +634,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
