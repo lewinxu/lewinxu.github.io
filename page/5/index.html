@@ -195,6 +195,107 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mei-ju" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/mei-ju/">iOS 枚举</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/mei-ju/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:16:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-C语言中的枚举类型"><a href="#1-C语言中的枚举类型" class="headerlink" title="1.C语言中的枚举类型"></a>1.C语言中的枚举类型</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Test</span><br><span class="line">&#123;</span><br><span class="line">    TestA = <span class="number">0</span>,</span><br><span class="line">    TestB = <span class="number">1</span>,</span><br><span class="line">    TestC = <span class="number">2</span>,</span><br><span class="line">    TestD = <span class="number">3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="2-OC语言中的枚举"><a href="#2-OC语言中的枚举" class="headerlink" title="2.OC语言中的枚举"></a>2.OC语言中的枚举</h4><ul>
+<li><strong>NS_ENUM</strong></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, Test)</span><br><span class="line">&#123;</span><br><span class="line">    TestA = <span class="number">0</span>,</span><br><span class="line">    TestB,</span><br><span class="line">    TestC,</span><br><span class="line">    TestD</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>NS_OPTIONS</strong></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, Test) &#123;</span><br><span class="line">    TestA = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line">    TestB = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line">    TestC = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line">    TestD = <span class="number">1</span> &lt;&lt; <span class="number">3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><em>带有移位运算的枚举多用于同一个枚举变量可以同时赋值多个枚举成员的情况</em></p>
+<p>例如：</p>
+<p>枚举变量test同时赋值枚举成员TestA、TestB与TestC</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Test test = TestA | TestB;</span><br><span class="line">test |= TestC;</span><br></pre></td></tr></table></figure>
+<p>使用按位异或(^)为枚举变量test去掉一个枚举成员TestC或者添加一个TestC</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test ^= TestC;</span><br></pre></td></tr></table></figure>
+<p>使用按位与(&amp;)判断枚举变量test是否赋值了枚举成员TestA</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Test test = TestA | TestB;</span><br><span class="line"><span class="keyword">if</span> (test &amp; TestA)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"yes"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"no"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/mei-ju/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-未来数学家的挑战4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1187,93 +1288,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-我进入软件开发世界的第一步" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/我进入软件开发世界的第一步/">我进入软件开发世界的第一步</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/10/我进入软件开发世界的第一步/" class="archive-article-date">
-  	<time datetime="2018-01-10T07:56:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>摘录自 <a href="https://medium.freecodecamp.org/my-first-steps-into-the-world-of-software-development-and-what-they-taught-me-6ee748cffb8f" target="_blank" rel="noopener">medium</a><br><img src="http://ozrhqzqeu.bkt.clouddn.com/m1.png" alt="enter image description here"><br>&emsp;&emsp;作为计算机科学的新生，学生在课堂上学到的东西与在现实世界中看到的东西之间是脱节的。<br>&emsp;&emsp;你要学习所有的知识，了解各种各样的循环(for,while,do while)。<br>你可以很轻松的编写一个基于命令行的井字棋游戏。 而且你填写的这么多的x86程序集使你头晕目眩。<br>&emsp;&emsp;但是对于Facebook这样的产品如何运行你没有丝毫的思路，又比如说Reddit，YouTube，你甚至不知道从哪里开始。<br>&emsp;&emsp;当你用Google搜索“使用python的公司”时，由于Python是你唯一熟悉的语言，你会发现有人说“Reddit …使用python作为其后端”。 那有什么意思？<br>&emsp;&emsp;你的知识在写一个基于命令行的井字棋游戏和构建一个“真实”的应用程序之间存在巨大的差距，没有人告诉你如何弥补它。<br>即使你已经学会了如何在逻辑上思考， 你不知道如何运用你学到的东西来构建你想要构建的东西。<br>&emsp;&emsp;事情是这样的：你要主动地去到你想要的地方。 你不会总是有教授给你所有的项目模板和样板，让你填写空白。<br>你不会总是有一个课程计划告诉你“这是你需要学习下一个”。<br>&emsp;&emsp;没有人对你个人的发展产生的影响比你多。 这取决于你自己想要学习的东西，而不需要别人为你提供下一步的每一步。<br>&emsp;&emsp;这种自我导向的学习，被Dan Luu形容为一种元技能，是你成为一名软件开发人员的重要技能之一。<br>&emsp;&emsp;幸运的是，现在我们有Google来帮忙。 当你搜索“如何使用python建立一个网站”， 你偶然发现这个漂亮的小web框架，并决定使用它 - 而你不是真的知道什么是框架。<br>&emsp;&emsp;您尝试从头阅读文档，不了解任何内容（“数据库抽象层？”），并跳到安装步骤。<br>&emsp;&emsp;最后，跟随一些可操作的步骤！ 你把命令复制到你的终端。 有些东西叫做pip，virtualenv，不管这些是什么。你花一分钟时间来查看这些信息，以便你了解自己在机器上所做的事情。<br>&emsp;&emsp;我们通过理解来学习，而不是盲目遵循说明。习惯于学习，而不是在你不明白某些事的时候放弃，你会看到，<br>&emsp;&emsp;看似不可能的任务是真正的更多的成长机会，主要问题在于它会耗费你多长时间。<br>&emsp;&emsp;好的，比如说pip是一个安装软件包的工具，以便你能够导入它们，就像我们导入内置的数学软件包一样。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/m2.png" alt="enter image description here"><br>&emsp;&emsp;Virtualenv像是将软件包安装隔离到特定项目的一种方法。 你还没有完全理解除了mkdir和cd之外的任何命令，但是你也不是一窍不通。<br>&emsp;&emsp;是时候去看一下 <a href="http://flask.pocoo.org/docs/0.12/quickstart/" target="_blank" rel="noopener">快速入门指南</a>了。<br>&emsp;&emsp;你按照最初的说明进行操作，当你运行程序并在浏览器中首次查看“Hello，world”时，会有一阵兴高采烈。<br>你心想，这就是我所说的！ 对我来说没有更多无聊的旧命令行程序了！ 可以肯定的是，这只是一小步，仅仅是你在浏览器中的代码，但这很重要。<br>&emsp;&emsp;你继续往下，但是开始遇到很多你不完全理解的概念。Routes？HTTP？ GET？POST？ 什么是渲染模板？<br>&emsp;&emsp;其中有些术语似乎有点模糊不清，但实际上并不知道它们的含义，所以你就停下来查看它们。<br>&emsp;&emsp;就像你学习pip和virtualenv一样，你开始模模糊糊的想像出这个应用程序是如何工作的。<br>&emsp;&emsp;学习需要练习。 就像任何其他技能一样，它需要被磨练。 就像其他练习的技巧一样，它可以成为一种习惯。 抓住每一个你必须学习的机会。<br>&emsp;&emsp;记住：成功催生成功。 养成一个习惯，不仅会使你的个人成长飙升，而且你的学习欲望也会增长。<br>&emsp;&emsp;你可以使用模板来显示内容，就像使用其他任何HTML / CSS页面一样，但内容是动态的。你可以通过定义路线来控制显示在不同URL上的内容。<br>&emsp;&emsp;你甚至可以从其他网站获取内容以在你自己的应用程序中使用！<br> &emsp;&emsp;随着你越来越熟悉，你开始感受到一定程度的控制能力，并为自己的独立学习感到自豪，这是你从事任何课堂项目时从未感受过的。<br>&emsp;&emsp;你感到有主动权。 谁还需要上学呢？<br>&emsp;&emsp;当你获得信心时，开始感觉这个指南有点…太基本了。毕竟，这只是一个快速入门指南。你认为你可以做些比这更酷的事情。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/m3.png" alt="enter image description here"><br>&emsp;&emsp;所以你自己动手，你使用pip和virtualenv来设置你的项目，因为这是你唯一知道的方法去建立一个项目，你知道如何设置模板，<br>&emsp;&emsp;你知道如何设置路由，HTTP请求，GET和POST。你甚至可以使用第三方的API，并练习阅读更多的文档。 你仍然不明白一切，但是你正在一点一滴地学习。<br>&emsp;&emsp;最后，你建立你的第一个独立的项目。 这不是你之前关注的数百名发人员写的教程的结果，不是在你完成之前被数千名学生做过的班级任务。<br>一个真实的，有形的，纯洁的应用程序，一个没有你建立，它就不存在的程序。 这是一个了不起的感觉。<br>&emsp;&emsp;接下来是什么？ 现在你已经建立了一个应用程序，你怎么把它放在网上，这样每个人都可以使用它？ 真正的“后端”是什么？前端又是啥？<br>&emsp;&emsp;培养学习欲望是一件好事：总是有更多。 这就像一个惊人的电视连续剧，你永远不能得到足够的 - 它永远不会结束。 学无止境。<br>&emsp;&emsp;软件开发的每一门学科都是一个全新的世界，你学的越多，向你开放的世界就越多。<br>&emsp;&emsp;在某个时候，你意识到成为一个“真正”的软件开发者没有单一的规范路径。 没有足够的时间去掌握每一件事情。<br>&emsp;&emsp;每个人的成功之路都是独一无二的。这完全取决于你建立的到达你想到达目的地的路径。<br>&emsp;&emsp;这是我自己进入软件开发世界的第一步的故事。 如果你想看到我建造的第一个项目，你可以<a href="https://github.com/thetimothyp/Where2Eat" target="_blank" rel="noopener">在这里查看</a>。<br>&emsp;&emsp;如果你想分享自己的感觉，随时发表一个链接的评论！ 我总是好奇，看看人们开始写的代码是什么样的。</p>
-</blockquote>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/10/我进入软件开发世界的第一步/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -1379,7 +1393,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1395,19 +1417,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Map</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1415,7 +1425,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
+                <a href="javascript:void(0)" class="js-tag color2">VueJS UI 前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Map</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1423,11 +1437,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">美文</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">美文</a>
+                <a href="javascript:void(0)" class="js-tag color5">深度学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1443,19 +1457,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">网站</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1463,11 +1469,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
               </li>
             
             <div class="clearfix"></div>
