@@ -195,6 +195,149 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java,CS的数组定义" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/20/Java,CS的数组定义/">Java、C_Sharp定义数组区别</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/20/Java,CS的数组定义/" class="archive-article-date">
+  	<time datetime="2016-07-20T10:45:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1-Java"><a href="#1-Java" class="headerlink" title="(1)Java"></a><strong>(1)Java</strong></h4><p><strong> 一维数组</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) int[] a; //声明,没有初始化</span><br><span class="line"></span><br><span class="line">2) int[] a=new int[5]; //初始化为默认值,int型为0</span><br><span class="line"></span><br><span class="line">3) int[] a=&#123;1,2,3,4,5&#125;; //初始化为给定值</span><br><span class="line"></span><br><span class="line">4) int[] a=new int[]&#123;1,2,3,4,5&#125;; //同(3) int[] a=new int[5]&#123;1,2,3,4,5&#125;; //错误,如果提供了数组初始化操作，则不能定义维表达式</span><br><span class="line"></span><br><span class="line">5) int[] a; a=new int[5]; //正确,同(2)一样</span><br><span class="line"></span><br><span class="line">int[] a; a=&#123;1,2,3,4,5&#125;; //错误,数组常量只能在初始化操作中使用，如（3）</span><br><span class="line"></span><br><span class="line">6) int a[]; a[0]=1; //错误,因为数组没有初始化,不能赋值 a[1]=2;</span><br></pre></td></tr></table></figure></p>
+<p><strong> 二维数组 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) int[][] a; //声明,没有初始化</span><br><span class="line"></span><br><span class="line">2) int[][] a=new int[2][3]; //初始化为默认值,int型为0</span><br><span class="line"></span><br><span class="line">3) int[][] a=&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4&#125;&#125;; //初始化为给定值 int[][] a=&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //没有错,数组空间不是连续分配的，所以不要求每一维的大小相同</span><br><span class="line"></span><br><span class="line">4) int[][] a=new int[2][]; a[0]=new int[3]; //a[0]其实就是一个数组 a[1]=new int[4]; //每一维的大小可以不一样;</span><br><span class="line"></span><br><span class="line">5) int[][] a=new int[][]&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //同(3) int[] a=new int[5]&#123;&#123;1,2&#125;,&#123;2,3&#125;,&#123;3,4,5&#125;&#125;; //错误,如果提供了数组初始化操作，则不能定义维表达式</span><br><span class="line"></span><br><span class="line">int[][] a=new int[2][]; a[0]=&#123;1,2,3,4,5&#125;; //错误,数组常量只能在初始化操作中使用</span><br><span class="line"></span><br><span class="line">6) int[][] a=new int[2][]; a[0][1]=1; //错误,第二维没有初始化,不能赋值,java.lang.NullPointerException异常</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>总结:<br>1.二维就是数组的数组,里面的数组大小不要求一样<br>2.不管一维还是二维,在使用前(赋值,访问)必须初始化,可以用new默认初始化,也可以用数组常量初始化</p>
+</blockquote>
+<blockquote>
+<p><strong>1.动态初始化：数组定义与为数组分配空间和赋值的操作分开进行； （一般用指针实现动态数组，返回数组首地址）</strong><br><strong>2.静态初始化：在定义数字的同时就为数组元素分配空间并赋值；</strong><br><strong>3.默认初始化：数组是引用类型，它的元素相当于类的成员变量，因此数组分配空间后，每个元素也被按照成员变量的规则被隐式初始化。</strong></p>
+</blockquote>
+<h4 id="2-C-Sharp"><a href="#2-C-Sharp" class="headerlink" title="(2)C_Sharp"></a><strong>(2)C_Sharp</strong></h4><p><strong> 数组概述 </strong></p>
+<blockquote>
+<p>C# 数组从零开始建立索引，即数组索引从零开始。C# 中数组的工作方式与在大多数其他流行语言中的工作方式类似。但还有一些差异应引起注意。</p>
+</blockquote>
+<p><em>声明数组时，方括号 ([]) 必须跟在类型后面，而不是标识符后面。在 C# 中，将方括号放在标识符后是不合法的语法。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] table; // not int table[];</span><br></pre></td></tr></table></figure></p>
+<p><em>另一细节是，数组的大小不是其类型的一部分，而在 C 语言中它却是数组类型的一部分。这使您可以声明一个数组并向它分配 int 对象的任意数组，而不管数组长度如何。</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int[] numbers; // declare numbers as an int array of any size</span><br><span class="line">numbers = new int[10]; // numbers is a 10-element array</span><br><span class="line">numbers = new int[20]; // now it&apos;s a 20-element array</span><br></pre></td></tr></table></figure></p>
+<p><strong> 声明数组 </strong></p>
+<blockquote>
+<p>C# 支持一维数组、多维数组（矩形数组）和数组的数组（交错的数组）。下面的示例展示如何声明不同类型的数组：<br><code>一维数组</code>：int[] numbers;<br><code>多维数组</code>：string[,] names;<br><code>数组的数组（交错的)</code>：byte[][] scores; </p>
+</blockquote>
+<p>声明数组（如上所示）并不实际创建它们。在 C# 中，数组是对象（本教程稍后讨论），必须进行实例化。下面的示例展示如何创建数组：</p>
+<blockquote>
+<ul>
+<li>一维数组：int[] numbers = new int[5]; </li>
+<li>多维数组：string[,] names = new string[5,4]; </li>
+<li>数组的数组（交错的）：<br>byte[][] scores = new byte[5][];<br>for (int x = 0; x &lt; scores.Length; x++)<br>{<br>scores[x] = new byte[4];<br>} </li>
+<li>还可以有更大的数组。例如，可以有三维的矩形数组：<br>int[,,] buttons = new int[4,5,3]; </li>
+<li>甚至可以将矩形数组和交错数组混合使用。例如，下面的代码声明了类型为 int 的二维数组的三维数组的一维数组。<br>int[][,,][,] numbers; </li>
+</ul>
+</blockquote>
+<p><strong> 初始化数组  </strong></p>
+<blockquote>
+<p>C# 通过将初始值括在大括号 ({}) 内为在声明时初始化数组提供了简单而直接了当的方法。下面的示例展示初始化不同类型的数组的各种方法。</p>
+</blockquote>
+<p>注意如果在声明时没有初始化数组，则数组成员将自动初始化为该数组类型的默认初始值。另外，如果将数组声明为某类型的字段，则当实例化该类型时它将被设置为默认值 null。</p>
+<p><strong> 一维数组 </strong></p>
+<blockquote>
+<ul>
+<li>int[] numbers = new int[5] {1, 2, 3, 4, 5};<br>string[] names = new string[3] {“Matt”, “Joanne”, “Robert”};</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>可省略数组的大小，如下所示：<br>int[] numbers = new int[] {1, 2, 3, 4, 5};<br>string[] names = new string[] {“Matt”, “Joanne”, “Robert”}; </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>如果提供了初始值设定项，则还可以省略 new 运算符，如下所示：<br>int[] numbers = {1, 2, 3, 4, 5};<br>string[] names = {“Matt”, “Joanne”, “Robert”}; </li>
+</ul>
+</blockquote>
+<p><strong> 多维数组 </strong></p>
+<blockquote>
+<ul>
+<li>int[,] numbers = new int[3, 2] { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = new string[2, 2] { {“Mike”,”Amy”}, {“Mary”,”Albert”} }; </li>
+<li>可省略数组的大小，如下所示：<br>int[,] numbers = new int[,] { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = new string[,] { {“Mike”,”Amy”}, {“Mary”,”Albert”} }; </li>
+<li>如果提供了初始值设定项，则还可以省略 new 运算符，如下所示：<br>int[,] numbers = { {1, 2}, {3, 4}, {5, 6} };<br>string[,] siblings = { {“Mike”, “Amy”}, {“Mary”, “Albert”} }; </li>
+<li>交错的数组（数组的数组）<br>可以像下例所示那样初始化交错的数组：<br>int[][] numbers = new int[2][] { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br>可省略第一个数组的大小，如下所示：<br>int[][] numbers = new int[][] { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br>－或－<br>int[][] numbers = { new int[] {2,3,4}, new int[] {5,6,7,8,9} };<br><strong>请注意，对于交错数组的元素没有初始化语法。</strong></li>
+</ul>
+</blockquote>
+<p><strong> C#示例程序 </strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            //------------------声明数组------------------</span><br><span class="line">            int[][] myArray1 = new int[3][];    //交叉数据</span><br><span class="line">            int[][] myArray2 = new int[3][] &#123; new int[3] &#123; 5, 6, 2 &#125;, new int[5] &#123; 6, 9, 7, 8, 3 &#125;, new int[3] &#123; 3, 2, 4 &#125; &#125;;    //交叉数据(赋值)</span><br><span class="line">           int[,] myArray5 = new int[3, 3];    //二维数据</span><br><span class="line">           int[,] myArray6 = new int[3, 3] &#123; &#123; 5, 6, 2 &#125;, &#123; 7, 8, 3 &#125;, &#123; 3, 2, 4 &#125; &#125;;    //二维数据(赋值)</span><br><span class="line">            //交叉数据</span><br><span class="line">            myArray1[0] = new int[] &#123; 5, 3, 7, 1, 9 &#125;;</span><br><span class="line">            Console.WriteLine(myArray1[0].Count());    //OutPut: 5</span><br><span class="line">            //Console.WriteLine(myArray1[1][2]);    //抛出未将对象运用到实例</span><br><span class="line">            Console.WriteLine(myArray2[0][2]);     //OutPut: 2</span><br><span class="line">           //二维数据</span><br><span class="line">            myArray5[0, 2] = 8;</span><br><span class="line">            Console.WriteLine(myArray5[0, 2]);    //OutPut: 8</span><br><span class="line">            Console.WriteLine(myArray5[1, 2]);    //OutPut: 0</span><br><span class="line">            Console.WriteLine(myArray6[2, 2]);    //OutPut: 4</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数组</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/20/Java,CS的数组定义/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-CS概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1204,6 +1347,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
@@ -1212,11 +1359,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1224,11 +1367,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1236,7 +1379,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1268,6 +1415,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
@@ -1280,15 +1431,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1296,7 +1443,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
