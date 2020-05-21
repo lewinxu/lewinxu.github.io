@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="lewinxu">
 <meta property="og:description" content="狂神说MySQL  1、初识 MySQL2、操作数据库2.1、操作数据库2.2、数据库的列类型2.3、数据库的字段属性（重点）2.4、创建数据库 （重点）2.5、数据表的类型存储引擎 InnoDB 在数据库表中 只有一个*.frm 文件，以及上级目录下的 ibdata1 文件 MYISAM 对应文件 *.frm 表结构的定义文件 *.MYD 数据文件 （data） *.MYI 索引文件（inde">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://lewinxu.com/2020/05/16/MySQL%20学习记录/images/seven-join.png">
-<meta property="og:image" content="http://lewinxu.com/2020/05/16/MySQL%20学习记录/images/jdbc.png">
-<meta property="og:updated_time" content="2020-05-19T16:27:55.299Z">
+<meta property="og:image" content="http://lewinxu.com/images/seven-join.png">
+<meta property="og:image" content="http://lewinxu.com/images/jdbc.png">
+<meta property="og:updated_time" content="2020-05-21T09:30:05.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 学习记录">
 <meta name="twitter:description" content="狂神说MySQL  1、初识 MySQL2、操作数据库2.1、操作数据库2.2、数据库的列类型2.3、数据库的字段属性（重点）2.4、创建数据库 （重点）2.5、数据表的类型存储引擎 InnoDB 在数据库表中 只有一个*.frm 文件，以及上级目录下的 ibdata1 文件 MYISAM 对应文件 *.frm 表结构的定义文件 *.MYD 数据文件 （data） *.MYI 索引文件（inde">
-<meta name="twitter:image" content="http://lewinxu.com/2020/05/16/MySQL%20学习记录/images/seven-join.png">
+<meta name="twitter:image" content="http://lewinxu.com/images/seven-join.png">
   
     <link rel="alternative" href="/atom.xml" title="lewinxu" type="application/atom+xml">
   
@@ -322,7 +322,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <p><code>is null</code>, <code>is not null</code>,<code>between and</code>,<code>like</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-- like 可用通配符 &apos;%&apos; &apos;_&apos;</span><br><span class="line">select `StudentNo`,`StudentResult` from result</span><br><span class="line">where StudentNo like &apos;刘%&apos; -- % 任意字符 _ 一个字符 </span><br><span class="line"></span><br><span class="line">-- in() 具体的值 不能用%通配符</span><br><span class="line">select `StudentNo`,`StudentResult` from result</span><br><span class="line">where StudentNo in (1001,1002,1003);</span><br><span class="line"></span><br><span class="line">-- null not null</span><br><span class="line">select `StudentNo`,`StudentResult` from result</span><br><span class="line">where address=&apos;&apos; or address is null</span><br></pre></td></tr></table></figure>
-<h3 id="4-4、连接查询"><a href="#4-4、连接查询" class="headerlink" title="4.4、连接查询"></a>4.4、连接查询</h3><p><img src="images/seven-join.png" alt="seven-join" style="zoom:50%;"></p>
+<h3 id="4-4、连接查询"><a href="#4-4、连接查询" class="headerlink" title="4.4、连接查询"></a>4.4、连接查询</h3><p><img src="../../../../images/seven-join.png" alt="seven-join" style="zoom:50%;"></p>
 <blockquote>
 <p>内链接 外连接</p>
 </blockquote>
@@ -547,7 +547,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>⚠️ jdbc 连接mysql 加上&amp;useSSL=true 就报错</p>
 </blockquote>
-<p><img src="images/jdbc.png" alt="jdbc"></p>
+<p><img src="../../../../images/jdbc.png" alt="jdbc"></p>
 <h3 id="10-4、Statement对象"><a href="#10-4、Statement对象" class="headerlink" title="10.4、Statement对象"></a>10.4、Statement对象</h3><p>==java中的增删改查==</p>
 <p>工具类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String driver = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String url = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String username = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String password = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            InputStream in = JdbcUtils.class.getClassLoader().getResourceAsStream("db.properties");</span><br><span class="line">            Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">            properties.load(in);</span><br><span class="line">            driver = properties.getProperty(<span class="string">"driver"</span>);</span><br><span class="line">            url = properties.getProperty(<span class="string">"url"</span>);</span><br><span class="line">            username = properties.getProperty(<span class="string">"username"</span>);</span><br><span class="line">            password = properties.getProperty(<span class="string">"password"</span>);</span><br><span class="line">            <span class="comment">// 驱动只加载一次</span></span><br><span class="line">            Class.forName(driver);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取链接</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnction</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DriverManager.getConnection(url, username, password);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 释放连接资源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">release</span><span class="params">(Connection conn, Statement st, ResultSet rs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException throwables) &#123;</span><br><span class="line">                throwables.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (st != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                st.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException throwables) &#123;</span><br><span class="line">                throwables.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException throwables) &#123;</span><br><span class="line">                throwables.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -838,11 +838,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C Sharp</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -850,19 +850,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+                <a href="javascript:void(0)" class="js-tag color4">跨平台 框架 移动端 前端</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -871,6 +863,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">单片机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -902,14 +902,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
@@ -918,7 +910,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+                <a href="javascript:void(0)" class="js-tag color3">P = NP？</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -926,11 +922,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
+                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">资源搜索</a>
+                <a href="javascript:void(0)" class="js-tag color4">Pictures</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
