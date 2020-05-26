@@ -962,6 +962,203 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-2020_05_12_Nginx学习记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/12/2020_05_12_Nginx学习记录/">Nginx 学习记录</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/12/2020_05_12_Nginx学习记录/" class="archive-article-date">
+  	<time datetime="2020-05-12T03:07:08.982Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p> 参考资料 <a href="https://www.nginx.cn/doc/" target="_blank" rel="noopener">Nginx中文文档</a></p>
+</blockquote>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><h3 id="1-1-nginx在ubuntu上的安装"><a href="#1-1-nginx在ubuntu上的安装" class="headerlink" title="1.1 nginx在ubuntu上的安装"></a>1.1 nginx在ubuntu上的安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt-get install nginx</span><br><span class="line">（要最新版本下载下来编译吧）</span><br><span class="line">装完应该能正常运行了。如果之前有装APACHE要改下端口。。。或者直接</span><br><span class="line">apt-get remove apache2</span><br><span class="line">/etc/init.d/nginx stop</span><br><span class="line">/etc/init.d/nginx start</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-Nginx修改默认端口"><a href="#1-2-Nginx修改默认端口" class="headerlink" title="1.2 Nginx修改默认端口"></a>1.2 Nginx修改默认端口</h3><h4 id="1-2-1-修改配置文件"><a href="#1-2-1-修改配置文件" class="headerlink" title="1.2.1 修改配置文件"></a>1.2.1 修改配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/sites-enabled/default</span><br><span class="line">listen 81 default_server;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改自己需要的端口号</span></span><br><span class="line">listen 81 default_server;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-重载Nginx服务"><a href="#1-2-2-重载Nginx服务" class="headerlink" title="1.2.2 重载Nginx服务"></a>1.2.2 重载Nginx服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/nginx reload</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-3-修改默认网站目录"><a href="#1-2-3-修改默认网站目录" class="headerlink" title="1.2.3 修改默认网站目录"></a>1.2.3 修改默认网站目录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/sites-enabled/default</span><br><span class="line">    #root /var/www/html;</span><br><span class="line">    root /var/www2/html; # 修改默认网站目录</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-4-Apache修改默认端口"><a href="#1-2-4-Apache修改默认端口" class="headerlink" title="1.2.4 Apache修改默认端口"></a>1.2.4 Apache修改默认端口</h4><h5 id="1-2-4-1-修改配置文件"><a href="#1-2-4-1-修改配置文件" class="headerlink" title="1.2.4.1 修改配置文件"></a>1.2.4.1 修改配置文件</h5><p>（1）修改 /etc/apache2/ports.conf 将</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NameVirtualHost *:80</span><br><span class="line">Listen 80</span><br><span class="line"><span class="meta">#</span><span class="bash"> 改为自己需要的端口</span></span><br><span class="line">NameVirtualHost *:9000</span><br><span class="line">Listen 9000</span><br></pre></td></tr></table></figure>
+<p>（2）有的需要修改default和httpd.conf配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">查找配置文件</span></span><br><span class="line">sudo find / -name default</span><br><span class="line">sudo find / -name httpd.conf</span><br></pre></td></tr></table></figure>
+<p>（3）重启apache</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/apache2 restart</span><br><span class="line">端口修改完毕。apache的端口修改为9000了。</span><br></pre></td></tr></table></figure>
+<h5 id="1-2-4-2-修改默认网站目录："><a href="#1-2-4-2-修改默认网站目录：" class="headerlink" title="1.2.4.2 修改默认网站目录："></a>1.2.4.2 修改默认网站目录：</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/apache2/sites-available/default</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将/var/www 修改位你的路径： /var/www/html/</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-Nginx的Master-Worker模式"><a href="#2-Nginx的Master-Worker模式" class="headerlink" title="2. Nginx的Master-Worker模式"></a>2. Nginx的Master-Worker模式</h2><blockquote>
+<p>Master进程的作用是？</p>
+<p>读取并验证配置文件nginx.conf；管理worker进程；</p>
+<p>Worker进程的作用是？</p>
+<p>每一个Worker进程都维护一个线程（避免线程切换），处理连接和请求；注意Worker进程的个数由配置文件决定，一般和CPU个数相关（有利于进程切换），配置几个就有几个Worker进程。</p>
+</blockquote>
+<h3 id="2-1-Nginx-的热部署"><a href="#2-1-Nginx-的热部署" class="headerlink" title="2.1 Nginx 的热部署"></a>2.1 Nginx 的热部署</h3><blockquote>
+<p>修改配置文件nginx.conf后，重新生成新的worker进程，当然会以新的配置进行处理请求，而且新的请求必须都交给新的worker进程，至于老的worker进程，等把那些以前的请求处理完毕后，kill掉即可。</p>
+</blockquote>
+<h3 id="2-2-Nginx-高并发下的高效处理"><a href="#2-2-Nginx-高并发下的高效处理" class="headerlink" title="2.2 Nginx 高并发下的高效处理"></a>2.2 Nginx 高并发下的高效处理</h3><blockquote>
+<p>Nginx采用了Linux的epoll模型，epoll模型基于事件驱动机制，它可以监控多个事件是否准备完毕，如果OK，那么放入epoll队列中，这个过程是异步的。worker只需要从epoll队列循环处理即可。</p>
+</blockquote>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/12/2020_05_12_Nginx学习记录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-2020_05_10_Java 学习路线" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/10/2020_05_10_Java 学习路线/">Java 学习路线</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/10/2020_05_10_Java 学习路线/" class="archive-article-date">
+  	<time datetime="2020-05-10T00:57:10.894Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="https://space.bilibili.com/95256449/" target="_blank" rel="noopener">狂神说</a><br><img src="../../../../images/Java.png" alt="java"></li>
+</ul>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/10/2020_05_10_Java 学习路线/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-如何选择适合自己的职业" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1870,209 +2067,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-为什么我们的工作时间越来越长" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/24/为什么我们的工作时间越来越长/">为什么我们的工作时间越来越长？</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/24/为什么我们的工作时间越来越长/" class="archive-article-date">
-  	<time datetime="2019-05-24T15:32:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>@(来源<a href="http://www.ruanyifeng.com/blog" target="_blank" rel="noopener">阮一峰的博客</a>)<br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
-<p>中国社科院曾经发布过一个报告，说2017年我国每天工作时间超过8小时的人，占了42.2%。而且这不仅仅是中国的情况，日本，美国这些发达国家也普遍存在过劳。</p>
-<p>这种现象虽然普遍，而且我们都身在其中。但仔细想想就会发现，其实”过劳”这件事，不太符合逻辑。</p>
-<p>我们都知道，近两百年，人类整体的生产效率，那是一飞冲天啊。按说，生产效率上去了，单位工作时间的产出高了，那相应的工作时间应该减少才对啊。所以经济学家凯恩斯在1930年曾经做出一个有名的预测，他认为到2030年，人类的劳动时间每周15小时，就足够了。</p>
-<p>现实是，很多互联网公司甚至开创了996模式，上午9点上班，下午9点下班，一周工作6天。我们还有724模式，一周7天24小时随时待命。你看，凯恩斯在1930年的预测错了。错的离谱，方向都错了。</p>
-<p>问题是：他为什么错了？工具越高级，应该干活越省力才对。那为什么我们反而更累了呢？</p>
-<p>《过劳时代》这本书里提供了很多解释。比如，全球化把所有人拉到了同一个竞争平面上。你是在一个地方工作，但你不是在和一个地方的人竞争。一个美国的工人是和一个中国的工人，甚至是非洲的工人在竞争。所以，竞争强度增大了。再比如，<strong>消费主义盛行</strong>。你和身边的人越来越多的<strong>攀比</strong>，比房子比车比包包比度假酒店，你想挣钱的欲望就越大，所以只能拼命干活。等等。</p>
-<p>但是，我觉得最有说服力的解释，不是这些。问题的根子不在别的，就在于<strong>生产工具</strong>本身。它<strong>越进化、越高级、效率越高、越好用</strong>，我们就<strong>用得越多</strong>，所以工作<strong>时间就越长</strong>。</p>
-<p>这是一个很有意思的悖论。举个例子，过去我们上班，必须得到单位才行，和同事见了面，才能展开协作。很不方便，后来有了电脑，有了邮件，有了微信，按说是更方便、更省时间了。但是结果呢？你知道的，老板能随时在微信群里抓到我们说事，周末也行，深更半夜也行。你上班的时间能不更长吗？</p>
-<p>表面上看，工具的发明，总是解决一个现实问题的。有了斧头，砍树就更快。有了汽车，走得就更远。这是工具给我们提供的第一样东西，叫<strong>便利性</strong>。</p>
-<p>但是，如果你只看到这一面，就忽略了一个更重要的东西，这也是工具带来的。你要解决问题，任何问题都是有它的时间空间边界的，工具一升级，边界内的问题，是被更高效的解决了，但是，这个时空边界本身也被打破了。于是，会出现新的问题，而且是更大的问题。</p>
-<p>比如说，当年人们用马车，非常慢。后来，给车装上了发动机，这就成了汽车，速度提上去了。在有限的时空边界内，这就是一项改善。确定无疑的改善吧？那你说，会因为速度提上去了，所以，人旅行用的时间少了，所以车就会变少吗？当然不是啊。因为汽车<strong>打破</strong>了原来的时空限制，出现了全新的可能性。你就想，原来坐马车，你至少要带一个马车夫。现在呢？可以开汽车，一个人就可以开车，没有马车夫打扰了。车不仅是交通工具，它还是一个移动的私人空间了。所以就出现了一种新的行为方式，没有确定目的的开车兜风，这种行为模式就出现了。不去哪儿，就是带上女朋友开车去看看诗和远方。车的使用当然就越来越多。</p>
-<p>当然，现实中远远不止是这一种情况了。因为车可以走得更远，所以，就一定会走得更远。因为可以走得更远，所以，整个社会的假设就变了，汽车旅馆就出现了，郊区景点和度假村就出现了，远离城区的购物中心，像奥特莱斯就出现了。这就反过来逼迫，你如果不能有汽车，你不能走得更远，你就没有办法享受社会基础设施提供的便利。它就会走到这个程度。</p>
-<p>你看，这个过程就是：工具不仅为你解决了问题。工具还在你始料未及的地方，推开了一扇新的可能性的大门。这扇大门一旦推开，就再也关不上了，后面的人就会一涌而出，只会把门撑得越来越宽。这就是工具对人的反向塑造。</p>
-<p>有句话叫，<strong>身怀利刃杀心自起</strong>。你身上有把刀，看见什么都想用上。对，工具虽然只是提供了某种可能，但是人性使然，我们总是倾向于要把这种可能性变成现实性。工具在可能性上推开了多大的空间，我们就一定会倾向于把这个空间填满。</p>
-<p>理解了这个逻辑，再回到今天的主题，为什么劳动工具效率越来越高，我们却越来越忙呢？这么看来，答案就非常简单了。和全球化，消费主义有关，但关系没那么大。因为劳动工具让我们工作的可能性越来越高，我们就一定会把这个可能性填满，我们当然就会一直工作，所以越来越忙。</p>
-<p>《过劳时代》这本书的解读人，李南南老师还开了一个脑洞。他说，假如未来，你的工资不是按月计算，而是按秒计算。在你的面前，有一个计时器，你每多工作一秒，你的账上马上就会多一毛钱。结果会是什么？表面看起来，这对你只有好处没有坏处。首先，每天工作8小时，这就是一天2880块钱，不少吧？你收入提高了。更重要的是，你碎片时间的工作，比如，吃饭间歇、睡觉前给同事回个工作微信，也能计算报酬了，对你更公平了。好事吧？好工具。</p>
-<p>但这是在你现在的时空边界下看问题。真实情况可能是，这个可能性的大门一旦打开，大多数人因为碎片时间也能挣钱，会工作到筋疲力尽才会停。如果不信，你现在到网吧里去看看那些打游戏挣积分通宵不睡的人，你就知道，如果真有那么一天，工作到筋疲力尽那就是我们的未来。</p>
-<blockquote>
-<p>@lewin:<br>好的工具🔧会带给我们有益的，高效的积极影响，但是我们也要注意⚠️事情的负面影响。高级的事物可能会打破围城，让我们看到外面更大的世界，有新的机遇和挑战。<br>这些新的变化我们应该积极的面对，而不是逃避或者视而不见。</p>
-</blockquote>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文摘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/24/为什么我们的工作时间越来越长/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-Cordova" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/Cordova/">Cordova 跨平台开发框架</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/19/Cordova/" class="archive-article-date">
-  	<time datetime="2019-05-19T06:46:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>@参考：<a href="https://learnreact.design/2018/02/14/react-native-vs-cordova-phone-gap-ionic-etc#fnref-3" target="_blank" rel="noopener">React Native vs. Cordova, PhoneGap, Ionic</a><br><img src="https://unsplash.it/1000/300/?random" alt="Pic"></p>
-<h2 id="📌概述"><a href="#📌概述" class="headerlink" title="📌概述"></a>📌概述</h2><p><strong>Cordova</strong> 是使用HTML，CSS和JavaScript构建混合移动应用程序的平台。官方文档给了我们Cordova的定义。</p>
-<blockquote>
-<p>“Apache Cordova是一个开源移动开发框架，它允许您使用标准的Web技术，如HTML5，CSS3和JavaScript进行跨平台开发，避免每个移动平台本机开发语言。应用程序在针对每个平台的包装内执行，并依靠符合标准的API绑定来访问每个设备的传感器，数据和网络状态。”</p>
-</blockquote>
-<p>   <strong>Cordova</strong>框架可以让 Web 开发人员使用他们已经具备的 HTML、CSS 和 JavaScript 技能来开发应用。这些应用可以同时运行在安卓和 IOS 平台上(还可以有更多平台)。但是，相比于原生应用，这类应用会没有那么流畅，能访问的硬件功能也有限。这些框架使用的 WebView 来渲染 UI，所以我们将其称之为 WebView框架。WebView 框架是在原生框架之上构建的。我们可以将前者视为运行在后者内部的模拟世界中。这正是他们有上述的好处和限制的原因所在。</p>
-<h2 id="📦安装"><a href="#📦安装" class="headerlink" title="📦安装"></a>📦安装</h2><p><code>npm install -g cordova</code></p>
-<h2 id="📝生成app"><a href="#📝生成app" class="headerlink" title="📝生成app"></a>📝生成app</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cordova create app</span><br><span class="line">cd app</span><br><span class="line">cordova platform add browser --save #增加browser平台</span><br><span class="line">cordova build browser #编译/运行browser平台</span><br><span class="line">cordova run browser #运行编译好的App</span><br></pre></td></tr></table></figure>
-<h2 id="🤔Cordova-VueJS-webpack"><a href="#🤔Cordova-VueJS-webpack" class="headerlink" title="🤔Cordova+ VueJS + webpack"></a>🤔Cordova+ VueJS + webpack</h2><p><strong>安装Vue-cli</strong><br><code>yarn global add @vue/cli-init</code><br><strong>初始化webgis工程</strong><br><code>vue init webpack your-webapp</code><br><strong>调试运行</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd your-webapp</span><br><span class="line">cnpm i</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure></p>
-<h3 id="🔨配置打包路径"><a href="#🔨配置打包路径" class="headerlink" title="🔨配置打包路径"></a>🔨配置打包路径</h3><p>需要修改 Vue 项目的打包配置文件：<br>1.config - index.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">  <span class="comment">// Template for index.html</span></span><br><span class="line">  index: path.resolve(__dirname, <span class="string">'path/to/app/www/index.html'</span>),</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Paths</span></span><br><span class="line">  assetsRoot: path.resolve(__dirname, <span class="string">'path/to/app/www'</span>),</span><br><span class="line">  assetsSubDirectory: <span class="string">''</span>,</span><br><span class="line">  assetsPublicPath: <span class="string">''</span>,</span><br></pre></td></tr></table></figure></p>
-<p>2.build - utils.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (options.extract) &#123;</span><br><span class="line">  <span class="keyword">return</span> ExtractTextPlugin.extract(&#123;</span><br><span class="line">    use: loaders,</span><br><span class="line">    publicPath: <span class="string">'../'</span>,</span><br><span class="line">    fallback: <span class="string">'vue-style-loader'</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="✏️-添加编译打包脚本"><a href="#✏️-添加编译打包脚本" class="headerlink" title="✏️ 添加编译打包脚本"></a>✏️ 添加编译打包脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">touch build.sh</span><br><span class="line">vim build.sh</span><br><span class="line">    cd your-webapp</span><br><span class="line">    npm run build</span><br><span class="line">    cd ../app</span><br><span class="line">    cordova build ios</span><br><span class="line">    echo ios build ok!</span><br><span class="line">    cordova build browser</span><br><span class="line">    echo browser build ok!</span><br><span class="line">    ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/ cordova build electron --release</span><br><span class="line">    echo electron build ok!</span><br><span class="line">    cordova run ios</span><br><span class="line">:wq</span><br><span class="line">chmod +x build.sh</span><br></pre></td></tr></table></figure>
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">跨平台 框架 移动端 前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/19/Cordova/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -2167,7 +2164,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2175,7 +2172,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2183,11 +2180,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2235,10 +2240,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
@@ -2251,7 +2252,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2260,10 +2269,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">

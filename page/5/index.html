@@ -195,6 +195,269 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-fen-lei" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/fen-lei/">分类 和 类扩展</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/fen-lei/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:17:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/75818790c1ed" target="_blank" rel="noopener">http://www.jianshu.com/p/75818790c1ed</a> （深入浅出理解分类(category）和类扩展(extension)）</li>
+<li><a href="http://www.jianshu.com/p/823c5d58ca0e" target="_blank" rel="noopener">http://www.jianshu.com/p/823c5d58ca0e</a> （一张图分清类别和拓展）</li>
+</ul>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h5 id="1-分类（category）的作用"><a href="#1-分类（category）的作用" class="headerlink" title="1.分类（category）的作用"></a>1.分类（category）的作用</h5><p>1.1作用：可以在不修改原来类的基础上，为一个类扩展方法。<br>1.2最主要的用法：给系统自带的类扩展方法。</p>
+<h5 id="2-分类中的内容"><a href="#2-分类中的内容" class="headerlink" title="2.分类中的内容"></a>2.分类中的内容</h5><p>2.1分类中只能添加“方法”，不能增加成员变量。<br>2.2分类中可以访问原来类中的成员变量，但是只能访问@protect和@public形式的变量。如果想要访问本类中的私有变量，分类和子类一样，只能通过方法来访问。<br>2.3如果一定要在分类中添加成员变量，可以通过getter，setter手段进行添加</p>
+<h5 id="3-分类的书写方法"><a href="#3-分类的书写方法" class="headerlink" title="3.分类的书写方法"></a>3.分类的书写方法</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line">-(<span class="keyword">void</span>) eat&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"I can eat!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Person+Singer.h</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span>  (<span class="title">Singer</span>)</span></span><br><span class="line">-(<span class="keyword">void</span>) sing;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Person+Singer.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person+Singer.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span> (<span class="title">Singer</span>)</span></span><br><span class="line">-(<span class="keyword">void</span>) sing&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Sing a Song!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line">    Person *singer = [Person new];</span><br><span class="line">    [singer eat];</span><br><span class="line">    [singer sing];</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">I can eat!</span><br><span class="line">Sing a Song!</span><br></pre></td></tr></table></figure>
+<ul>
+<li><em><strong>在本类和分类有相同的方法时，优先调用分类的方法再调用本类的方法。</strong></em></li>
+</ul>
+<h5 id="4-应用场景"><a href="#4-应用场景" class="headerlink" title="4.应用场景"></a>4.应用场景</h5><blockquote>
+<p>1.对框架提供类的扩展(没有源码,不不能修改);<br>2.不想生成⼀个新的⼦类的情况下,例如对NSArry的扩展;<br>3.⽅便做项目管理，可以将⼀份源码在多个地方共享或者做方法版本管理、多人协作开发、⽤本地版本替换公共版本实现</p>
+</blockquote>
+<h5 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5.注意事项"></a>5.注意事项</h5><blockquote>
+<ol>
+<li>Category的方法不⼀定⾮要在@implement中实现,也可以在其他位置中实现。但是当调用Category的⽅法时,依据继承树没有找到该方法的实现,程序则会崩溃;并且,Category的方法优先级较高,可以覆盖原类的方法;</li>
+<li>在实际开发中要注意的是,Category 方法可能会覆盖于同一个类class 的其它 category 中的方法。但也可能被覆盖，因为不不法预知他们的加载优先顺序，出现这种情况通常会在编译时出错。如果在一个开发的SDK中使用了类别， 就最好保证类别名不同于使用者的类别名以及类别方法也不同于使用者的类别方法名， 通常通过加前缀来做到。</li>
+<li>Category的方法中,不可以调用super方法;</li>
+<li><strong>Category理论上不能添加【成员变量】,但是可以使用@dynamic(即运行时Runtime)来弥补这种不足.</strong></li>
+</ol>
+</blockquote>
+<h3 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h3><h5 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h5><ul>
+<li>能为某个类附加额外的属性，成员变量，方法声明</li>
+<li>一般的类扩展写到.m文件中</li>
+<li>一般的私有属性写到类扩展</li>
+</ul>
+<h5 id="2-使用格式"><a href="#2-使用格式" class="headerlink" title="2.使用格式"></a>2.使用格式</h5><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Mitchell</span>()</span></span><br><span class="line"><span class="comment">//属性</span></span><br><span class="line"><span class="comment">//方法</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-与分类的区别"><a href="#3-与分类的区别" class="headerlink" title="3.与分类的区别"></a>3.与分类的区别</h5><ul>
+<li>分类的小括号中必须有名字</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> 类名（分类名字）</span></span><br><span class="line"><span class="comment">/*方法声明*/</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span>类名（分类名字）</span></span><br><span class="line"><span class="comment">/*方法实现*/</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>分类只能扩充方法，不能扩展属性和成员变量（如果包含成员变量会直接报错）</p>
+</li>
+<li><p>如果分类中声明了一个属性，那么分类只会生成这个属性的set、get方法声明，需要手动添加代码实现。</p>
+</li>
+</ul>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/fen-lei/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+    <article id="post-copy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/10/copy/">iOS中的Copy</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/10/copy/" class="archive-article-date">
+  	<time datetime="2018-04-10T12:17:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相关文章</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/5f776a4816ee" target="_blank" rel="noopener">http://www.jianshu.com/p/5f776a4816ee</a></li>
+</ul>
+<h4 id="copy-和-mutableCopy"><a href="#copy-和-mutableCopy" class="headerlink" title="copy 和 mutableCopy"></a>copy 和 mutableCopy</h4><p>官方文档</p>
+<blockquote>
+<p>In Objective-C, the methods copy and mutableCopy are inherited by all objects and intended for performing copies; the latter is for creating a mutable type of the original object. These methods in turn call the copyWithZone and mutableCopyWithZone methods, respectively, to perform the copying. An object must implement the corresponding copyWithZone method to be copyable.</p>
+<p>在oc中 copy和mutableCopy两个方法是被所有对象(继承自NSObject的类)继承的，这两个方法就是为copy准备的。</p>
+<p>其中，mutableCopy是为了创建原始对象的可变类型的copy。</p>
+<p>这两个方法分别调用copyWithZone和mutableCopyWithZone两个方法来进行copy。</p>
+<p>一个类必须实现copyWithZone或者mutableCopyWithZone，才能进行copy或者mutableCopy。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="class"><span class="keyword">@protocol</span> <span class="title">NSCopying</span></span></span><br><span class="line">&gt; － (<span class="keyword">id</span>)copyWithZone:(<span class="keyword">nullable</span> <span class="built_in">NSZone</span> *)zone;</span><br><span class="line">&gt; <span class="keyword">@end</span></span><br><span class="line">&gt; <span class="class"><span class="keyword">@protocol</span> <span class="title">NSMutableCopying</span></span></span><br><span class="line">&gt; － (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="keyword">nullable</span> <span class="built_in">NSZone</span> *)zone;</span><br><span class="line">&gt; <span class="keyword">@end</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="shallow-copy-和-deep-copy"><a href="#shallow-copy-和-deep-copy" class="headerlink" title="shallow copy 和 deep copy"></a>shallow copy 和 deep copy</h4><p>1.定义</p>
+<blockquote>
+<p>对象拷贝有两种方式：浅复制和深复制。顾名思义，浅复制，并不拷贝对象本身，仅仅是拷贝指向对象的指针；深复制是除了拷贝指向对象的指针，而且直接拷贝整个对象内存到另一块内存中。再简单些说：浅复制就是指针拷贝；深复制就是内容拷贝。</p>
+</blockquote>
+<p>2.区别</p>
+<blockquote>
+<p>浅copy: 指针复制，不会创建一个新的对象。</p>
+<p>深copy: 内容复制，会创建一个新的对象。</p>
+</blockquote>
+<p>3.影响</p>
+<blockquote>
+<p>浅copy，类似strong，持有原始对象的指针，会使retainCount加一。浅copy和strong引用的区别仅仅是浅copy多执行一步copyWithZone:方法。</p>
+<p>深copy，会创建一个新的对象，不会对原始对象的retainCount变化。</p>
+</blockquote>
+<p>4.使用原则</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">class</th>
+<th style="text-align:left">copy</th>
+<th style="text-align:left">mutablecopy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">不可变，如NSString</td>
+<td style="text-align:left">（浅拷贝） 返回本身</td>
+<td style="text-align:left">（深拷贝）创建新的可变对象</td>
+</tr>
+<tr>
+<td style="text-align:left">可变，如NSMutableString</td>
+<td style="text-align:left">（深拷贝）创建新的不可变对象</td>
+<td style="text-align:left">（深拷贝 ）创建新的可变对象</td>
+</tr>
+</tbody>
+</table>
+<h4 id="关键字copy"><a href="#关键字copy" class="headerlink" title="关键字copy"></a>关键字copy</h4><p>strong  和 copy 的区别</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *str;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2.</span><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *str;</span><br></pre></td></tr></table></figure>
+<p>分别对1和2执行下述代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableString</span> *mutableStr = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"123"</span>];</span><br><span class="line"><span class="keyword">self</span>.str = mutableStr;</span><br><span class="line"></span><br><span class="line">[mutableStr appendString:<span class="string">@"456"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="keyword">self</span>.str);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%p"</span>, <span class="keyword">self</span>.str);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, mutableStr);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%p"</span>, mutableStr);</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//strong</span></span><br><span class="line"><span class="number">123456</span></span><br><span class="line"><span class="number">0x608000071040</span></span><br><span class="line"><span class="number">123456</span></span><br><span class="line"><span class="number">0x608000071040</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//copy</span></span><br><span class="line"><span class="number">123</span></span><br><span class="line"><span class="number">0xa000000003332313</span></span><br><span class="line"><span class="number">123456</span></span><br><span class="line"><span class="number">0x60000007bbc0</span></span><br></pre></td></tr></table></figure>
+
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/10/copy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+</article>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-dan-li-mo-shi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1019,206 +1282,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-A* 搜索算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/22/A* 搜索算法/">A* 搜索算法</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/22/A* 搜索算法/" class="archive-article-date">
-  	<time datetime="2018-03-22T07:15:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>From <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank" rel="noopener">Wikipedia</a></p>
-</blockquote>
-<p>在计算机科学中，A*（发音为“A star”）是一种计算机算法，广泛用于路径搜索和图的遍历，即在多个点之间绘制有效定向路径的过程，称为“节点”。 由于其性能和准确性，它广泛使用。 然而，在实际的旅行路线系统中，它通常优于可以预处理该图以获得更好性能的算法，尽管在其他工作已经发现A* 优于其他方法。</p>
-<p>斯坦福研究所（现为SRI国际）的Peter Hart，Nils Nilsson和Bertram Raphael首先在1968年描述了该算法。它是<a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra" target="_blank" rel="noopener">Edsger Dijkstra</a>在1959年提出的迪杰斯特拉（Dijkstra）算法的延伸。 A*通过使用启发式指导搜索来实现更好的性能。</p>
-<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>1968年，人工智能研究人员Nils Nilsson试图改进<a href="https://en.wikipedia.org/wiki/Shakey_the_robot" target="_blank" rel="noopener">Shakey the robot</a>的路径规划，该机器人可以导航通过包含障碍物的房间。 Nilsson称之为A1的路径寻找算法是当时最为人所知的用于查找图中的最短路径的Dijkstra算法的更快版本。 Bertram Raphael在这个算法上提出了一些重要的改进，称为修订版本A2。 然后Peter E. Hart提出了一个论点，基于建立的A2只作出较小的变化，就成为了寻找最短路径的最佳算法。Hart，Nilsson和Raphael共同创造了证据，证明修正的A2算法对于在某些明确定义的条件下找到最短路径是最佳的。</p>
-<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>A*是知情搜索算法或最佳优先搜索，这意味着它通过在解决方案的所有可能路径（目标）中搜索导致成本最小（行进距离最短，时间最短等）的问题来解决问题。 ），并且在这些路径中，它首先考虑那些似乎最快速地引导到解决方案的路径。 它是根据加权图制定的：从图的特定节点开始，它构造从该节点开始的路径树，一次一步地扩展路径，直到其一个路径在预定目标节点处结束。</p>
-<p>在其主循环的每次迭代中，A*都需要确定将哪些部分路径扩展为一个或多个更长的路径。 它是基于成本（总权重）的估计仍然到达目标节点。 具体而言，A*选择最小化的路径<strong>f(n)=g(n)+h(n)</strong>。其中n是路径上的最后一个节点，g(n)是从起始节点到n的路径的开销，h(n)是一个启发式，用于估计从n到目标花费最少的路径。 启发式函数是针对于特定问题的。 为了找到实际最短路径的算法，启发函数必须是可接受的，这意味着它永远不会高估实际成本到达最近的目标节点。</p>
-<p>A*的典型实现是使用优先级队列来重复性的选择要扩展的最小（估计）成本节点。 这个优先级队列被称为open集合或边缘。 在算法的每一步，从队列中删除具有最低f（x）值的节点，相应地更新其邻居的f和g值，并将这些邻居添加到队列中。 该算法一直持续到目标节点的f值低于队列中的任何节点（或直到队列为空）。目标的f值就是最短路径的长度，因为h在目标处在可接受的启发式函数值为零。</p>
-<p>到目前为止描述的算法只给出了最短路径的长度。 为了找到实际的步骤序列，可以很容易地修改该算法，使路径上的每个节点都跟踪其前一个。 运行此算法后，结束节点将指向其前节点，依此类推，直到某个节点的前节点是起始节点。</p>
-<p>举个例子，当在地图上搜索最短路线时，h(x)可能代表到目标的直线距离，因为这实际上是任意两点之间最小的可能距离。</p>
-<p>如果启发式函数h满足图的每个边（x，y）（其中d表示该边的长度）的附加条件h（x）≤d（x，y）+ h（y），则称h单调或一致。 在这种情况下，A*可以更有效地执行-粗略地说，不需要多次处理节点（参见下面的闭集） - 而A*相当于以降低的成本运行Dijkstra算法d’（x， y）= d（x，y）+ h（y）-h（x）。</p>
-<h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">function A*(start, goal)</span><br><span class="line">    // The set of nodes already evaluated</span><br><span class="line">    closedSet := &#123;&#125;</span><br><span class="line"></span><br><span class="line">    // The set of currently discovered nodes that are <span class="keyword">not</span> evaluated yet.</span><br><span class="line">    // Initially, only the start node <span class="keyword">is</span> known.</span><br><span class="line">    openSet := &#123;start&#125;</span><br><span class="line"></span><br><span class="line">    // For each node, which node it can most efficiently be reached <span class="keyword">from</span>.</span><br><span class="line">    // If a node can be reached <span class="keyword">from</span> many nodes, cameFrom will eventually contain the</span><br><span class="line">    // most efficient previous step.</span><br><span class="line">    cameFrom := an empty map</span><br><span class="line"></span><br><span class="line">    // For each node, the cost of getting <span class="keyword">from</span> the start node to that node.</span><br><span class="line">    gScore := map <span class="keyword">with</span> default value of Infinity</span><br><span class="line"></span><br><span class="line">    // The cost of going <span class="keyword">from</span> start to start <span class="keyword">is</span> zero.</span><br><span class="line">    gScore[start] := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    // For each node, the total cost of getting <span class="keyword">from</span> the start node to the goal</span><br><span class="line">    // by passing by that node. That value <span class="keyword">is</span> partly known, partly heuristic.</span><br><span class="line">    fScore := map <span class="keyword">with</span> default value of Infinity</span><br><span class="line"></span><br><span class="line">    // For the first node, that value <span class="keyword">is</span> completely heuristic.</span><br><span class="line">    fScore[start] := heuristic_cost_estimate(start, goal)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> openSet <span class="keyword">is</span> <span class="keyword">not</span> empty</span><br><span class="line">        current := the node <span class="keyword">in</span> openSet having the lowest fScore[] value</span><br><span class="line">        <span class="keyword">if</span> current = goal</span><br><span class="line">            <span class="keyword">return</span> reconstruct_path(cameFrom, current)</span><br><span class="line"></span><br><span class="line">        openSet.Remove(current)</span><br><span class="line">        closedSet.Add(current)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> each neighbor of current</span><br><span class="line">            <span class="keyword">if</span> neighbor <span class="keyword">in</span> closedSet</span><br><span class="line">                <span class="keyword">continue</span>		// Ignore the neighbor which <span class="keyword">is</span> already evaluated.</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> neighbor <span class="keyword">not</span> <span class="keyword">in</span> openSet	// Discover a new node</span><br><span class="line">                openSet.Add(neighbor)</span><br><span class="line">            </span><br><span class="line">            // The distance <span class="keyword">from</span> start to a neighbor</span><br><span class="line">            //the <span class="string">"dist_between"</span> function may vary <span class="keyword">as</span> per the solution requirements.</span><br><span class="line">            tentative_gScore := gScore[current] + dist_between(current, neighbor)</span><br><span class="line">            <span class="keyword">if</span> tentative_gScore &gt;= gScore[neighbor]</span><br><span class="line">                <span class="keyword">continue</span>		// This <span class="keyword">is</span> <span class="keyword">not</span> a better path.</span><br><span class="line"></span><br><span class="line">            // This path <span class="keyword">is</span> the best until now. Record it!</span><br><span class="line">            cameFrom[neighbor] := current</span><br><span class="line">            gScore[neighbor] := tentative_gScore</span><br><span class="line">            fScore[neighbor] := gScore[neighbor] + heuristic_cost_estimate(neighbor, goal) </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> failure</span><br><span class="line"></span><br><span class="line">function reconstruct_path(cameFrom, current)</span><br><span class="line">    total_path := [current]</span><br><span class="line">    <span class="keyword">while</span> current <span class="keyword">in</span> cameFrom.Keys:</span><br><span class="line">        current := cameFrom[current]</span><br><span class="line">        total_path.append(current)</span><br><span class="line">    <span class="keyword">return</span> total_path</span><br></pre></td></tr></table></figure>
-<p>注意：上述伪代码假设启发式函数是单调的（或一致的，见下文），这在许多实际问题中是常见的情况，例如道路网络中的最短距离路径。 但是，如果假设不成立，封闭集合中的节点可能会被重新发现并且其成本得到改善。 换句话说，如果一个解决方案是存在的，或者如果算法是适应的，那么只有当它们的f值比f值低的时候，新的节点才会被添加到开放集合中，闭合集合可以省略（产生树搜索算法） 在任何以前的迭代。</p>
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>一个A*算法的实例，其中节点是与道路连接的城市，h（x）是到目标点的直线距离：</p>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/AstarExampleEn.gif" alt></p>
-<p>注：绿色：开始; 蓝色：目标; 橙色：访问过<br><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Astar_progress_animation.gif" alt></p>
-<blockquote>
-<p>A*查找在机器人运动规划问题中查找从起始节点到目标节点的路径的插图。 空的圆圈代表开放集合中的节点，即那些仍然有待探索的节点，并且填充的节点在闭合集合中。 每个封闭节点上的颜色表示距离开始的距离：越绿，越远。 人们可以首先看到A *在目标方向上以直线移动，然后在碰到障碍物时探索通过开放集合中节点的替代路线。</p>
-</blockquote>
-<p><img src="http://ozrhqzqeu.bkt.clouddn.com/image/astar/Weighted_A_star_with_eps_5.gif" alt></p>
-<blockquote>
-<p>使用5.0（=ε）乘以一致启发式的启发式搜索，并获得次优路径。</p>
-</blockquote>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/文章分享//" class="article-tag-list-link color5">文章分享</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/22/A* 搜索算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-TailMap" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/21/TailMap/">初识瓦片地图与墨卡托投影</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/21/TailMap/" class="archive-article-date">
-  	<time datetime="2018-03-21T03:09:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="初识瓦片地图与墨卡托投影"><a href="#初识瓦片地图与墨卡托投影" class="headerlink" title="初识瓦片地图与墨卡托投影"></a>初识瓦片地图与墨卡托投影</h1><p><img src="https://wiki.earthdata.nasa.gov/download/attachments/73142768/OGC-WMTS-TilePyramid-flipped.png?version=1&amp;modificationDate=1467933417746&amp;api=v2" alt="瓦片金字塔"><br>An image tile pyramid (from <a href="http://www.opengeospatial.org/standards/wmts" target="_blank" rel="noopener">OGC WMTS 1.0.0 specification</a>)</p>
-<h2 id="瓦片地图"><a href="#瓦片地图" class="headerlink" title="瓦片地图"></a>瓦片地图</h2><p>互联网地图服务商的在线地图都通过瓦片的方式提供，称为<a href="https://en.wikipedia.org/wiki/Tile_Map_Service" target="_blank" rel="noopener">瓦片地图服务</a>。最常见的地图瓦片是图片格式的，现在有的地图服务商也提供了矢量的瓦片数据，然后在用户端使用Canvas渲染成图片。</p>
-<p>在进行地图开发时，为获取特定经纬度所在区域的瓦片和获取瓦片上像素点对应的经纬度，经常需要进行经纬度坐标与瓦片坐标、像素坐标的相互转换。</p>
-<p>国际标准的经纬度坐标是WGS84，Open Street Map、外国版的Google Map都是采用WGS84；高德地图使用的坐标系是GCJ-02；百度地图使用的坐标系是BD-09。</p>
-<h2 id="墨卡托投影"><a href="#墨卡托投影" class="headerlink" title="墨卡托投影"></a>墨卡托投影</h2><p>使用经纬度表示位置的大地坐标系虽然可以描述地球上点的位置，但是对于地图地理数据在二维平面内展示的场景，需要通过投影的方式将三维空间中的点映射到二维空间中。地图投影需要建立地球表面点与投影平面点的一一对应关系，在互联网地图中常使用墨卡托投影。墨卡托投影是荷兰地理学家墨卡托于1569年提出的一种地球投影方法，该方法是圆柱投影的一种。<br><img src="http://ozrhqzqeu.bkt.clouddn.com/map_mercator.png" alt><br>各大地图服务商都采用了<a href="https://en.wikipedia.org/wiki/Web_Mercator" target="_blank" rel="noopener">Web Mercator</a>进行投影，瓦片坐标系的不同主要是投影截取的地球范围不同、瓦片坐标起点不同。</p>
-
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Map</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/地图//" class="article-tag-list-link color3">地图</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/21/TailMap/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-</article>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -1313,7 +1379,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1321,7 +1387,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1329,11 +1395,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">软件</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1381,10 +1455,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">CS</a>
               </li>
              
@@ -1397,7 +1467,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">图像融合,深度学习,CNN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">科学上网</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1406,10 +1484,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">马克思原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">plan</a>
               </li>
              
               <li class="article-tag-list-item">
